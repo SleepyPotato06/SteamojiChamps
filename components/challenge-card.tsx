@@ -2,6 +2,7 @@ import { IconType } from "react-icons";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 import { Button } from "./ui/button";
 import { FaCalendarDays } from "react-icons/fa6";
+import { PiCoinsFill } from "react-icons/pi";
 import Image from "next/image";
 
 interface ChallengeDetailsProps {
@@ -11,6 +12,7 @@ interface ChallengeDetailsProps {
   tags: string[];
   tagHex: { border: string; bg: string };
   dueDate: string;
+  coinsOffered: number;
   description: string;
   displayImage: string | StaticImport;
   imageAlt: string;
@@ -24,6 +26,7 @@ export default function ChallengeCard({
   tags,
   tagHex,
   dueDate,
+  coinsOffered,
   description,
   displayImage,
   imageAlt,
@@ -55,12 +58,21 @@ export default function ChallengeCard({
                 );
               })}
             </div>
-            <div
-              id="due-date"
-              className="w-fit flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-stone-300 bg-stone-100 rounded-xl text-xs"
-            >
-              <FaCalendarDays className="text-stone-400" size={15} />
-              {dueDate}
+            <div className="flex flex-row gap-2">
+              <div
+                id="due-date"
+                className="w-fit flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-stone-300 bg-stone-100 rounded-xl text-xs"
+              >
+                <FaCalendarDays className="text-stone-400" size={15} />
+                {dueDate}
+              </div>
+              <div
+                id="coins-offered"
+                className="w-fit flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-yellow-400 bg-yellow-100 rounded-xl text-xs"
+              >
+                <PiCoinsFill className="text-yellow-600" />
+                <div>{coinsOffered}</div>
+              </div>
             </div>
           </div>
           <div id="description" className="max-w-[30rem] text-wrap text-md">
