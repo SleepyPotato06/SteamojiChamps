@@ -3,13 +3,17 @@
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
 import { IoNotificationsSharp } from "react-icons/io5";
-import { FcHome, FcPuzzle, FcPositiveDynamic } from "react-icons/fc";
-import { FaTrophy } from "react-icons/fa";
+import {
+  FcPortraitMode,
+  FcPuzzle,
+  FcStatistics,
+  FcSettings,
+} from "react-icons/fc";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 
-export default function MainHeader() {
+export default function AdminHeader() {
   const pathname = usePathname();
 
   return (
@@ -17,20 +21,20 @@ export default function MainHeader() {
       <Image width={180} height={180} src={Logo} alt="logo" />
       <div className="flex flex-row gap-12 justify-center items-center">
         <Link
-          href="/home"
+          href="/admin/users"
           className={`flex flex-row gap-2 items-center justify-center ${
-            pathname === "/home"
+            pathname === "/admin/users"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
         >
-          <FcHome height={10} width={10} />
-          Home
+          <FcPortraitMode height={10} width={10} />
+          Users
         </Link>
         <Link
-          href="/challenges"
+          href="/admin/challenges"
           className={`flex flex-row gap-2 items-center justify-center ${
-            pathname === "/challenges"
+            pathname === "/admin/challenges"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
@@ -39,15 +43,26 @@ export default function MainHeader() {
           Challenges
         </Link>
         <Link
-          href="/leaderboard"
+          href="/admin/analytics"
           className={`flex flex-row gap-2 items-center justify-center ${
-            pathname === "/leaderboard"
+            pathname === "/admin/analytics"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
         >
-          <FaTrophy height={10} width={10} className="text-yellow-500" />
-          Leaderboard
+          <FcStatistics height={10} width={10} />
+          Analytics
+        </Link>
+        <Link
+          href="/admin/platform-settings"
+          className={`flex flex-row gap-2 items-center justify-center ${
+            pathname === "/admin/platform-settings"
+              ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
+              : "hover:font-bold"
+          }`}
+        >
+          <FcSettings height={10} width={10} />
+          Platform Settings
         </Link>
       </div>
       <div className="flex flex-row gap-4 items-center justify-between">

@@ -1,5 +1,3 @@
-export default function Admin(){
-    return(
-        <div>Admin</div>
-    )
+export default function Admin() {
+  return <div>Hello</div>;
 }
