@@ -1,14 +1,9 @@
+"use client";
+
 import { AiFillEdit } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { FaCoins, FaPuzzlePiece, FaTrophy } from "react-icons/fa";
-
-interface UserCardProps {
-  name: string;
-  level: string;
-  coinsAchieved: number;
-  activeChallengeCount: number;
-  achievementCount: number;
-}
+import { UserCardProps } from "@/lib/definitions";
 
 export default function UserCard({
   name,

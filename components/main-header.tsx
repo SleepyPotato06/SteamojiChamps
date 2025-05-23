@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
 import { IoNotificationsSharp } from "react-icons/io5";
-import { FcHome, FcPuzzle, FcPositiveDynamic } from "react-icons/fc";
+import { FcHome, FcPuzzle } from "react-icons/fc";
 import { FaTrophy } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";

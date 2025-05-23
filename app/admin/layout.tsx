@@ -1,7 +1,5 @@
 import AdminHeader from "@/components/admin-header";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ weight: "400", subsets: ["latin"] });
+import { inter_md } from "@/lib/font";
 
 export default function AdminLayout({
   children,
@@ -9,11 +7,9 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className}`}>
-        <AdminHeader />
-        <div className="w-full flex justify-center">{children}</div>
-      </body>
-    </html>
+    <div className={`${inter_md.className}`}>
+      <AdminHeader />
+      <div className="w-full flex justify-center">{children}</div>
+    </div>
   );
 }

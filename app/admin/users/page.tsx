@@ -1,15 +1,13 @@
 "use client";
 
-import { Inter } from "next/font/google";
 import UserCard from "@/components/user-card";
 import { Button } from "@/components/ui/button";
-
-const inter = Inter({ weight: "400", subsets: ["latin"] });
+import { inter_md } from "@/lib/font";
 
 export default function ManageUsers() {
   return (
     <div
-      className={`${inter.className} w-fit h-full flex flex-col gap-4 justify-center items-center pb-6`}
+      className={`${inter_md.className} w-fit h-full flex flex-col gap-4 justify-center items-center pb-6`}
     >
       <div className="w-fit h-fit flex flex-row gap-4 justify-center items-center">
         <input

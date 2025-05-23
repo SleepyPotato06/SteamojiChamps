@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                 String          @id @default(cuid())
+  username           String
+  first_name         String
+  last_name          String
+  password           String
+  totalCoinsAchieved Int             @default(0)
+  achievements       String[]        @default([])
+  role               Role            @default(USER)
+  userChallenges     UserChallenge[]
+}
+
+model Challenge {
+  id             String          @id @default(cuid())
+  title          String
+  dueDate        DateTime
+  coinsOffered   Int             @default(0)
+  description    String
+  tags           String[]
+  status         String
+  displayImage   String
+  hints          String[]
+  userChallenges UserChallenge[]
+}
+
+model UserChallenge {
+  id          String    @id @default(cuid())
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  challengeId String
+
+  // Optional metadata fields (customize as needed)
+  status      String? // e.g., "started", "submitted", "completed"
+  submittedAt DateTime? // when the user submitted the challenge
+  coinsEarned Int? // if different from coinsOffered
+}
+
+enum Role {
+  USER
+  ADMIN
+}

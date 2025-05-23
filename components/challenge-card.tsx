@@ -1,23 +1,10 @@
-import { IconType } from "react-icons";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+"use client";
+
 import { Button } from "./ui/button";
 import { FaCalendarDays } from "react-icons/fa6";
 import { PiCoinsFill } from "react-icons/pi";
 import Image from "next/image";
-
-interface ChallengeDetailsProps {
-  title: string;
-  titleIcon: IconType;
-  titleHex: string;
-  tags: string[];
-  tagHex: { border: string; bg: string };
-  dueDate: string;
-  coinsOffered: number;
-  description: string;
-  displayImage: string | StaticImport;
-  imageAlt: string;
-  buttonHex: { border: string; bg: string; hoverBg: string };
-}
+import { ChallengeDetailsProps } from "@/lib/definitions";
 
 export default function ChallengeCard({
   title,

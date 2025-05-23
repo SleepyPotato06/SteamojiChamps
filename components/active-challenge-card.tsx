@@ -1,19 +1,10 @@
-import { IconType } from "react-icons";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
+"use client";
+
 import { Button } from "./ui/button";
 import { FaCalendarDays } from "react-icons/fa6";
 import { PiCoinsFill } from "react-icons/pi";
 import Image from "next/image";
-
-interface ActiveChallengeDetailsProps {
-  title: string;
-  titleIcon: IconType;
-  titleHex: string;
-  dueDate: string;
-  coinsOffered: number;
-  displayImage: string | StaticImport;
-  imageAlt: string;
-}
+import { ActiveChallengeDetailsProps } from "@/lib/definitions";
 
 export default function ActiveChallengeCard({
   title,

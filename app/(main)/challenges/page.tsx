@@ -1,6 +1,5 @@
 "use client";
 
-import { Inter } from "next/font/google";
 // import {
 //   FilterByPlatform,
 //   FilterByDifficulty,
@@ -12,13 +11,12 @@ import { FaTree, FaBiohazard, FaRobot } from "react-icons/fa6";
 import JungleAdventure from "@/public/ja.png";
 import AlienTranslator from "@/public/at.png";
 import LunarRover from "@/public/lr.png";
-
-const inter = Inter({ weight: "400", subsets: ["latin"] });
+import { inter_md } from "@/lib/font";
 
 export default function Challenges() {
   return (
     <div
-      className={`${inter.className} w-full h-full flex flex-col gap-4 justify-center items-center`}
+      className={`${inter_md.className} w-full h-full flex flex-col gap-4 justify-center items-center`}
     >
       <input
         className="min-w-[35rem] min-h-[3rem] px-4 py-1 border-1 border-stone-200 rounded-lg shadow-lg text-md"
