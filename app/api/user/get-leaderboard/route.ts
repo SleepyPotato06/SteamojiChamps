@@ -1,3 +1,5 @@
+"use server";
+
 import prismapg from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
@@ -13,7 +15,6 @@ export async function GET() {
       },
     });
 
-    console.log(leaderboard);
     return NextResponse.json({ leaderboard }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

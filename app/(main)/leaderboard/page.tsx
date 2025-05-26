@@ -40,11 +40,20 @@ export default function Leaderboard() {
         >
           <div className="min-w-[5rem]">
             {index === 0 ? (
-              <FaTrophy size={20} className="text-yellow-400" />
+              <FaTrophy
+                size={20}
+                className="text-yellow-400 drop-shadow-md drop-shadow-amber-300"
+              />
             ) : index === 1 ? (
-              <FaTrophy size={20} className="text-gray-500" />
+              <FaTrophy
+                size={20}
+                className="text-gray-500 drop-shadow-md drop-shadow-gray-300"
+              />
             ) : index === 2 ? (
-              <FaTrophy size={20} className="text-yellow-800" />
+              <FaTrophy
+                size={20}
+                className="text-yellow-800 drop-shadow-md drop-shadow-yellow-900"
+              />
             ) : (
               <div className="w-fit px-2 py-0.1 flex items-center border-2 border-amber-500 bg-amber-100 rounded-4xl">
                 {index + 1}

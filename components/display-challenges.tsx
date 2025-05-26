@@ -142,24 +142,12 @@ export default function DisplayChallenges() {
                 {isOpen.state && (
                   <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
                 )}
-                {user?.userChallenges.some(
-                  (userChallenge: UserChallenge) =>
-                    userChallenge.challengeId === challenge.id
-                ) ? (
-                  <Button
-                    className={`text-green-800 bg-green-100 border-2 border-green-800 hover:bg-green-800 hover:text-white`}
-                  >
-                    <IoMdCheckmark />
-                    Registered
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => setIsOpen({ state: true, id: challenge.id })}
-                    className={`text-blue-800 bg-blue-100 border-2 border-blue-800 hover:bg-blue-800 hover:text-white`}
-                  >
-                    Explore
-                  </Button>
-                )}
+                <Button
+                  onClick={() => setIsOpen({ state: true, id: challenge.id })}
+                  className={`text-blue-800 bg-blue-100 border-2 border-blue-800 hover:bg-blue-800 hover:text-white`}
+                >
+                  Explore
+                </Button>
                 {/* Modal window */}
                 {isOpen.state &&
                   challenges

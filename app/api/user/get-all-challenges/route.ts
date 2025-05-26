@@ -1,3 +1,5 @@
+"use server";
+
 import prismapg from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -28,7 +30,6 @@ export async function POST(request: NextRequest) {
       (item) => item.challenge.id
     );
 
-    console.log(challenges);
     // Filter out registered challenges
     const allUnregisteredChallenges = challenges.filter(
       (challenge) => !registeredChallengeIds.includes(challenge.id)
