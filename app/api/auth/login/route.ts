@@ -19,9 +19,17 @@ export async function POST(request: NextRequest) {
         username: username,
         password: password,
       },
+      select: {
+        id: true,
+        username: true,
+        first_name: true,
+        last_name: true,
+        totalCoinsAchieved: true,
+        achievements: true,
+        role: true,
+        userChallenges: true,
+      },
     });
-
-    console.log(user);
 
     if (user.length !== 0) {
       return NextResponse.json({ user }, { status: 200 });

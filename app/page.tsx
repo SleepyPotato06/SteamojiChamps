@@ -46,7 +46,13 @@ export default function Home() {
         userChallenges: user.userChallenges,
       });
 
-      router.push(`/home`);
+      if (user.role === "USER") {
+        router.push(`/home`);
+      }
+
+      if (user.role === "ADMIN") {
+        router.push(`/admin`);
+      }
     } else {
       setError(result.message);
     }

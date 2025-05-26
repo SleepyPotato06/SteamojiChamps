@@ -2291,33 +2291,48 @@ export namespace Prisma {
   export type ChallengeMinAggregateOutputType = {
     id: string | null
     title: string | null
+    titleHex: string | null
+    titleIcon: string | null
     dueDate: Date | null
     coinsOffered: number | null
     description: string | null
-    status: string | null
     displayImage: string | null
+    imageAlt: string | null
+    platform: string | null
+    lockStatus: string | null
   }
 
   export type ChallengeMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    titleHex: string | null
+    titleIcon: string | null
     dueDate: Date | null
     coinsOffered: number | null
     description: string | null
-    status: string | null
     displayImage: string | null
+    imageAlt: string | null
+    platform: string | null
+    lockStatus: string | null
   }
 
   export type ChallengeCountAggregateOutputType = {
     id: number
     title: number
+    titleHex: number
+    titleIcon: number
+    tags: number
+    tagHex: number
     dueDate: number
     coinsOffered: number
     description: number
-    tags: number
-    status: number
+    reference: number
     displayImage: number
+    imageAlt: number
+    platform: number
+    lockStatus: number
     hints: number
+    buttonHex: number
     _all: number
   }
 
@@ -2333,33 +2348,48 @@ export namespace Prisma {
   export type ChallengeMinAggregateInputType = {
     id?: true
     title?: true
+    titleHex?: true
+    titleIcon?: true
     dueDate?: true
     coinsOffered?: true
     description?: true
-    status?: true
     displayImage?: true
+    imageAlt?: true
+    platform?: true
+    lockStatus?: true
   }
 
   export type ChallengeMaxAggregateInputType = {
     id?: true
     title?: true
+    titleHex?: true
+    titleIcon?: true
     dueDate?: true
     coinsOffered?: true
     description?: true
-    status?: true
     displayImage?: true
+    imageAlt?: true
+    platform?: true
+    lockStatus?: true
   }
 
   export type ChallengeCountAggregateInputType = {
     id?: true
     title?: true
+    titleHex?: true
+    titleIcon?: true
+    tags?: true
+    tagHex?: true
     dueDate?: true
     coinsOffered?: true
     description?: true
-    tags?: true
-    status?: true
+    reference?: true
     displayImage?: true
+    imageAlt?: true
+    platform?: true
+    lockStatus?: true
     hints?: true
+    buttonHex?: true
     _all?: true
   }
 
@@ -2452,13 +2482,20 @@ export namespace Prisma {
   export type ChallengeGroupByOutputType = {
     id: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags: string[]
+    tagHex: JsonValue
     dueDate: Date
     coinsOffered: number
     description: string
-    tags: string[]
-    status: string
+    reference: JsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus: string
     hints: string[]
+    buttonHex: JsonValue
     _count: ChallengeCountAggregateOutputType | null
     _avg: ChallengeAvgAggregateOutputType | null
     _sum: ChallengeSumAggregateOutputType | null
@@ -2483,13 +2520,20 @@ export namespace Prisma {
   export type ChallengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleHex?: boolean
+    titleIcon?: boolean
+    tags?: boolean
+    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
-    tags?: boolean
-    status?: boolean
+    reference?: boolean
     displayImage?: boolean
+    imageAlt?: boolean
+    platform?: boolean
+    lockStatus?: boolean
     hints?: boolean
+    buttonHex?: boolean
     userChallenges?: boolean | Challenge$userChallengesArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
@@ -2497,40 +2541,61 @@ export namespace Prisma {
   export type ChallengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleHex?: boolean
+    titleIcon?: boolean
+    tags?: boolean
+    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
-    tags?: boolean
-    status?: boolean
+    reference?: boolean
     displayImage?: boolean
+    imageAlt?: boolean
+    platform?: boolean
+    lockStatus?: boolean
     hints?: boolean
+    buttonHex?: boolean
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    titleHex?: boolean
+    titleIcon?: boolean
+    tags?: boolean
+    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
-    tags?: boolean
-    status?: boolean
+    reference?: boolean
     displayImage?: boolean
+    imageAlt?: boolean
+    platform?: boolean
+    lockStatus?: boolean
     hints?: boolean
+    buttonHex?: boolean
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectScalar = {
     id?: boolean
     title?: boolean
+    titleHex?: boolean
+    titleIcon?: boolean
+    tags?: boolean
+    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
-    tags?: boolean
-    status?: boolean
+    reference?: boolean
     displayImage?: boolean
+    imageAlt?: boolean
+    platform?: boolean
+    lockStatus?: boolean
     hints?: boolean
+    buttonHex?: boolean
   }
 
-  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "dueDate" | "coinsOffered" | "description" | "tags" | "status" | "displayImage" | "hints", ExtArgs["result"]["challenge"]>
+  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "titleHex" | "titleIcon" | "tags" | "tagHex" | "dueDate" | "coinsOffered" | "description" | "reference" | "displayImage" | "imageAlt" | "platform" | "lockStatus" | "hints" | "buttonHex", ExtArgs["result"]["challenge"]>
   export type ChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userChallenges?: boolean | Challenge$userChallengesArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
@@ -2546,13 +2611,20 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      titleHex: string
+      titleIcon: string
+      tags: string[]
+      tagHex: Prisma.JsonValue
       dueDate: Date
       coinsOffered: number
       description: string
-      tags: string[]
-      status: string
+      reference: Prisma.JsonValue
       displayImage: string
+      imageAlt: string
+      platform: string
+      lockStatus: string
       hints: string[]
+      buttonHex: Prisma.JsonValue
     }, ExtArgs["result"]["challenge"]>
     composites: {}
   }
@@ -2979,13 +3051,20 @@ export namespace Prisma {
   interface ChallengeFieldRefs {
     readonly id: FieldRef<"Challenge", 'String'>
     readonly title: FieldRef<"Challenge", 'String'>
+    readonly titleHex: FieldRef<"Challenge", 'String'>
+    readonly titleIcon: FieldRef<"Challenge", 'String'>
+    readonly tags: FieldRef<"Challenge", 'String[]'>
+    readonly tagHex: FieldRef<"Challenge", 'Json'>
     readonly dueDate: FieldRef<"Challenge", 'DateTime'>
     readonly coinsOffered: FieldRef<"Challenge", 'Int'>
     readonly description: FieldRef<"Challenge", 'String'>
-    readonly tags: FieldRef<"Challenge", 'String[]'>
-    readonly status: FieldRef<"Challenge", 'String'>
+    readonly reference: FieldRef<"Challenge", 'Json'>
     readonly displayImage: FieldRef<"Challenge", 'String'>
+    readonly imageAlt: FieldRef<"Challenge", 'String'>
+    readonly platform: FieldRef<"Challenge", 'String'>
+    readonly lockStatus: FieldRef<"Challenge", 'String'>
     readonly hints: FieldRef<"Challenge", 'String[]'>
+    readonly buttonHex: FieldRef<"Challenge", 'Json'>
   }
     
 
@@ -3422,82 +3501,52 @@ export namespace Prisma {
 
   export type AggregateUserChallenge = {
     _count: UserChallengeCountAggregateOutputType | null
-    _avg: UserChallengeAvgAggregateOutputType | null
-    _sum: UserChallengeSumAggregateOutputType | null
     _min: UserChallengeMinAggregateOutputType | null
     _max: UserChallengeMaxAggregateOutputType | null
-  }
-
-  export type UserChallengeAvgAggregateOutputType = {
-    coinsEarned: number | null
-  }
-
-  export type UserChallengeSumAggregateOutputType = {
-    coinsEarned: number | null
   }
 
   export type UserChallengeMinAggregateOutputType = {
     id: string | null
     userId: string | null
     challengeId: string | null
-    status: string | null
-    submittedAt: Date | null
-    coinsEarned: number | null
+    submissionStatus: string | null
   }
 
   export type UserChallengeMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     challengeId: string | null
-    status: string | null
-    submittedAt: Date | null
-    coinsEarned: number | null
+    submissionStatus: string | null
   }
 
   export type UserChallengeCountAggregateOutputType = {
     id: number
     userId: number
     challengeId: number
-    status: number
-    submittedAt: number
-    coinsEarned: number
+    submissionStatus: number
     _all: number
   }
 
-
-  export type UserChallengeAvgAggregateInputType = {
-    coinsEarned?: true
-  }
-
-  export type UserChallengeSumAggregateInputType = {
-    coinsEarned?: true
-  }
 
   export type UserChallengeMinAggregateInputType = {
     id?: true
     userId?: true
     challengeId?: true
-    status?: true
-    submittedAt?: true
-    coinsEarned?: true
+    submissionStatus?: true
   }
 
   export type UserChallengeMaxAggregateInputType = {
     id?: true
     userId?: true
     challengeId?: true
-    status?: true
-    submittedAt?: true
-    coinsEarned?: true
+    submissionStatus?: true
   }
 
   export type UserChallengeCountAggregateInputType = {
     id?: true
     userId?: true
     challengeId?: true
-    status?: true
-    submittedAt?: true
-    coinsEarned?: true
+    submissionStatus?: true
     _all?: true
   }
 
@@ -3539,18 +3588,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: UserChallengeAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: UserChallengeSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserChallengeMinAggregateInputType
@@ -3581,8 +3618,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserChallengeCountAggregateInputType | true
-    _avg?: UserChallengeAvgAggregateInputType
-    _sum?: UserChallengeSumAggregateInputType
     _min?: UserChallengeMinAggregateInputType
     _max?: UserChallengeMaxAggregateInputType
   }
@@ -3591,12 +3626,8 @@ export namespace Prisma {
     id: string
     userId: string
     challengeId: string
-    status: string | null
-    submittedAt: Date | null
-    coinsEarned: number | null
+    submissionStatus: string
     _count: UserChallengeCountAggregateOutputType | null
-    _avg: UserChallengeAvgAggregateOutputType | null
-    _sum: UserChallengeSumAggregateOutputType | null
     _min: UserChallengeMinAggregateOutputType | null
     _max: UserChallengeMaxAggregateOutputType | null
   }
@@ -3619,9 +3650,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
-    status?: boolean
-    submittedAt?: boolean
-    coinsEarned?: boolean
+    submissionStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3630,9 +3659,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
-    status?: boolean
-    submittedAt?: boolean
-    coinsEarned?: boolean
+    submissionStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3641,9 +3668,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
-    status?: boolean
-    submittedAt?: boolean
-    coinsEarned?: boolean
+    submissionStatus?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3652,12 +3677,10 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
-    status?: boolean
-    submittedAt?: boolean
-    coinsEarned?: boolean
+    submissionStatus?: boolean
   }
 
-  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "status" | "submittedAt" | "coinsEarned", ExtArgs["result"]["userChallenge"]>
+  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "submissionStatus", ExtArgs["result"]["userChallenge"]>
   export type UserChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
@@ -3681,9 +3704,7 @@ export namespace Prisma {
       id: string
       userId: string
       challengeId: string
-      status: string | null
-      submittedAt: Date | null
-      coinsEarned: number | null
+      submissionStatus: string
     }, ExtArgs["result"]["userChallenge"]>
     composites: {}
   }
@@ -4112,9 +4133,7 @@ export namespace Prisma {
     readonly id: FieldRef<"UserChallenge", 'String'>
     readonly userId: FieldRef<"UserChallenge", 'String'>
     readonly challengeId: FieldRef<"UserChallenge", 'String'>
-    readonly status: FieldRef<"UserChallenge", 'String'>
-    readonly submittedAt: FieldRef<"UserChallenge", 'DateTime'>
-    readonly coinsEarned: FieldRef<"UserChallenge", 'Int'>
+    readonly submissionStatus: FieldRef<"UserChallenge", 'String'>
   }
     
 
@@ -4560,13 +4579,20 @@ export namespace Prisma {
   export const ChallengeScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    titleHex: 'titleHex',
+    titleIcon: 'titleIcon',
+    tags: 'tags',
+    tagHex: 'tagHex',
     dueDate: 'dueDate',
     coinsOffered: 'coinsOffered',
     description: 'description',
-    tags: 'tags',
-    status: 'status',
+    reference: 'reference',
     displayImage: 'displayImage',
-    hints: 'hints'
+    imageAlt: 'imageAlt',
+    platform: 'platform',
+    lockStatus: 'lockStatus',
+    hints: 'hints',
+    buttonHex: 'buttonHex'
   };
 
   export type ChallengeScalarFieldEnum = (typeof ChallengeScalarFieldEnum)[keyof typeof ChallengeScalarFieldEnum]
@@ -4576,9 +4602,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     challengeId: 'challengeId',
-    status: 'status',
-    submittedAt: 'submittedAt',
-    coinsEarned: 'coinsEarned'
+    submissionStatus: 'submissionStatus'
   };
 
   export type UserChallengeScalarFieldEnum = (typeof UserChallengeScalarFieldEnum)[keyof typeof UserChallengeScalarFieldEnum]
@@ -4592,6 +4616,13 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -4600,12 +4631,13 @@ export namespace Prisma {
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
-  export const NullsOrder: {
-    first: 'first',
-    last: 'last'
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
   };
 
-  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -4652,6 +4684,20 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -4764,26 +4810,40 @@ export namespace Prisma {
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
     id?: StringFilter<"Challenge"> | string
     title?: StringFilter<"Challenge"> | string
+    titleHex?: StringFilter<"Challenge"> | string
+    titleIcon?: StringFilter<"Challenge"> | string
+    tags?: StringNullableListFilter<"Challenge">
+    tagHex?: JsonFilter<"Challenge">
     dueDate?: DateTimeFilter<"Challenge"> | Date | string
     coinsOffered?: IntFilter<"Challenge"> | number
     description?: StringFilter<"Challenge"> | string
-    tags?: StringNullableListFilter<"Challenge">
-    status?: StringFilter<"Challenge"> | string
+    reference?: JsonFilter<"Challenge">
     displayImage?: StringFilter<"Challenge"> | string
+    imageAlt?: StringFilter<"Challenge"> | string
+    platform?: StringFilter<"Challenge"> | string
+    lockStatus?: StringFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
+    buttonHex?: JsonFilter<"Challenge">
     userChallenges?: UserChallengeListRelationFilter
   }
 
   export type ChallengeOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    titleHex?: SortOrder
+    titleIcon?: SortOrder
+    tags?: SortOrder
+    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
-    status?: SortOrder
+    reference?: SortOrder
     displayImage?: SortOrder
+    imageAlt?: SortOrder
+    platform?: SortOrder
+    lockStatus?: SortOrder
     hints?: SortOrder
+    buttonHex?: SortOrder
     userChallenges?: UserChallengeOrderByRelationAggregateInput
   }
 
@@ -4793,26 +4853,40 @@ export namespace Prisma {
     OR?: ChallengeWhereInput[]
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
     title?: StringFilter<"Challenge"> | string
+    titleHex?: StringFilter<"Challenge"> | string
+    titleIcon?: StringFilter<"Challenge"> | string
+    tags?: StringNullableListFilter<"Challenge">
+    tagHex?: JsonFilter<"Challenge">
     dueDate?: DateTimeFilter<"Challenge"> | Date | string
     coinsOffered?: IntFilter<"Challenge"> | number
     description?: StringFilter<"Challenge"> | string
-    tags?: StringNullableListFilter<"Challenge">
-    status?: StringFilter<"Challenge"> | string
+    reference?: JsonFilter<"Challenge">
     displayImage?: StringFilter<"Challenge"> | string
+    imageAlt?: StringFilter<"Challenge"> | string
+    platform?: StringFilter<"Challenge"> | string
+    lockStatus?: StringFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
+    buttonHex?: JsonFilter<"Challenge">
     userChallenges?: UserChallengeListRelationFilter
   }, "id">
 
   export type ChallengeOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    titleHex?: SortOrder
+    titleIcon?: SortOrder
+    tags?: SortOrder
+    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
-    status?: SortOrder
+    reference?: SortOrder
     displayImage?: SortOrder
+    imageAlt?: SortOrder
+    platform?: SortOrder
+    lockStatus?: SortOrder
     hints?: SortOrder
+    buttonHex?: SortOrder
     _count?: ChallengeCountOrderByAggregateInput
     _avg?: ChallengeAvgOrderByAggregateInput
     _max?: ChallengeMaxOrderByAggregateInput
@@ -4826,13 +4900,20 @@ export namespace Prisma {
     NOT?: ChallengeScalarWhereWithAggregatesInput | ChallengeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Challenge"> | string
     title?: StringWithAggregatesFilter<"Challenge"> | string
+    titleHex?: StringWithAggregatesFilter<"Challenge"> | string
+    titleIcon?: StringWithAggregatesFilter<"Challenge"> | string
+    tags?: StringNullableListFilter<"Challenge">
+    tagHex?: JsonWithAggregatesFilter<"Challenge">
     dueDate?: DateTimeWithAggregatesFilter<"Challenge"> | Date | string
     coinsOffered?: IntWithAggregatesFilter<"Challenge"> | number
     description?: StringWithAggregatesFilter<"Challenge"> | string
-    tags?: StringNullableListFilter<"Challenge">
-    status?: StringWithAggregatesFilter<"Challenge"> | string
+    reference?: JsonWithAggregatesFilter<"Challenge">
     displayImage?: StringWithAggregatesFilter<"Challenge"> | string
+    imageAlt?: StringWithAggregatesFilter<"Challenge"> | string
+    platform?: StringWithAggregatesFilter<"Challenge"> | string
+    lockStatus?: StringWithAggregatesFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
+    buttonHex?: JsonWithAggregatesFilter<"Challenge">
   }
 
   export type UserChallengeWhereInput = {
@@ -4842,9 +4923,7 @@ export namespace Prisma {
     id?: StringFilter<"UserChallenge"> | string
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
-    status?: StringNullableFilter<"UserChallenge"> | string | null
-    submittedAt?: DateTimeNullableFilter<"UserChallenge"> | Date | string | null
-    coinsEarned?: IntNullableFilter<"UserChallenge"> | number | null
+    submissionStatus?: StringFilter<"UserChallenge"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     challenge?: XOR<ChallengeScalarRelationFilter, ChallengeWhereInput>
   }
@@ -4853,9 +4932,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
-    status?: SortOrderInput | SortOrder
-    submittedAt?: SortOrderInput | SortOrder
-    coinsEarned?: SortOrderInput | SortOrder
+    submissionStatus?: SortOrder
     user?: UserOrderByWithRelationInput
     challenge?: ChallengeOrderByWithRelationInput
   }
@@ -4867,9 +4944,7 @@ export namespace Prisma {
     NOT?: UserChallengeWhereInput | UserChallengeWhereInput[]
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
-    status?: StringNullableFilter<"UserChallenge"> | string | null
-    submittedAt?: DateTimeNullableFilter<"UserChallenge"> | Date | string | null
-    coinsEarned?: IntNullableFilter<"UserChallenge"> | number | null
+    submissionStatus?: StringFilter<"UserChallenge"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     challenge?: XOR<ChallengeScalarRelationFilter, ChallengeWhereInput>
   }, "id">
@@ -4878,14 +4953,10 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
-    status?: SortOrderInput | SortOrder
-    submittedAt?: SortOrderInput | SortOrder
-    coinsEarned?: SortOrderInput | SortOrder
+    submissionStatus?: SortOrder
     _count?: UserChallengeCountOrderByAggregateInput
-    _avg?: UserChallengeAvgOrderByAggregateInput
     _max?: UserChallengeMaxOrderByAggregateInput
     _min?: UserChallengeMinOrderByAggregateInput
-    _sum?: UserChallengeSumOrderByAggregateInput
   }
 
   export type UserChallengeScalarWhereWithAggregatesInput = {
@@ -4895,9 +4966,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserChallenge"> | string
     userId?: StringWithAggregatesFilter<"UserChallenge"> | string
     challengeId?: StringWithAggregatesFilter<"UserChallenge"> | string
-    status?: StringNullableWithAggregatesFilter<"UserChallenge"> | string | null
-    submittedAt?: DateTimeNullableWithAggregatesFilter<"UserChallenge"> | Date | string | null
-    coinsEarned?: IntNullableWithAggregatesFilter<"UserChallenge"> | number | null
+    submissionStatus?: StringWithAggregatesFilter<"UserChallenge"> | string
   }
 
   export type UserCreateInput = {
@@ -4984,96 +5053,143 @@ export namespace Prisma {
   export type ChallengeCreateInput = {
     id?: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags?: ChallengeCreatetagsInput | string[]
+    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
-    tags?: ChallengeCreatetagsInput | string[]
-    status: string
+    reference: JsonNullValueInput | InputJsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
+    buttonHex: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUncheckedCreateInput = {
     id?: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags?: ChallengeCreatetagsInput | string[]
+    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
-    tags?: ChallengeCreatetagsInput | string[]
-    status: string
+    reference: JsonNullValueInput | InputJsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
+    buttonHex: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeCreateManyInput = {
     id?: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags?: ChallengeCreatetagsInput | string[]
+    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
-    tags?: ChallengeCreatetagsInput | string[]
-    status: string
+    reference: JsonNullValueInput | InputJsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
+    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type UserChallengeCreateInput = {
     id?: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
     user: UserCreateNestedOneWithoutUserChallengesInput
     challenge: ChallengeCreateNestedOneWithoutUserChallengesInput
   }
@@ -5082,16 +5198,12 @@ export namespace Prisma {
     id?: string
     userId: string
     challengeId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutUserChallengesNestedInput
     challenge?: ChallengeUpdateOneRequiredWithoutUserChallengesNestedInput
   }
@@ -5100,34 +5212,26 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserChallengeCreateManyInput = {
     id?: string
     userId: string
     challengeId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserChallengeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -5263,6 +5367,29 @@ export namespace Prisma {
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -5278,13 +5405,20 @@ export namespace Prisma {
   export type ChallengeCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleHex?: SortOrder
+    titleIcon?: SortOrder
+    tags?: SortOrder
+    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
-    tags?: SortOrder
-    status?: SortOrder
+    reference?: SortOrder
     displayImage?: SortOrder
+    imageAlt?: SortOrder
+    platform?: SortOrder
+    lockStatus?: SortOrder
     hints?: SortOrder
+    buttonHex?: SortOrder
   }
 
   export type ChallengeAvgOrderByAggregateInput = {
@@ -5294,25 +5428,59 @@ export namespace Prisma {
   export type ChallengeMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleHex?: SortOrder
+    titleIcon?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
-    status?: SortOrder
     displayImage?: SortOrder
+    imageAlt?: SortOrder
+    platform?: SortOrder
+    lockStatus?: SortOrder
   }
 
   export type ChallengeMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    titleHex?: SortOrder
+    titleIcon?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
-    status?: SortOrder
     displayImage?: SortOrder
+    imageAlt?: SortOrder
+    platform?: SortOrder
+    lockStatus?: SortOrder
   }
 
   export type ChallengeSumOrderByAggregateInput = {
     coinsOffered?: SortOrder
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -5329,43 +5497,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type IntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -5376,92 +5507,25 @@ export namespace Prisma {
     isNot?: ChallengeWhereInput
   }
 
-  export type SortOrderInput = {
-    sort: SortOrder
-    nulls?: NullsOrder
-  }
-
   export type UserChallengeCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
-    status?: SortOrder
-    submittedAt?: SortOrder
-    coinsEarned?: SortOrder
-  }
-
-  export type UserChallengeAvgOrderByAggregateInput = {
-    coinsEarned?: SortOrder
+    submissionStatus?: SortOrder
   }
 
   export type UserChallengeMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
-    status?: SortOrder
-    submittedAt?: SortOrder
-    coinsEarned?: SortOrder
+    submissionStatus?: SortOrder
   }
 
   export type UserChallengeMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
-    status?: SortOrder
-    submittedAt?: SortOrder
-    coinsEarned?: SortOrder
-  }
-
-  export type UserChallengeSumOrderByAggregateInput = {
-    coinsEarned?: SortOrder
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
+    submissionStatus?: SortOrder
   }
 
   export type UserCreateachievementsInput = {
@@ -5553,13 +5617,13 @@ export namespace Prisma {
     connect?: UserChallengeWhereUniqueInput | UserChallengeWhereUniqueInput[]
   }
 
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
   export type ChallengeUpdatetagsInput = {
     set?: string[]
     push?: string | string[]
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type ChallengeUpdatehintsInput = {
@@ -5605,22 +5669,6 @@ export namespace Prisma {
     create?: XOR<ChallengeCreateWithoutUserChallengesInput, ChallengeUncheckedCreateWithoutUserChallengesInput>
     connectOrCreate?: ChallengeCreateOrConnectWithoutUserChallengesInput
     connect?: ChallengeWhereUniqueInput
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
-  }
-
-  export type NullableIntFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutUserChallengesNestedInput = {
@@ -5735,6 +5783,29 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
@@ -5750,114 +5821,16 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedIntNullableFilter<$PrismaModel>
-    _max?: NestedIntNullableFilter<$PrismaModel>
-  }
-
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
   export type UserChallengeCreateWithoutUserInput = {
     id?: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
     challenge: ChallengeCreateNestedOneWithoutUserChallengesInput
   }
 
   export type UserChallengeUncheckedCreateWithoutUserInput = {
     id?: string
     challengeId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeCreateOrConnectWithoutUserInput = {
@@ -5893,25 +5866,19 @@ export namespace Prisma {
     id?: StringFilter<"UserChallenge"> | string
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
-    status?: StringNullableFilter<"UserChallenge"> | string | null
-    submittedAt?: DateTimeNullableFilter<"UserChallenge"> | Date | string | null
-    coinsEarned?: IntNullableFilter<"UserChallenge"> | number | null
+    submissionStatus?: StringFilter<"UserChallenge"> | string
   }
 
   export type UserChallengeCreateWithoutChallengeInput = {
     id?: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
     user: UserCreateNestedOneWithoutUserChallengesInput
   }
 
   export type UserChallengeUncheckedCreateWithoutChallengeInput = {
     id?: string
     userId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeCreateOrConnectWithoutChallengeInput = {
@@ -5970,25 +5937,39 @@ export namespace Prisma {
   export type ChallengeCreateWithoutUserChallengesInput = {
     id?: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags?: ChallengeCreatetagsInput | string[]
+    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
-    tags?: ChallengeCreatetagsInput | string[]
-    status: string
+    reference: JsonNullValueInput | InputJsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
+    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedCreateWithoutUserChallengesInput = {
     id?: string
     title: string
+    titleHex: string
+    titleIcon: string
+    tags?: ChallengeCreatetagsInput | string[]
+    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
-    tags?: ChallengeCreatetagsInput | string[]
-    status: string
+    reference: JsonNullValueInput | InputJsonValue
     displayImage: string
+    imageAlt: string
+    platform: string
+    lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
+    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeCreateOrConnectWithoutUserChallengesInput = {
@@ -6043,89 +6024,87 @@ export namespace Prisma {
   export type ChallengeUpdateWithoutUserChallengesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedUpdateWithoutUserChallengesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    titleHex?: StringFieldUpdateOperationsInput | string
+    titleIcon?: StringFieldUpdateOperationsInput | string
+    tags?: ChallengeUpdatetagsInput | string[]
+    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
-    tags?: ChallengeUpdatetagsInput | string[]
-    status?: StringFieldUpdateOperationsInput | string
+    reference?: JsonNullValueInput | InputJsonValue
     displayImage?: StringFieldUpdateOperationsInput | string
+    imageAlt?: StringFieldUpdateOperationsInput | string
+    platform?: StringFieldUpdateOperationsInput | string
+    lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
+    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type UserChallengeCreateManyUserInput = {
     id?: string
     challengeId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
     challenge?: ChallengeUpdateOneRequiredWithoutUserChallengesNestedInput
   }
 
   export type UserChallengeUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserChallengeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserChallengeCreateManyChallengeInput = {
     id?: string
     userId: string
-    status?: string | null
-    submittedAt?: Date | string | null
-    coinsEarned?: number | null
+    submissionStatus?: string
   }
 
   export type UserChallengeUpdateWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutUserChallengesNestedInput
   }
 
   export type UserChallengeUncheckedUpdateWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserChallengeUncheckedUpdateManyWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    status?: NullableStringFieldUpdateOperationsInput | string | null
-    submittedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    coinsEarned?: NullableIntFieldUpdateOperationsInput | number | null
+    submissionStatus?: StringFieldUpdateOperationsInput | string
   }
 
 
