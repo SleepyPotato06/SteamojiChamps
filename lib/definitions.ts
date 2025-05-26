@@ -1,37 +1,18 @@
-import { IconType } from "react-icons";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
-
 //----------Interfaces----------------
-export interface ActiveChallengeDetailsProps {
-  title: string;
-  titleIcon: IconType;
-  titleHex: string;
-  dueDate: string;
-  coinsOffered: number;
-  displayImage: string | StaticImport;
-  imageAlt: string;
-}
-
-export interface ChallengeDetailsProps {
-  title: string;
-  titleIcon: IconType;
-  titleHex: string;
-  tags: string[];
-  tagHex: { border: string; bg: string };
-  dueDate: string;
-  coinsOffered: number;
-  description: string;
-  displayImage: string | StaticImport;
-  imageAlt: string;
-  buttonHex: { border: string; bg: string; hoverBg: string };
-}
-
 export interface UserCardProps {
   name: string;
   level: string;
   coinsAchieved: number;
   activeChallengeCount: number;
   achievementCount: number;
+}
+
+export interface RegisteredChallengeCardProp {
+  registeredChallenges: RegisteredChallenge[];
+}
+
+export interface ChallengeCardProp {
+  challenges: Challenge[];
 }
 
 //----------Types----------------
@@ -54,14 +35,23 @@ export type UserContextType = {
 export type Challenge = {
   id: string;
   title: string;
+  titleHex: string;
+  titleIcon: string;
+  tags: string[];
+  tagHex: { bg: string; border: string };
   dueDate: Date;
   coinsOffered: number;
   description: string;
-  tags: string[];
-  status: string;
+  reference: {
+    refereceDescription: string;
+    referenceLink: string;
+  };
   displayImage: string;
+  imageAlt: string;
+  platform: string;
+  lockStatus: string;
   hints: string[];
-  userChallenges: UserChallenge[];
+  buttonHex: { bg: string; border: string; hoverBg: string };
 };
 
 export type UserChallenge = {
@@ -73,4 +63,30 @@ export type UserChallenge = {
   status: string;
   submittedAt: Date;
   coinsEarned: number;
+};
+
+export type RegisteredChallenge = {
+  id: string;
+  challenge: {
+    id: string;
+    title: string;
+    titleHex: string;
+    titleIcon: string;
+    tags: string[];
+    tagHex: { bg: string; border: string };
+    dueDate: Date;
+    coinsOffered: number;
+    description: string;
+    reference: {
+      refereceDescription: string;
+      referenceLink: string;
+    };
+    displayImage: string;
+    imageAlt: string;
+    platform: string;
+    lockStatus: string;
+    hints: string[];
+    buttonHex: { bg: string; border: string; hoverBg: string };
+  };
+  submissionStatus: string;
 };
