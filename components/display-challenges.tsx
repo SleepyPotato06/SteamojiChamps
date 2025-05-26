@@ -31,15 +31,15 @@ export default function DisplayChallenges() {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-all-challenges`,
           {
-            method: "GET",
+            method: "POST",
+            body: JSON.stringify({ userId: user?.id }),
             headers: { "Content-Type": "application/json" },
           }
         );
 
         if (res.ok) {
           const result = await res.json();
-          const challenges = result.challenges;
-
+          const challenges = result.allUnregisteredChallenges;
           return challenges;
         }
       } catch (error) {
