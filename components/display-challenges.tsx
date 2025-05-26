@@ -7,12 +7,11 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { IoMdCheckmark } from "react-icons/io";
 import { FaCalendarDays } from "react-icons/fa6";
 import OjiCoin from "@/public/coin.svg";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { Challenge, UserChallenge } from "@/lib/definitions";
+import { Challenge } from "@/lib/definitions";
 import { useUser } from "@/lib/UserContext";
 import ViewChallenge from "./view-challenge-card";
 
@@ -67,17 +66,17 @@ export default function DisplayChallenges() {
           </span>
         </div>
       ) : (
-        <div className="max-w-fit flex flex-wrap gap-3 justify-center items-center px-6 pb-6">
+        <div className="w-full grid grid-cols-2 gap-3 justify-center items-center">
           {challenges.map((challenge: Challenge) => (
-            <Card key={challenge.id} className="w-2/5 flex flex-col shadow-lg">
-              <CardHeader className="pb-4">
+            <Card key={challenge.id} className="h-full flex flex-col shadow-lg">
+              <CardHeader>
                 <div className="w-full flex flex-row gap-2 justify-between items-start">
                   <div className="flex flex-col gap-4 justify-between items-start flex-1">
                     <div id="heading" className="flex flex-col gap-3">
                       <div className="w-fit h-fit flex flex-row gap-2 justify-center items-center">
                         <div>{challenge.titleIcon}</div>
                         <div
-                          className={`font-semibold text-2xl ${challenge.titleHex}`}
+                          className={`font-semibold text-xl ${challenge.titleHex}`}
                         >
                           {challenge.title}
                         </div>
@@ -128,10 +127,7 @@ export default function DisplayChallenges() {
 
               <CardContent className="flex-grow pt-0">
                 <div className="flex flex-col gap-3">
-                  <div
-                    id="description"
-                    className="max-w-[30rem] text-wrap text-md"
-                  >
+                  <div id="description" className="text-wrap text-md">
                     {challenge.description}
                   </div>
                 </div>
@@ -168,6 +164,7 @@ export default function DisplayChallenges() {
                           platform={challenge.platform}
                           hints={challenge.hints}
                           challengeId={challenge.id}
+                          isRegistered={false}
                         />
                       </div>
                     ))}

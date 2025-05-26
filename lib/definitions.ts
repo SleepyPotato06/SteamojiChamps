@@ -1,10 +1,6 @@
 //----------Interfaces----------------
 export interface UserCardProps {
-  name: string;
-  level: string;
-  coinsAchieved: number;
-  activeChallengeCount: number;
-  achievementCount: number;
+  users: User[];
 }
 
 export interface RegisteredChallengeCardProp {
@@ -21,6 +17,7 @@ export type User = {
   username: string;
   first_name: string;
   last_name: string;
+  level: string;
   totalCoinsAchieved: number;
   achievements: string[];
   role: string;

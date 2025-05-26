@@ -51,7 +51,7 @@ export default function Home() {
       }
 
       if (user.role === "ADMIN") {
-        router.push(`/admin`);
+        router.push(`/admin/users`);
       }
     } else {
       setError(result.message);

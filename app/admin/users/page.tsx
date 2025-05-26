@@ -1,6 +1,6 @@
 "use client";
 
-import UserCard from "@/components/user-card";
+import DisplayAllUsers from "@/components/display-all-users";
 import { Button } from "@/components/ui/button";
 import { inter_md } from "@/lib/font";
 
@@ -16,64 +16,7 @@ export default function ManageUsers() {
         />
         <Button className="bg-blue-600 hover:bg-blue-800">Add User</Button>
       </div>
-      <div className="w-full flex flex-wrap gap-4 justify-center items-start">
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-        <UserCard
-          name={"Suyash Aminhbavi"}
-          level={"Junior"}
-          coinsAchieved={1200}
-          activeChallengeCount={10}
-          achievementCount={3}
-        />
-      </div>
+      <DisplayAllUsers />
     </div>
   );
 }

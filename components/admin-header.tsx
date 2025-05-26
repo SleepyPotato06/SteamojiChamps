@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
-import { IoNotificationsSharp } from "react-icons/io5";
 import {
   FcPortraitMode,
   FcPuzzle,
@@ -17,7 +16,7 @@ export default function AdminHeader() {
   const pathname = usePathname();
 
   return (
-    <div className="w-screen flex flex-row p-4 items-center justify-between">
+    <div className="w-full flex flex-row p-4 items-center justify-between">
       <Image width={180} height={180} src={Logo} alt="logo" />
       <div className="flex flex-row gap-12 justify-center items-center">
         <Link
@@ -65,12 +64,9 @@ export default function AdminHeader() {
           Platform Settings
         </Link>
       </div>
-      <div className="flex flex-row gap-4 items-center justify-between">
-        <Button className="hover:bg-blue-600">
-          <IoNotificationsSharp size={30} className="text-white" />
-        </Button>
+      <Link href={`/`}>
         <Button className="bg-red-600">Logout</Button>
-      </div>
+      </Link>
     </div>
   );
 }

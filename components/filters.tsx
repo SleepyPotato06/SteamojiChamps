@@ -12,7 +12,6 @@ import {
 export function FilterByPlatform() {
   return (
     <div className="flex flex-col gap-2">
-      <div>Platform</div>
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Choose a platform" />
@@ -39,7 +38,6 @@ export function FilterByPlatform() {
 export function FilterByDifficulty() {
   return (
     <div className="flex flex-col gap-2">
-      <div>Difficulty Level</div>
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Choose a difficulty" />
@@ -59,7 +57,6 @@ export function FilterByDifficulty() {
 export function FilterByCoinsOffered() {
   return (
     <div className="flex flex-col gap-2">
-      <div>Coins Offered</div>
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Select a value" />
@@ -80,7 +77,6 @@ export function FilterByCoinsOffered() {
 export function FilterByActivityType() {
   return (
     <div className="flex flex-col gap-2">
-      <div>Activity Type</div>
       <Select>
         <SelectTrigger className="w-full">
           <SelectValue placeholder="Choose an activity" />

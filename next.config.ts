@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    remotePatterns: [new URL("https://pbs.twimg.com/**")],
+    remotePatterns: [
+      new URL("https://pbs.twimg.com/**"),
+      new URL("https://img.freepik.com/**"),
+    ],
   },
 };
 

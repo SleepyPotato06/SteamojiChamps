@@ -14,7 +14,7 @@ export default function MainLayout({
   return (
     <div className={`${inter_md.className}`}>
       <MainHeader />
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center px-4 pb-4">
         {user !== null ? children : <div>Unauthorized. Please login !</div>}
       </div>
       <Toaster />

@@ -1155,6 +1155,7 @@ export namespace Prisma {
     first_name: string | null
     last_name: string | null
     password: string | null
+    level: string | null
     totalCoinsAchieved: number | null
     role: $Enums.Role | null
   }
@@ -1165,6 +1166,7 @@ export namespace Prisma {
     first_name: string | null
     last_name: string | null
     password: string | null
+    level: string | null
     totalCoinsAchieved: number | null
     role: $Enums.Role | null
   }
@@ -1175,6 +1177,7 @@ export namespace Prisma {
     first_name: number
     last_name: number
     password: number
+    level: number
     totalCoinsAchieved: number
     achievements: number
     role: number
@@ -1196,6 +1199,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     role?: true
   }
@@ -1206,6 +1210,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     role?: true
   }
@@ -1216,6 +1221,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     achievements?: true
     role?: true
@@ -1314,6 +1320,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved: number
     achievements: string[]
     role: $Enums.Role
@@ -1344,6 +1351,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1357,6 +1365,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1368,6 +1377,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1379,12 +1389,13 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "first_name" | "last_name" | "password" | "totalCoinsAchieved" | "achievements" | "role", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "first_name" | "last_name" | "password" | "level" | "totalCoinsAchieved" | "achievements" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userChallenges?: boolean | User$userChallengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1403,6 +1414,7 @@ export namespace Prisma {
       first_name: string
       last_name: string
       password: string
+      level: string
       totalCoinsAchieved: number
       achievements: string[]
       role: $Enums.Role
@@ -1835,6 +1847,7 @@ export namespace Prisma {
     readonly first_name: FieldRef<"User", 'String'>
     readonly last_name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly level: FieldRef<"User", 'String'>
     readonly totalCoinsAchieved: FieldRef<"User", 'Int'>
     readonly achievements: FieldRef<"User", 'String[]'>
     readonly role: FieldRef<"User", 'Role'>
@@ -4568,6 +4581,7 @@ export namespace Prisma {
     first_name: 'first_name',
     last_name: 'last_name',
     password: 'password',
+    level: 'level',
     totalCoinsAchieved: 'totalCoinsAchieved',
     achievements: 'achievements',
     role: 'role'
@@ -4741,6 +4755,7 @@ export namespace Prisma {
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    level?: StringFilter<"User"> | string
     totalCoinsAchieved?: IntFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleFilter<"User"> | $Enums.Role
@@ -4753,6 +4768,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -4768,6 +4784,7 @@ export namespace Prisma {
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    level?: StringFilter<"User"> | string
     totalCoinsAchieved?: IntFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleFilter<"User"> | $Enums.Role
@@ -4780,6 +4797,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -4799,6 +4817,7 @@ export namespace Prisma {
     first_name?: StringWithAggregatesFilter<"User"> | string
     last_name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    level?: StringWithAggregatesFilter<"User"> | string
     totalCoinsAchieved?: IntWithAggregatesFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
@@ -4975,6 +4994,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -4987,6 +5007,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -4999,6 +5020,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5011,6 +5033,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5023,6 +5046,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5034,6 +5058,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5045,6 +5070,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5291,6 +5317,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -5306,6 +5333,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     role?: SortOrder
   }
@@ -5316,6 +5344,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     role?: SortOrder
   }
@@ -5913,6 +5942,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5924,6 +5954,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5994,6 +6025,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -6005,6 +6037,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role

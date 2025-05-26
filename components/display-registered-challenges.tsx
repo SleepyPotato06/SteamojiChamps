@@ -13,9 +13,9 @@ import { useUser } from "@/lib/UserContext";
 
 export default function DisplayRegisteredChallenges() {
   const { user } = useUser();
-  const [isOpen, setIsOpen] = useState<{ state: boolean; id: string }>({
+  const [isOpen, setIsOpen] = useState<{ state: boolean; id: string | null }>({
     state: false,
-    id: `0`,
+    id: null,
   });
   const [registeredChallenges, setRegisteredChallenges] = useState<
     RegisteredChallenge[]
@@ -166,6 +166,7 @@ export default function DisplayRegisteredChallenges() {
                           platform={registeredChallenge.challenge.platform}
                           hints={registeredChallenge.challenge.hints}
                           challengeId={registeredChallenge.challenge.id}
+                          isRegistered={true}
                         />
                       </div>
                     ))}

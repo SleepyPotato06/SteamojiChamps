@@ -14,15 +14,17 @@ export default function ViewChallenge({
   platform,
   hints,
   challengeId,
+  isRegistered,
 }: {
   titleIcon: string;
   title: string;
-  setIsOpen: (value: { state: boolean; id: string }) => void;
+  setIsOpen: (value: { state: boolean; id: string | null }) => void;
   description: string;
   coinsOffered: number;
   platform: string;
   hints: string[];
   challengeId: string;
+  isRegistered: boolean;
 }) {
   const { user } = useUser();
   const router = useRouter();
@@ -110,12 +112,14 @@ export default function ViewChallenge({
           }
         </div>
         <div className="w-full flex justify-end">
-          <Button
-            className="hover:bg-blue-600"
-            onClick={() => registerChallenge(user?.id, challengeId)}
-          >
-            Register
-          </Button>
+          {isRegistered ? null : (
+            <Button
+              className="hover:bg-blue-600"
+              onClick={() => registerChallenge(user?.id, challengeId)}
+            >
+              Register
+            </Button>
+          )}
         </div>
       </div>
     </div>
