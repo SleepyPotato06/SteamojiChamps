@@ -1,15 +1,44 @@
 import prismapg from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 
-export async function GET() {
+export async function POST(request: NextRequest) {
   try {
+    const { userId } = await request.json();
+
+    if (!userId) {
+      return NextResponse.json({ message: `Unauthorized` }, { status: 401 });
+    }
     const challenges = await prismapg.challenge.findMany();
 
-    return NextResponse.json({ challenges }, { status: 200 });
+    const registeredChallenges = await prismapg.userChallenge.findMany({
+      where: {
+        userId,
+      },
+      select: {
+        challenge: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    // Get list of registered challenge IDs
+    const registeredChallengeIds = registeredChallenges.map(
+      (item) => item.challenge.id
+    );
+
+    console.log(challenges);
+    // Filter out registered challenges
+    const allUnregisteredChallenges = challenges.filter(
+      (challenge) => !registeredChallengeIds.includes(challenge.id)
+    );
+
+    return NextResponse.json({ allUnregisteredChallenges }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: `Error retrieving challenges: ${error}` },
-      { status: 401 }
+      { message: `Internal server error: ${error}` },
+      { status: 500 }
     );
   }
 }
