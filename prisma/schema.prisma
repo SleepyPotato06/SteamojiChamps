@@ -22,19 +22,20 @@ model User {
   achievements       String[]
   role               Role            @default(USER)
   userChallenges     UserChallenge[]
+  Achievement        Achievement[]
 }
 
 model Challenge {
-  id                 String          @id @default(cuid())
-  title              String
-  dueDate            DateTime
-  coinsOffered       Int             @default(0)
-  description        String
-  tags               String[]
-  status             String
-  displayImage       String
-  hints              String[]
-  userChallenges     UserChallenge[]
+  id             String          @id @default(cuid())
+  title          String
+  dueDate        DateTime
+  coinsOffered   Int             @default(0)
+  description    String
+  tags           String[]
+  status         String
+  displayImage   String
+  hints          String[]
+  userChallenges UserChallenge[]
 }
 
 model UserChallenge {
@@ -45,9 +46,18 @@ model UserChallenge {
   challengeId String
 
   // Optional metadata fields (customize as needed)
-  status      String? // e.g., "started", "submitted", "completed"
-  submittedAt DateTime? // when the user submitted the challenge
-  coinsEarned Int? // if different from coinsOffered
+  status        String? // e.g., "started", "submitted", "completed"
+  submittedAt   DateTime? // when the user submitted the challenge
+  coinsEarned   Int? // if different from coinsOffered
+  achievementId String?
+}
+
+model Achievement {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  user        User   @relation(fields: [userId], references: [id])
+  userId      String
 }
 
 enum Role {
