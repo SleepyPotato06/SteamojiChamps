@@ -29,13 +29,20 @@ model User {
 model Challenge {
   id             String          @id @default(cuid())
   title          String
+  titleHex       String
+  titleIcon      String
+  tags           String[]
+  tagHex         Json
   dueDate        DateTime
   coinsOffered   Int             @default(0)
   description    String
-  tags           String[]
-  status         String
+  reference      Json
   displayImage   String
+  imageAlt       String
+  platform       String
+  lockStatus     String          @default("inactive")
   hints          String[]
+  buttonHex      Json
   userChallenges UserChallenge[]
 }
 
