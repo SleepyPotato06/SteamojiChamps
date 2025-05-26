@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from 'next/font/google'
 import "./globals.css";
-
-const inter = Inter({weight: "400", subsets: ['latin']})
+import { inter_md } from "@/lib/font";
+import { UserProvider } from "@/lib/UserContext";
 
 export const metadata: Metadata = {
   title: "Steamoji Hackathon",
@@ -16,8 +15,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>
-        {children}
+      <body className={`${inter_md.className}`}>
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

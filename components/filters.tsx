@@ -5,7 +5,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -90,7 +89,9 @@ export function FilterByActivityType() {
           <SelectGroup>
             <SelectItem value="engineering">Engineering</SelectItem>
             <SelectItem value="fabrication">Fabrication</SelectItem>
-            <SelectItem value="physical-computing">Physical Computing</SelectItem>
+            <SelectItem value="physical-computing">
+              Physical Computing
+            </SelectItem>
             <SelectItem value="digital-arts">Digital Arts</SelectItem>
             <SelectItem value="junior">Junior</SelectItem>
           </SelectGroup>

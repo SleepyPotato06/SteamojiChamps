@@ -3,6 +3,8 @@
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
 import { IoNotificationsSharp } from "react-icons/io5";
+import { FcHome, FcPuzzle } from "react-icons/fc";
+import { FaTrophy } from "react-icons/fa";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
@@ -16,32 +18,35 @@ export default function MainHeader() {
       <div className="flex flex-row gap-12 justify-center items-center">
         <Link
           href="/home"
-          className={`${
+          className={`flex flex-row gap-2 items-center justify-center ${
             pathname === "/home"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
         >
+          <FcHome height={10} width={10} />
           Home
         </Link>
         <Link
           href="/challenges"
-          className={`${
+          className={`flex flex-row gap-2 items-center justify-center ${
             pathname === "/challenges"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
         >
+          <FcPuzzle height={10} width={10} />
           Challenges
         </Link>
         <Link
           href="/leaderboard"
-          className={`${
+          className={`flex flex-row gap-2 items-center justify-center ${
             pathname === "/leaderboard"
               ? "px-3 py-1 bg-blue-600 text-white rounded-2xl"
               : "hover:font-bold"
           }`}
         >
+          <FaTrophy height={10} width={10} className="text-yellow-500" />
           Leaderboard
         </Link>
       </div>
