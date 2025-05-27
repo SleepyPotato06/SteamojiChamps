@@ -7,7 +7,7 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { RegisteredChallenge } from "@/lib/definitions";
 import Image from "next/image";
 import OjiCoin from "@/public/coin.svg";
-import ViewChallenge from "./view-challenge-card";
+import ViewChallenge from "@/components/user/view-challenge-card";
 import { useEffect, useState } from "react";
 import { useUser } from "@/lib/UserContext";
 

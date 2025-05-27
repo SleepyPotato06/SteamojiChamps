@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import OjiCoin from "@/public/coin.svg";
 import { TiChevronRight } from "react-icons/ti";
 import Image from "next/image";
@@ -59,12 +59,12 @@ export default function ViewChallenge({
           <div>{titleIcon}</div>
           <div className="text-2xl font-semibold">{title}</div>
         </div>
-        <Button
+        <button
           onClick={() => setIsOpen({ state: false, id: `0` })}
-          className=" bg-red-500 text-white hover:bg-red-600"
+          className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-red-600 bg-red-100 border-2 border-red-800 hover:text-white hover:bg-red-600 font-light text-sm"
         >
           Close
-        </Button>
+        </button>
       </div>
       <div className="flex flex-col gap-4 overflow-y-auto" id="project-details">
         <div className="flex flex-col gap-1.5" id="description">

@@ -1,6 +1,6 @@
 "use client";
 
-import AdminHeader from "@/components/admin-header";
+import AdminHeader from "@/components/admin/admin-header";
 import { inter_md } from "@/lib/font";
 import { Toaster } from "react-hot-toast";
 import { useUser } from "@/lib/UserContext";

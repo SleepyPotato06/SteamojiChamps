@@ -41,6 +41,7 @@ export default function Home() {
         first_name: user.first_name,
         last_name: user.last_name,
         totalCoinsAchieved: user.totalCoinsAchieved,
+        level: user.level,
         achievements: user.achievements,
         role: user.role,
         userChallenges: user.userChallenges,

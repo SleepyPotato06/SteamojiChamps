@@ -1,6 +1,6 @@
 "use client";
 
-import MainHeader from "@/components/main-header";
+import MainHeader from "@/components/user/main-header";
 import { inter_md } from "@/lib/font";
 import { Toaster } from "react-hot-toast";
 import { useUser } from "@/lib/UserContext";

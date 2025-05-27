@@ -18,9 +18,9 @@ import ViewChallenge from "./view-challenge-card";
 export default function DisplayChallenges() {
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isOpen, setIsOpen] = useState<{ state: boolean; id: string }>({
+  const [isOpen, setIsOpen] = useState<{ state: boolean; id: string | null }>({
     state: false,
-    id: `0`,
+    id: null,
   });
   const { user } = useUser();
 

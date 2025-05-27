@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Logo from "@/public/logo.svg";
+import { Separator } from "@/components/ui/separator";
 import { IoExtensionPuzzle } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import { GiTrophy } from "react-icons/gi";

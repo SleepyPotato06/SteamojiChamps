@@ -4,8 +4,18 @@ const nextConfig: NextConfig = {
   /* config options here */
   images: {
     remotePatterns: [
-      new URL("https://pbs.twimg.com/**"),
-      new URL("https://img.freepik.com/**"),
+      {
+        protocol: "https",
+        hostname: "pbs.twimg.com",
+      },
+      {
+        protocol: "https",
+        hostname: "img.freepik.com",
+      },
+      {
+        protocol: "https",
+        hostname: "static.vecteezy.com",
+      },
     ],
   },
 };
