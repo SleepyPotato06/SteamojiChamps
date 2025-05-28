@@ -1,87 +1,39 @@
 "use client";
-import { useState } from "react";
+
 import { Challenge } from "@/lib/definitions";
 import { Card } from "@/components/ui/card";
+import { FaClipboardCheck } from "react-icons/fa";
 import Image from "next/image";
+import { IoMdEye } from "react-icons/io";
 import OjiCoin from "@/public/coin.svg";
 import { MdEdit } from "react-icons/md";
 import { TbCancel } from "react-icons/tb";
 import { FaCalendarDays } from "react-icons/fa6";
 import EditChallengeCard from "./edit-challenge-card";
+import ViewSubmissions from "./view-submissions";
 
 export default function DisplayAllChallenges({
   allChallenges,
   setAllChallenges,
+  updateChallenge,
+  isOpen,
+  setIsOpen,
 }: {
   allChallenges: Challenge[];
   setAllChallenges: (allUsers: Challenge[]) => void;
-}) {
-  const [editOpen, setEditOpen] = useState<{
+  updateChallenge: (challenge: Challenge) => void;
+  isOpen: { state: boolean; id: string | null; action: string | null };
+  setIsOpen: (value: {
     state: boolean;
     id: string | null;
-  }>({
-    state: false,
-    id: null,
-  });
-
-  async function updateChallenge(
-    challengeId: string,
-    title: string,
-    titleHex: string,
-    titleIcon: string,
-    tags: string[],
-    tagHex: { bg: string; border: string },
-    coinsOffered: number,
-    dueDate: Date,
-    description: string,
-    reference: {
-      refereceDescription: string;
-      referenceLink: string;
-    },
-    displayImage: string,
-    imageAlt: string,
-    platform: string,
-    lockStatus: string,
-    hints: string[],
-    buttonHex: { bg: string; border: string; hoverBg: string }
-  ) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({
-            challengeId,
-            title,
-            titleHex,
-            titleIcon,
-            tags,
-            tagHex,
-            coinsOffered,
-            dueDate,
-            description,
-            reference,
-            displayImage,
-            imageAlt,
-            platform,
-            lockStatus,
-            hints,
-            buttonHex,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllChallenges(result.updatedChallenges);
-      }
-    } catch (error) {
-      console.log(error);
+    action: string | null;
+  }) => void;
+}) {
+  async function deleteChallenge(challengeId: string | undefined) {
+    if (challengeId === undefined) {
+      return;
     }
-  }
 
-  async function deleteChallenge(challengeId: string) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-challenges`,
@@ -115,9 +67,9 @@ export default function DisplayAllChallenges({
               <div className="text-stone-400 max-w-92 text-sm">
                 {challenge.description}
               </div>
-              <div className="w-full flex flex-row justify-between items-center">
-                <div className="flex flex-row gap-2">
-                  <div className="flex flex-row gap-1.5 items-center px-3 py-1.5 bg-white border-2 border-stone-200 rounded-md text-xs font-bold text-blue-900">
+              <div className="w-full flex flex-row justify-end items-center">
+                {/* <div className="flex flex-row gap-2">
+                  <div className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm">
                     <Image
                       src={OjiCoin}
                       width={15}
@@ -126,27 +78,41 @@ export default function DisplayAllChallenges({
                     />
                     {challenge.coinsOffered}
                   </div>
-                  <div className="flex gap-2 justify-center items-center w-fit px-3 py-1.5 bg-white border-2 border-stone-200 rounded-md text-xs">
+                  <div className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm">
                     <FaCalendarDays size={15} />{" "}
-                    {new Date(challenge.dueDate).toDateString()}
+                    {new Date(challenge.dueDate ?? Date.now()).toDateString()}
                   </div>
-                </div>
+                </div> */}
                 {/* Blurred background overlay */}
-                {editOpen.state && (
+                {isOpen.state && (
                   <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
                 )}
                 <div className="flex flex-row gap-2">
                   <button
                     onClick={() =>
-                      setEditOpen({
+                      setIsOpen({
                         state: true,
-                        id: challenge.id,
+                        id: challenge.id ?? null,
+                        action: `edit-challenge`,
                       })
                     }
                     className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm"
                   >
                     <MdEdit size={18} />
                     Edit
+                  </button>
+                  <button
+                    onClick={() =>
+                      setIsOpen({
+                        state: true,
+                        id: challenge.id ?? null,
+                        action: `view-submissions`,
+                      })
+                    }
+                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
+                  >
+                    <FaClipboardCheck size={15} />
+                    Submissions
                   </button>
                   <button
                     onClick={() => deleteChallenge(challenge.id)}
@@ -156,10 +122,11 @@ export default function DisplayAllChallenges({
                   </button>
                 </div>
                 {/* Modal window */}
-                {editOpen.state &&
+                {isOpen.state &&
+                  isOpen.action === `edit-challenge` &&
                   allChallenges
                     .filter(
-                      (challenge: Challenge) => challenge.id === editOpen.id
+                      (challenge: Challenge) => challenge.id === isOpen.id
                     )
                     .map((challenge: Challenge) => (
                       <div
@@ -167,12 +134,21 @@ export default function DisplayAllChallenges({
                         className="fixed inset-0 flex items-center justify-center z-50"
                       >
                         <EditChallengeCard
-                          challenge={challenge}
+                          selectedChallenge={challenge}
                           updateChallenge={updateChallenge}
-                          setEditOpen={setEditOpen}
+                          setIsOpen={setIsOpen}
                         />
                       </div>
                     ))}
+
+                {isOpen.state && isOpen.action === `view-submissions` && (
+                  <div
+                    key={challenge.id}
+                    className="fixed inset-0 flex items-center justify-center z-50"
+                  >
+                    <ViewSubmissions setIsOpen={setIsOpen} />
+                  </div>
+                )}
               </div>
             </div>
           </Card>

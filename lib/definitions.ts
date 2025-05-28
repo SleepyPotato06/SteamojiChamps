@@ -30,25 +30,23 @@ export type UserContextType = {
 };
 
 export type Challenge = {
-  id: string;
-  title: string;
-  titleHex: string;
-  titleIcon: string;
-  tags: string[];
-  tagHex: { bg: string; border: string };
-  dueDate: Date;
-  coinsOffered: number;
-  description: string;
+  id: string | undefined;
+  title: string | undefined;
+  titleIcon: string | undefined;
+  themeColor: string | undefined;
+  tags: string[] | undefined;
+  dueDate: Date | undefined;
+  coinsOffered: number | undefined;
+  description: string | undefined;
   reference: {
-    refereceDescription: string;
-    referenceLink: string;
+    refereceDescription: string | undefined;
+    referenceLink: string | undefined;
   };
-  displayImage: string;
-  imageAlt: string;
-  platform: string;
-  lockStatus: string;
-  hints: string[];
-  buttonHex: { bg: string; border: string; hoverBg: string };
+  displayImage: string | undefined;
+  imageAlt: string | undefined;
+  platform: string | undefined;
+  lockStatus: string | undefined;
+  hints: string[] | undefined;
 };
 
 export type UserChallenge = {
@@ -57,9 +55,8 @@ export type UserChallenge = {
   userId: string;
   challenge: Challenge;
   challengeId: string;
-  status: string;
+  submissionStatus: string;
   submittedAt: Date;
-  coinsEarned: number;
 };
 
 export type RegisteredChallenge = {

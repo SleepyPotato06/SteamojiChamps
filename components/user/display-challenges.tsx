@@ -75,17 +75,15 @@ export default function DisplayChallenges() {
                     <div id="heading" className="flex flex-col gap-3">
                       <div className="w-fit h-fit flex flex-row gap-2 justify-center items-center">
                         <div>{challenge.titleIcon}</div>
-                        <div
-                          className={`font-semibold text-xl ${challenge.titleHex}`}
-                        >
+                        <div className={`font-semibold text-xl`}>
                           {challenge.title}
                         </div>
                       </div>
                       <div id="tags" className="text-xs flex flex-wrap gap-2">
-                        {challenge.tags.map((tag: string) => (
+                        {challenge.tags?.map((tag: string) => (
                           <div
                             key={tag}
-                            className={`px-2 py-0.5 ${challenge.tagHex.bg} border-2 ${challenge.tagHex.border} rounded-xl`}
+                            className={`px-2 py-0.5 bg-${challenge.themeColor}-100 border-2 border-${challenge.themeColor}-800 text-${challenge.themeColor}-800 rounded-xl`}
                           >
                             {"# "}
                             {tag}
@@ -97,7 +95,9 @@ export default function DisplayChallenges() {
                         className="w-fit flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-stone-300 bg-stone-100 rounded-xl text-sm"
                       >
                         <FaCalendarDays className="text-stone-400" size={15} />
-                        {new Date(challenge.dueDate).toLocaleDateString()}
+                        {new Date(
+                          challenge.dueDate ?? Date.now()
+                        ).toLocaleDateString()}
                       </div>
                     </div>
                   </div>
@@ -107,17 +107,17 @@ export default function DisplayChallenges() {
                       src={challenge.displayImage || "/placeholder.svg"}
                       width={90}
                       height={90}
-                      alt={challenge.imageAlt}
+                      alt={challenge.imageAlt ?? `failed_image`}
                     />
                     <div
                       id="coins-offered"
-                      className="w-full flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-blue-800 bg-blue-100 text-blue-800 font-semibold rounded-xl text-sm"
+                      className={`w-full flex flex-row gap-1.5 justify-center items-center px-2.5 py-1 border-2 border-${challenge.themeColor}-800 bg-${challenge.themeColor}-100 text-${challenge.themeColor}-800 font-semibold rounded-xl text-sm`}
                     >
                       <Image
                         src={OjiCoin}
                         width={15}
                         height={15}
-                        alt={challenge.imageAlt}
+                        alt={challenge.imageAlt ?? `failed_image`}
                       />
                       <div>{challenge.coinsOffered}</div>
                     </div>
@@ -139,8 +139,10 @@ export default function DisplayChallenges() {
                   <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
                 )}
                 <Button
-                  onClick={() => setIsOpen({ state: true, id: challenge.id })}
-                  className={`text-blue-800 bg-blue-100 border-2 border-blue-800 hover:bg-blue-800 hover:text-white`}
+                  onClick={() =>
+                    setIsOpen({ state: true, id: challenge.id ?? null })
+                  }
+                  className={`text-${challenge.themeColor}-800 bg-${challenge.themeColor}-100 border-2 border-${challenge.themeColor}-800 hover:bg-${challenge.themeColor}-800 hover:text-white`}
                 >
                   Explore
                 </Button>
@@ -156,14 +158,14 @@ export default function DisplayChallenges() {
                         className="fixed inset-0 flex items-center justify-center z-50"
                       >
                         <ViewChallenge
-                          titleIcon={challenge.titleIcon}
-                          title={challenge.title}
+                          titleIcon={challenge.titleIcon ?? `⚠️`}
+                          title={challenge.title ?? `Undefined Title`}
                           setIsOpen={setIsOpen}
-                          description={challenge.description}
-                          coinsOffered={challenge.coinsOffered}
-                          platform={challenge.platform}
-                          hints={challenge.hints}
-                          challengeId={challenge.id}
+                          description={challenge.description ?? `Undefined`}
+                          coinsOffered={challenge.coinsOffered ?? 0}
+                          platform={challenge.platform ?? `undefined`}
+                          hints={challenge.hints ?? []}
+                          challengeId={challenge.id ?? `undefined`}
                           isRegistered={false}
                         />
                       </div>

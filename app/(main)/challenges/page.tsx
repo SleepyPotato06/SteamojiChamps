@@ -8,8 +8,29 @@ import {
 } from "@/components/user/filters";
 import { Input } from "@/components/ui/input";
 import { inter_md } from "@/lib/font";
+import { useState } from "react";
+import { Challenge } from "@/lib/definitions";
 
 export default function Challenges() {
+  const [challenge, setChallenge] = useState<Challenge>({
+    id: undefined,
+    title: undefined,
+    themeColor: undefined,
+    titleIcon: undefined,
+    tags: undefined,
+    dueDate: undefined,
+    coinsOffered: undefined,
+    description: undefined,
+    reference: {
+      refereceDescription: undefined,
+      referenceLink: undefined,
+    },
+    displayImage: undefined,
+    imageAlt: undefined,
+    platform: undefined,
+    lockStatus: undefined,
+    hints: undefined,
+  });
   return (
     <div
       className={`${inter_md.className} w-full h-full flex flex-col gap-6 justify-center items-center`}
@@ -19,8 +40,14 @@ export default function Challenges() {
           className="max-w-[35rem]"
           placeholder="Search for a challenge..."
         />
-        <FilterByPlatform />
-        <FilterByCoinsOffered />
+        <FilterByPlatform
+          defaultPlatform={challenge?.platform}
+          setChallenge={setChallenge}
+        />
+        <FilterByCoinsOffered
+          defaultCoinsOffered={challenge?.coinsOffered?.toString()}
+          setChallenge={setChallenge}
+        />
         <FilterByActivityType />
       </div>
       <DisplayChallenges />

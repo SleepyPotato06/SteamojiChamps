@@ -8,7 +8,6 @@ import { IoMdAnalytics } from "react-icons/io";
 import { IoSettings } from "react-icons/io5";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { usePathname } from "next/navigation";
 
 export default function AdminHeader() {

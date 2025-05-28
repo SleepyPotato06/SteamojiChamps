@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaTrophy } from "react-icons/fa";
-import { User } from "@/lib/definitions";
+import { FaTrophy, FaLock } from "react-icons/fa";
+import { User, UserChallenge } from "@/lib/definitions";
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<User[]>([]);
@@ -27,18 +27,28 @@ export default function Leaderboard() {
   return (
     <div className="flex flex-col">
       <div className="flex flex-row  text-white bg-blue-700 p-3 rounded-tl-md rounded-tr-md font-medium">
-        <div className="min-w-[5rem]">Rank</div>
-        <div className="min-w-[20rem]">Name</div>
-        <div className="min-w-[15rem]">Challenges Complete</div>
-        <div className="min-w-[10rem]">Coins Earned</div>
-        <div className="min-w-[10rem]">Total Achievements</div>
+        <div className="min-w-[5rem] flex items-center justify-center">
+          Rank
+        </div>
+        <div className="min-w-[20rem] flex items-center justify-center">
+          Name
+        </div>
+        <div className="min-w-[15rem] flex items-center justify-center">
+          Challenges Complete
+        </div>
+        <div className="min-w-[10rem] flex items-center justify-center">
+          Coins Earned
+        </div>
+        <div className="min-w-[10rem] flex items-center justify-center">
+          Total Achievements
+        </div>
       </div>
       {leaderboard.map((user: User, index: number) => (
         <div
           key={user.id}
           className="flex flex-row border-b-2 border-l-2 border-r-2 border=stone-200 text-black bg-white p-3"
         >
-          <div className="min-w-[5rem]">
+          <div className="min-w-[5rem] flex justify-center items-center">
             {index === 0 ? (
               <FaTrophy
                 size={20}
@@ -60,13 +70,24 @@ export default function Leaderboard() {
               </div>
             )}
           </div>
-          <div className="min-w-[20rem] flex flex-row gap-2">
+          <div className="min-w-[20rem] flex flex-row justify-center items-center gap-2">
             <div>{user.first_name}</div>
             <div>{user.last_name}</div>
           </div>
-          <div className="min-w-[15rem]">{user.achievements.length}</div>
-          <div className="min-w-[10rem]">{user.totalCoinsAchieved}</div>
-          <div className="min-w-[10rem]">{user.achievements.length}</div>
+          <div className="min-w-[15rem] flex items-center justify-center">
+            {
+              user.userChallenges.filter(
+                (userChallenge: UserChallenge) =>
+                  userChallenge.submissionStatus === `Complete`
+              ).length
+            }
+          </div>
+          <div className="min-w-[10rem] flex items-center justify-center">
+            {user.totalCoinsAchieved}
+          </div>
+          <div className="min-w-[10rem] flex items-center justify-center">
+            <FaLock size={20} className="text-blue-700" />
+          </div>
         </div>
       ))}
     </div>

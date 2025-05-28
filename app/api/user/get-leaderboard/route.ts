@@ -13,6 +13,15 @@ export async function GET() {
       orderBy: {
         totalCoinsAchieved: "desc",
       },
+      select: {
+        userChallenges: true,
+        totalCoinsAchieved: true,
+        id: true,
+        first_name: true,
+        last_name: true,
+        username: true,
+        level: true,
+      },
     });
 
     return NextResponse.json({ leaderboard }, { status: 200 });
