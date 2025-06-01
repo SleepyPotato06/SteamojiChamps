@@ -18,7 +18,11 @@ export default function ViewChallenge({
 }: {
   titleIcon: string;
   title: string;
-  setIsOpen: (value: { state: boolean; id: string | null }) => void;
+  setIsOpen: (value: {
+    state: boolean;
+    id: string | null;
+    action: string | null;
+  }) => void;
   description: string;
   coinsOffered: number;
   platform: string;
@@ -60,7 +64,7 @@ export default function ViewChallenge({
           <div className="text-2xl font-semibold">{title}</div>
         </div>
         <button
-          onClick={() => setIsOpen({ state: false, id: `0` })}
+          onClick={() => setIsOpen({ state: false, id: null, action: null })}
           className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-red-600 bg-red-100 border-2 border-red-800 hover:text-white hover:bg-red-600 font-light text-sm"
         >
           Close

@@ -3,10 +3,6 @@ export interface UserCardProps {
   users: User[];
 }
 
-export interface RegisteredChallengeCardProp {
-  registeredChallenges: RegisteredChallenge[];
-}
-
 export interface ChallengeCardProp {
   challenges: Challenge[];
 }
@@ -56,31 +52,12 @@ export type UserChallenge = {
   challenge: Challenge;
   challengeId: string;
   submissionStatus: string;
+  solution: string;
   submittedAt: Date;
 };
 
-export type RegisteredChallenge = {
-  id: string;
-  challenge: {
-    id: string;
-    title: string;
-    titleHex: string;
-    titleIcon: string;
-    tags: string[];
-    tagHex: { bg: string; border: string };
-    dueDate: Date;
-    coinsOffered: number;
-    description: string;
-    reference: {
-      refereceDescription: string;
-      referenceLink: string;
-    };
-    displayImage: string;
-    imageAlt: string;
-    platform: string;
-    lockStatus: string;
-    hints: string[];
-    buttonHex: { bg: string; border: string; hoverBg: string };
-  };
+export type Submission = {
+  userId: string;
+  user: User;
   submissionStatus: string;
 };

@@ -3,14 +3,11 @@
 import { Challenge } from "@/lib/definitions";
 import { Card } from "@/components/ui/card";
 import { FaClipboardCheck } from "react-icons/fa";
-import Image from "next/image";
-import { IoMdEye } from "react-icons/io";
-import OjiCoin from "@/public/coin.svg";
 import { MdEdit } from "react-icons/md";
 import { TbCancel } from "react-icons/tb";
-import { FaCalendarDays } from "react-icons/fa6";
 import EditChallengeCard from "./edit-challenge-card";
 import ViewSubmissions from "./view-submissions";
+import { useState } from "react";
 
 export default function DisplayAllChallenges({
   allChallenges,
@@ -29,6 +26,9 @@ export default function DisplayAllChallenges({
     action: string | null;
   }) => void;
 }) {
+  const [selectedChallengeId, setSelectedChallengeId] = useState<
+    string | undefined
+  >(undefined);
   async function deleteChallenge(challengeId: string | undefined) {
     if (challengeId === undefined) {
       return;
@@ -67,7 +67,7 @@ export default function DisplayAllChallenges({
               <div className="text-stone-400 max-w-92 text-sm">
                 {challenge.description}
               </div>
-              <div className="w-full flex flex-row justify-end items-center">
+              <div className="w-full flex flex-row justify-start items-center">
                 {/* <div className="flex flex-row gap-2">
                   <div className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm">
                     <Image
@@ -89,6 +89,20 @@ export default function DisplayAllChallenges({
                 )}
                 <div className="flex flex-row gap-2">
                   <button
+                    onClick={() => {
+                      setSelectedChallengeId(challenge.id);
+                      setIsOpen({
+                        state: true,
+                        id: challenge.id ?? null,
+                        action: `view-submissions`,
+                      });
+                    }}
+                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
+                  >
+                    <FaClipboardCheck size={15} />
+                    Submissions
+                  </button>
+                  <button
                     onClick={() =>
                       setIsOpen({
                         state: true,
@@ -100,19 +114,6 @@ export default function DisplayAllChallenges({
                   >
                     <MdEdit size={18} />
                     Edit
-                  </button>
-                  <button
-                    onClick={() =>
-                      setIsOpen({
-                        state: true,
-                        id: challenge.id ?? null,
-                        action: `view-submissions`,
-                      })
-                    }
-                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
-                  >
-                    <FaClipboardCheck size={15} />
-                    Submissions
                   </button>
                   <button
                     onClick={() => deleteChallenge(challenge.id)}
@@ -140,20 +141,20 @@ export default function DisplayAllChallenges({
                         />
                       </div>
                     ))}
-
-                {isOpen.state && isOpen.action === `view-submissions` && (
-                  <div
-                    key={challenge.id}
-                    className="fixed inset-0 flex items-center justify-center z-50"
-                  >
-                    <ViewSubmissions setIsOpen={setIsOpen} />
-                  </div>
-                )}
               </div>
             </div>
           </Card>
         );
       })}
+
+      {isOpen.state && isOpen.action === `view-submissions` && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <ViewSubmissions
+            challengeId={selectedChallengeId}
+            setIsOpen={setIsOpen}
+          />
+        </div>
+      )}
     </div>
   );
 }

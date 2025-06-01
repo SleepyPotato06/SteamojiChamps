@@ -2,23 +2,30 @@
 
 import { Card } from "@/components/ui/card";
 import { TbCancel } from "react-icons/tb";
+import { FaFlagCheckered } from "react-icons/fa6";
 import { IoEyeSharp } from "react-icons/io5";
 import { FaCalendarDays } from "react-icons/fa6";
-import { RegisteredChallenge } from "@/lib/definitions";
+import { UserChallenge } from "@/lib/definitions";
 import Image from "next/image";
 import OjiCoin from "@/public/coin.svg";
 import ViewChallenge from "@/components/user/view-challenge-card";
 import { useEffect, useState } from "react";
 import { useUser } from "@/lib/UserContext";
+import SubmitSolution from "./submit-solution";
 
 export default function DisplayRegisteredChallenges() {
   const { user } = useUser();
-  const [isOpen, setIsOpen] = useState<{ state: boolean; id: string | null }>({
+  const [isOpen, setIsOpen] = useState<{
+    state: boolean;
+    id: string | null;
+    action: string | null;
+  }>({
     state: false,
     id: null,
+    action: null,
   });
   const [registeredChallenges, setRegisteredChallenges] = useState<
-    RegisteredChallenge[]
+    UserChallenge[]
   >([]);
   useEffect(() => {
     async function getChallengeByUserId(userId: string | undefined) {
@@ -63,7 +70,7 @@ export default function DisplayRegisteredChallenges() {
 
       if (res.ok) {
         const updatedChallenges = registeredChallenges.filter(
-          (registeredChallenge: RegisteredChallenge) =>
+          (registeredChallenge: UserChallenge) =>
             registeredChallenge.id !== userChallengeId
         );
 
@@ -75,14 +82,16 @@ export default function DisplayRegisteredChallenges() {
   }
   return (
     <div className="w-full grid grid-cols-3 gap-3">
-      {registeredChallenges.map((registeredChallenge: RegisteredChallenge) => {
+      {registeredChallenges.map((registeredChallenge: UserChallenge) => {
         return (
           <Card key={registeredChallenge.id} className="p-4">
             <div className="flex flex-col gap-5">
               <div className="font-bold flex flex-row gap-32 justify-between items-center">
                 <div className="flex flex-row gap-1 items-center text-md">
                   <div>{registeredChallenge.challenge.titleIcon}</div>
-                  <div>{registeredChallenge.challenge.title}</div>
+                  <div className="text-no-wrap">
+                    {registeredChallenge.challenge.title}
+                  </div>
                 </div>
                 <div className="text-xs">
                   {registeredChallenge.submissionStatus === "Pending" ? (
@@ -113,7 +122,9 @@ export default function DisplayRegisteredChallenges() {
                   <div className="flex gap-2 justify-center items-center w-fit px-3 py-1.5 bg-white border-2 border-stone-200 rounded-md text-xs">
                     <FaCalendarDays size={15} />{" "}
                     {new Date(
-                      registeredChallenge.challenge.dueDate
+                      registeredChallenge.challenge.dueDate === undefined
+                        ? Date.now()
+                        : registeredChallenge.challenge.dueDate
                     ).toDateString()}
                   </div>
                 </div>
@@ -126,13 +137,32 @@ export default function DisplayRegisteredChallenges() {
                     onClick={() =>
                       setIsOpen({
                         state: true,
-                        id: registeredChallenge.challenge.id,
+                        id:
+                          registeredChallenge.challenge.id === undefined
+                            ? null
+                            : registeredChallenge.id,
+                        action: `submit-solution`,
+                      })
+                    }
+                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
+                  >
+                    <FaFlagCheckered size={15} />
+                    Submit
+                  </button>
+                  <button
+                    onClick={() =>
+                      setIsOpen({
+                        state: true,
+                        id:
+                          registeredChallenge.challenge.id === undefined
+                            ? null
+                            : registeredChallenge.challenge.id,
+                        action: `view-challenge`,
                       })
                     }
                     className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm"
                   >
                     <IoEyeSharp size={18} />
-                    View
                   </button>
                   <button
                     onClick={() => dropChallenge(registeredChallenge.id)}
@@ -143,33 +173,72 @@ export default function DisplayRegisteredChallenges() {
                 </div>
                 {/* Modal window */}
                 {isOpen.state &&
+                  isOpen.action === `view-challenge` &&
                   registeredChallenges
                     .filter(
-                      (registeredChallenge: RegisteredChallenge) =>
+                      (registeredChallenge: UserChallenge) =>
                         registeredChallenge.challenge.id === isOpen.id
                     )
-                    .map((registeredChallenge: RegisteredChallenge) => (
+                    .map((registeredChallenge: UserChallenge) => (
                       <div
                         key={registeredChallenge.challenge.id}
                         className="fixed inset-0 flex items-center justify-center z-50"
                       >
                         <ViewChallenge
-                          titleIcon={registeredChallenge.challenge.titleIcon}
-                          title={registeredChallenge.challenge.title}
+                          titleIcon={
+                            registeredChallenge.challenge.titleIcon ===
+                            undefined
+                              ? `🧩`
+                              : registeredChallenge.challenge.titleIcon
+                          }
+                          title={
+                            registeredChallenge.challenge.title === undefined
+                              ? `Undefined title`
+                              : registeredChallenge.challenge.title
+                          }
                           setIsOpen={setIsOpen}
                           description={
-                            registeredChallenge.challenge.description
+                            registeredChallenge.challenge.description ===
+                            undefined
+                              ? `Undefined description`
+                              : registeredChallenge.challenge.description
                           }
                           coinsOffered={
-                            registeredChallenge.challenge.coinsOffered
+                            registeredChallenge.challenge.coinsOffered ===
+                            undefined
+                              ? 0
+                              : registeredChallenge.challenge.coinsOffered
                           }
-                          platform={registeredChallenge.challenge.platform}
-                          hints={registeredChallenge.challenge.hints}
-                          challengeId={registeredChallenge.challenge.id}
+                          platform={
+                            registeredChallenge.challenge.platform === undefined
+                              ? `undefined`
+                              : registeredChallenge.challenge.platform
+                          }
+                          hints={
+                            registeredChallenge.challenge.hints === undefined
+                              ? []
+                              : registeredChallenge.challenge.hints
+                          }
+                          challengeId={
+                            registeredChallenge.challenge.id === undefined
+                              ? `0`
+                              : registeredChallenge.challenge.id
+                          }
                           isRegistered={true}
                         />
                       </div>
                     ))}
+
+                {isOpen.state && isOpen.action === `submit-solution` && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50">
+                    <SubmitSolution
+                      userId={user?.id}
+                      registeredChallengeId={isOpen.id}
+                      setRegisteredChallenges={setRegisteredChallenges}
+                      setIsOpen={setIsOpen}
+                    />
+                  </div>
+                )}
               </div>
             </div>
           </Card>

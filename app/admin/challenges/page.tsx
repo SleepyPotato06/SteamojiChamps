@@ -4,7 +4,6 @@ import { Challenge } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import DisplayAllChallenges from "@/components/admin/display-all-challenges";
 import EditChallengeCard from "@/components/admin/edit-challenge-card";
-import ViewSubmissions from "@/components/admin/view-submissions";
 import BulkAddChallengeCard from "@/components/admin/bulk-add-challenge";
 
 export default function ManageChallenges() {
