@@ -8,6 +8,7 @@ import { TbCancel } from "react-icons/tb";
 import EditChallengeCard from "./edit-challenge-card";
 import ViewSubmissions from "./view-submissions";
 import { useState } from "react";
+import { FaRegDotCircle } from "react-icons/fa";
 import ConfirmationModal from "../ui/confirmationModal";
 
 export default function DisplayAllChallenges({
@@ -65,11 +66,22 @@ export default function DisplayAllChallenges({
         return (
           <Card key={challenge.id} className="p-4">
             <div className="flex flex-col gap-5">
-              <div className="font-bold flex flex-row gap-32 justify-between items-center">
+              <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row gap-1 items-center text-md">
                   <div>{challenge.titleIcon}</div>
                   <div>{challenge.title}</div>
                 </div>
+                {challenge.lockStatus === `active` ? (
+                  <div className="px-2 py-1 shadow-lg shadow-green-200 border-1 border-green-800 bg-green-100 text-green-800  rounded-xl text-xs flex flex-row gap-1 items-center">
+                    <FaRegDotCircle size={10} className="text-green-600" />
+                    <div>active</div>
+                  </div>
+                ) : (
+                  <div className="px-2 py-1 shadow-lg shadow-red-200 border-1 border-red-800 bg-red-100 text-red-800  rounded-xl text-xs flex flex-row gap-1 items-center">
+                    <FaRegDotCircle size={10} className="text-red-600" />
+                    <div>inactive</div>
+                  </div>
+                )}
               </div>
               <div className="text-stone-400 max-w-92 text-sm">
                 {challenge.description}
@@ -78,10 +90,10 @@ export default function DisplayAllChallenges({
                 {isOpen.state &&
                   (isOpen.action === `view-submissions` ||
                     isOpen.action === `edit-challenge`) && (
-                    <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+                    <div className="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"></div>
                   )}
                 {confirmChallengeDelete.state && (
-                  <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+                  <div className="fixed inset-0 bg-black/10 backdrop-blur-sm z-40"></div>
                 )}
                 <div className="flex flex-row gap-2">
                   <button
@@ -159,7 +171,6 @@ export default function DisplayAllChallenges({
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <ConfirmationModal
             id={confirmChallengeDelete.id}
-            type="challenge"
             setConfirmDelete={setConfirmChallengeDelete}
             deleteUserOrChallenge={deleteChallenge}
           />

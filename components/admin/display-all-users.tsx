@@ -105,14 +105,11 @@ export default function DisplayAllUsers({
               </div>
               <div className="flex flex-row justify-between px-3 py-1.5 bg-white border-2 border-stone-200 rounded-md font-semibold text-green-500">
                 <div>Challenges</div>
-                <div>{user.achievements.length}</div>
+                <div>{user.userChallenges.length}</div>
               </div>{" "}
             </CardDescription>
           </CardContent>
-          {editOpen.state && (
-            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
-          )}
-          {confirmUserDelete.state && (
+          {(editOpen.state || confirmUserDelete.state) && (
             <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
           )}
           <CardFooter className="w-full flex flex-row gap-2">
@@ -152,7 +149,6 @@ export default function DisplayAllUsers({
         <div className="fixed inset-0 flex items-center justify-center z-50">
           <ConfirmationModal
             id={confirmUserDelete.id}
-            type="user"
             setConfirmDelete={setConfirmUserDelete}
             deleteUserOrChallenge={deleteUser}
           />

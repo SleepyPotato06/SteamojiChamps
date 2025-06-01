@@ -117,12 +117,12 @@ export default function ViewChallenge({
         </div>
         <div className="w-full flex justify-end">
           {isRegistered ? null : (
-            <Button
-              className="hover:bg-blue-600"
+            <button
+              className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-blue-600 bg-blue-100 border-2 border-blue-800 hover:text-white hover:bg-blue-600 font-light text-sm"
               onClick={() => registerChallenge(user?.id, challengeId)}
             >
               Register
-            </Button>
+            </button>
           )}
         </div>
       </div>

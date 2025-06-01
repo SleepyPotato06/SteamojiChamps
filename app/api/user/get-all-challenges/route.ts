@@ -10,7 +10,11 @@ export async function POST(request: NextRequest) {
     if (!userId) {
       return NextResponse.json({ message: `Unauthorized` }, { status: 401 });
     }
-    const challenges = await prismapg.challenge.findMany();
+    const challenges = await prismapg.challenge.findMany({
+      where: {
+        lockStatus: `active`,
+      },
+    });
 
     const registeredChallenges = await prismapg.userChallenge.findMany({
       where: {

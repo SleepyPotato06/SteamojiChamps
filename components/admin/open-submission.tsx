@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "../ui/textarea";
 import { UserChallenge } from "@/lib/definitions";
 
 export default function OpenSubmission({
@@ -26,18 +25,22 @@ export default function OpenSubmission({
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         <div className="flex flex-row gap-2">
-          <div className="px-2 py-1 w-fit text-blue-800 border-2 border-stone-300 bg-white rounded-2xl text-sm">
+          <div className="px-2 py-1 w-fit text-stone-800 border-2 border-stone-300 bg-white rounded-2xl text-sm">
             {selectedSubmission.challenge.title}
           </div>
-          <div className="px-2 py-1 w-fit text-blue-800 border-2 border-stone-300 bg-white rounded-2xl text-sm">
+          <div className="px-2 py-1 w-fit text-stone-800 border-2 border-stone-300 bg-white rounded-2xl text-sm">
             {selectedSubmission.challenge.platform}
           </div>
         </div>
-        <Textarea
-          className="min-w-128 min-h-64 border-2 text-blue-800 border-stone-300 bg-white font-extrabold"
-          value={selectedSubmission.submission}
-          disabled
-        />
+        <div className="pt-2 min-w-128 min-h-64 text-blue-800  bg-white font-extrabold text-md">
+          {selectedSubmission.submission.includes(`https`) ? (
+            <a href={selectedSubmission.submission.trim()} target="_blank">
+              {selectedSubmission.submission}
+            </a>
+          ) : (
+            <span>{selectedSubmission.submission}</span>
+          )}
+        </div>
       </CardContent>
     </Card>
   );

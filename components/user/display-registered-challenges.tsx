@@ -12,6 +12,7 @@ import ViewChallenge from "@/components/user/view-challenge-card";
 import { useEffect, useState } from "react";
 import { useUser } from "@/lib/UserContext";
 import SubmitSolution from "./submit-solution";
+import ConfirmationModal from "../ui/confirmationModal";
 
 export default function DisplayRegisteredChallenges() {
   const { user } = useUser();
@@ -27,6 +28,11 @@ export default function DisplayRegisteredChallenges() {
   const [registeredChallenges, setRegisteredChallenges] = useState<
     UserChallenge[]
   >([]);
+
+  const [confirmRegChallengeDelete, setConfrmRegChallengeDelete] = useState<{
+    state: boolean;
+    id: string | undefined;
+  }>({ state: false, id: undefined });
   useEffect(() => {
     async function getChallengeByUserId(userId: string | undefined) {
       try {
@@ -57,10 +63,12 @@ export default function DisplayRegisteredChallenges() {
     });
   }, []);
 
-  async function dropChallenge(userChallengeId: string) {
+  async function deleteRegisteredChallenge(
+    userChallengeId: string | undefined
+  ) {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/drop-challenge`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
         {
           method: "DELETE",
           body: JSON.stringify({ userChallengeId }),
@@ -129,7 +137,7 @@ export default function DisplayRegisteredChallenges() {
                   </div>
                 </div>
                 {/* Blurred background overlay */}
-                {isOpen.state && (
+                {(isOpen.state || confirmRegChallengeDelete.state) && (
                   <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
                 )}
                 <div className="flex flex-row gap-2">
@@ -165,7 +173,12 @@ export default function DisplayRegisteredChallenges() {
                     <IoEyeSharp size={18} />
                   </button>
                   <button
-                    onClick={() => dropChallenge(registeredChallenge.id)}
+                    onClick={() =>
+                      setConfrmRegChallengeDelete({
+                        state: true,
+                        id: registeredChallenge.id,
+                      })
+                    }
                     className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-red-600 hover:bg-red-100 hover:border-red-800 text-sm"
                   >
                     <TbCancel size={15} />
@@ -238,6 +251,14 @@ export default function DisplayRegisteredChallenges() {
                       setIsOpen={setIsOpen}
                     />
                   </div>
+                )}
+
+                {confirmRegChallengeDelete.state && (
+                  <ConfirmationModal
+                    id={confirmRegChallengeDelete.id}
+                    deleteUserOrChallenge={deleteRegisteredChallenge}
+                    setConfirmDelete={setConfrmRegChallengeDelete}
+                  />
                 )}
               </div>
             </div>
