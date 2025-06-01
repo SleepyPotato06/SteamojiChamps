@@ -12,6 +12,7 @@ import {
   CardTitle,
 } from "../ui/card";
 import EditUserCard from "./edit-user-card";
+import ConfirmationModal from "../ui/confirmationModal";
 import { useState } from "react";
 
 export default function DisplayAllUsers({
@@ -21,6 +22,11 @@ export default function DisplayAllUsers({
   allUsers: User[];
   setAllUsers: (allUsers: User[]) => void;
 }) {
+  const [confirmUserDelete, setConfirmUserDelete] = useState<{
+    state: boolean;
+    id: string | undefined;
+  }>({ state: false, id: undefined });
+
   const [editOpen, setEditOpen] = useState<{
     state: boolean;
     id: string | null;
@@ -29,7 +35,7 @@ export default function DisplayAllUsers({
     id: null,
   });
 
-  async function deleteUser(userId: string) {
+  async function deleteUser(userId: string | undefined) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-user`,
@@ -106,7 +112,10 @@ export default function DisplayAllUsers({
           {editOpen.state && (
             <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
           )}
-          <CardFooter className="w-full flex flex-row justify-end gap-2">
+          {confirmUserDelete.state && (
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+          )}
+          <CardFooter className="w-full flex flex-row gap-2">
             <button
               onClick={() => setEditOpen({ state: true, id: user.id })}
               className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-blue-600 hover:bg-blue-100 hover:border-blue-800 text-sm"
@@ -115,7 +124,7 @@ export default function DisplayAllUsers({
               Edit
             </button>
             <button
-              onClick={() => deleteUser(user.id)}
+              onClick={() => setConfirmUserDelete({ state: true, id: user.id })}
               className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-red-600 hover:bg-red-100 hover:border-red-800 text-sm"
             >
               <TbCancel size={15} />
@@ -139,6 +148,16 @@ export default function DisplayAllUsers({
           )}
         </Card>
       ))}
+      {confirmUserDelete.state && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <ConfirmationModal
+            id={confirmUserDelete.id}
+            type="user"
+            setConfirmDelete={setConfirmUserDelete}
+            deleteUserOrChallenge={deleteUser}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -4,8 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const { challengeId } = await request.json();
 
-  console.log(challengeId);
-
   if (challengeId === undefined) {
     return NextResponse.json(
       { message: `Undefined challenge Id cannot be process !` },
@@ -19,13 +17,16 @@ export async function POST(request: NextRequest) {
         challengeId,
       },
       select: {
+        id: true,
         userId: true,
         user: true,
+        challengeId: true,
+        challenge: true,
         submissionStatus: true,
+        submission: true,
+        submissionDate: true,
       },
     });
-
-    console.log(submissions);
 
     return NextResponse.json({ submissions }, { status: 200 });
   } catch (error) {

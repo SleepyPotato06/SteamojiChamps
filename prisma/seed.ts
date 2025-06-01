@@ -57,7 +57,7 @@ async function main() {
   const challenge2 = await prismapg.challenge.create({
     data: {
       title: "Robot Arm Designer",
-      themeColor: "red",
+      themeColor: "blue",
       titleIcon: "🤖",
       tags: ["STEM", "OnShape", "Robotics"],
       dueDate: new Date("2025-07-15"),
@@ -83,7 +83,7 @@ async function main() {
   const challenge3 = await prismapg.challenge.create({
     data: {
       title: "Magical Forest Animation",
-      themeColor: "green",
+      themeColor: "blue",
       titleIcon: "🌳",
       tags: ["Animation", "Blender", "Nature"],
       dueDate: new Date("2025-08-01"),
@@ -96,7 +96,7 @@ async function main() {
       },
       displayImage: "/images/magical-forest.png",
       imageAlt: "A glowing tree in a magical forest",
-      platform: "Blender",
+      platform: "Blender 3D",
       lockStatus: "active",
       hints: [
         "Use keyframes to animate movement.",
@@ -108,7 +108,7 @@ async function main() {
   const challenge4 = await prismapg.challenge.create({
     data: {
       title: "Design a Dream Treehouse",
-      themeColor: "indigo",
+      themeColor: "blue",
       titleIcon: "🏡",
       tags: ["Design", "TinkerCAD", "Architecture"],
       dueDate: new Date("2025-07-10"),
@@ -121,7 +121,7 @@ async function main() {
       },
       displayImage: "/images/treehouse-design.png",
       imageAlt: "A colorful treehouse with a slide",
-      platform: "TinkerCAD",
+      platform: "TinkerCAD 3D",
       lockStatus: "active",
       hints: [
         "Use cylinders for tree trunks.",
@@ -133,7 +133,7 @@ async function main() {
   const challenge5 = await prismapg.challenge.create({
     data: {
       title: "Space Explorer Animation",
-      themeColor: "sky",
+      themeColor: "blue",
       titleIcon: "🚀",
       tags: ["Space", "Scratch", "Animation"],
       dueDate: new Date("2025-07-25"),

@@ -52,12 +52,6 @@ export type UserChallenge = {
   challenge: Challenge;
   challengeId: string;
   submissionStatus: string;
-  solution: string;
-  submittedAt: Date;
-};
-
-export type Submission = {
-  userId: string;
-  user: User;
-  submissionStatus: string;
+  submission: string;
+  submissionDate: Date;
 };

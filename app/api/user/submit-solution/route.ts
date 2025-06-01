@@ -34,8 +34,6 @@ export async function PUT(request: NextRequest) {
       },
     });
 
-    console.log(updatedRegisteredChallenges);
-
     return NextResponse.json({ updatedRegisteredChallenges }, { status: 200 });
   } catch (error) {
     return NextResponse.json(

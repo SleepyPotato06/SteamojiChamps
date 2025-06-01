@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import DisplayAllChallenges from "@/components/admin/display-all-challenges";
 import EditChallengeCard from "@/components/admin/edit-challenge-card";
 import BulkAddChallengeCard from "@/components/admin/bulk-add-challenge";
+import { Input } from "@/components/ui/input";
 
 export default function ManageChallenges() {
   const challenge = {
@@ -84,8 +85,8 @@ export default function ManageChallenges() {
   return (
     <div className="flex flex-col gap-4 items-center justify-center">
       <div className="flex flex-row gap-2 items-center">
-        <input
-          className="min-w-[35rem] min-h-[3rem] px-4 py-1 border-1 border-stone-200 rounded-lg shadow-lg text-md"
+        <Input
+          className="min-w-[30rem]"
           placeholder="Search for a challenge..."
         />
         {isOpen.state && (
@@ -93,7 +94,7 @@ export default function ManageChallenges() {
         )}
         <Button
           onClick={() => setIsOpen({ state: true, action: `add`, id: null })}
-          className="min-h-[3rem] text-white bg-blue-700 hover:bg-blue-800"
+          className="hover:text-white hover:bg-blue-600"
         >
           Add Challenge
         </Button>
@@ -101,7 +102,7 @@ export default function ManageChallenges() {
           onClick={() =>
             setIsOpen({ state: true, action: `bulk-add`, id: null })
           }
-          className="min-h-[3rem] text-white bg-blue-700 hover:bg-blue-800"
+          className="hover:text-white hover:bg-blue-600"
         >
           Bulk Add
         </Button>

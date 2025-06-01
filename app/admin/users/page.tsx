@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { inter_md } from "@/lib/font";
 import { User } from "@/lib/definitions";
 import AddUserCard from "@/components/admin/add-user-card";
-import BulkAddUserCard from "@/components/admin/bulk-add-user-card";
+import BulkAddUserCard from "@/app/bulk-add-user-card";
+import { Input } from "@/components/ui/input";
 
 export default function ManageUsers() {
   const [allUsers, setAllUsers] = useState<User[]>([]);
@@ -46,22 +47,19 @@ export default function ManageUsers() {
       className={`${inter_md.className} w-fit h-full flex flex-col gap-4 justify-center items-center pb-6`}
     >
       <div className="w-fit h-fit flex flex-row gap-4 justify-center items-center">
-        <input
-          className="min-w-[35rem] min-h-[3rem] px-4 py-1 border-1 border-stone-200 rounded-lg shadow-lg text-md"
-          placeholder="Search for a user..."
-        />
+        <Input className="min-w-[30rem]" placeholder="Search for a user..." />
         {addOpen.state && (
           <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
         )}
         <Button
           onClick={() => setAddOpen({ state: true, action: `add` })}
-          className="min-h-[3rem] text-white bg-blue-700 hover:bg-blue-800"
+          className="hover:text-white hover:bg-blue-600"
         >
           Add User
         </Button>
         <Button
           onClick={() => setAddOpen({ state: true, action: `bulk-add` })}
-          className="min-h-[3rem] text-white bg-blue-700 hover:bg-blue-800"
+          className="hover:text-white hover:bg-blue-600"
         >
           Bulk Add
         </Button>

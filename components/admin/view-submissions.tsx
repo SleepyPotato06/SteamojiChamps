@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Submission } from "@/lib/definitions";
+import OpenSubmission from "./open-submission";
+import { Challenge, UserChallenge } from "@/lib/definitions";
 import {
   Table,
   TableBody,
@@ -12,16 +13,21 @@ import {
 
 export default function ViewSubmissions({
   setIsOpen,
-  challengeId,
+  selectedChallenge,
 }: {
   setIsOpen: (value: {
     state: boolean;
     id: string | null;
     action: string | null;
   }) => void;
-  challengeId: string | undefined;
+  selectedChallenge: Challenge;
 }) {
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [submissions, setSubmissions] = useState<UserChallenge[]>([]);
+  const [isSubmissionOpen, setSubmissionOpen] = useState<{
+    state: boolean;
+    id: string | null;
+    action: string | null;
+  }>({ state: false, id: null, action: null });
   useEffect(() => {
     async function getSubmissions(challengeId: string | undefined) {
       try {
@@ -43,50 +49,78 @@ export default function ViewSubmissions({
       }
     }
 
-    getSubmissions(challengeId);
+    getSubmissions(selectedChallenge.id);
   }, []);
 
   return (
-    <Card>
-      <CardHeader className="flex flex-row justify-between items-center gap-52">
-        <CardTitle className="text-lg">View Submissions</CardTitle>
-        <button
-          onClick={() => setIsOpen({ state: false, id: `0`, action: null })}
-          className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-red-600 bg-red-100 border-2 border-red-800 hover:text-white hover:bg-red-600 font-light text-sm"
-        >
-          Close
-        </button>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[100px]">Name</TableHead>
-              <TableHead>Submission</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {submissions.map((submission: Submission, index: number) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">
-                  {submission.user.first_name} {submission.user.last_name}
-                </TableCell>
-                <TableCell>
-                  {submission.submissionStatus === "Pending" ? (
-                    <span className="px-2 py-1 text-amber-500 bg-amber-100 border-2 border-amber-500 rounded-xl">
-                      Pending
-                    </span>
-                  ) : (
-                    <span className="px-2 py-1 text-green-500 bg-green-100 border-2 border-green-500 rounded-xl">
-                      Complete
-                    </span>
-                  )}
-                </TableCell>
+    <>
+      {isSubmissionOpen.state && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+      )}
+      <Card>
+        <CardHeader className="flex flex-row justify-between items-center gap-52">
+          <CardTitle className="text-lg">View Submissions</CardTitle>
+          <button
+            onClick={() => setIsOpen({ state: false, id: null, action: null })}
+            className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-red-600 bg-red-100 border-2 border-red-800 hover:text-white hover:bg-red-600 font-light text-sm"
+          >
+            Close
+          </button>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[200px]">Name</TableHead>
+                <TableHead>Submission</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+            </TableHeader>
+            <TableBody>
+              {submissions.map((submission: UserChallenge, index: number) => (
+                <TableRow key={index}>
+                  <TableCell className="font-medium">
+                    {submission.user.first_name} {submission.user.last_name}
+                  </TableCell>
+                  <TableCell>
+                    {submission.submissionStatus === "Pending" ? (
+                      <span className="px-2 py-1 text-amber-500 bg-amber-100 border-2 border-amber-500 rounded-xl">
+                        Pending
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          setSubmissionOpen({
+                            state: true,
+                            id: submission.id ?? null,
+                            action: `open-submission`,
+                          });
+                        }}
+                        className="text-blue-600 font-bold hover:underline hover:underline-2 hover:underline-offset-4"
+                      >
+                        View
+                      </button>
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+      {isSubmissionOpen.state &&
+        isSubmissionOpen.action === `open-submission` && (
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+            <OpenSubmission
+              selectedSubmission={
+                submissions.filter(
+                  (submission: UserChallenge) =>
+                    submission.id === isSubmissionOpen.id
+                )[0]
+              }
+              setIsOpen={setIsOpen}
+            />
+          </div>
+        )}
+    </>
   );
 }
