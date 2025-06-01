@@ -4,7 +4,7 @@ import { FaLock } from "react-icons/fa";
 import { inter_md } from "@/lib/font";
 import { useUser } from "@/lib/UserContext";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import DisplayRegisteredChallenges from "@/components/display-registered-challenges";
+import DisplayRegisteredChallenges from "@/components/user/display-registered-challenges";
 
 export default function Home() {
   const { user } = useUser();

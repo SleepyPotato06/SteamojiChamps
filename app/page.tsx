@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Header from "@/components/header";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/lib/UserContext";
+import Image from "next/image";
+import Logo from "@/public/logo.svg";
 
 export default function Home() {
   const [error, setError] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export default function Home() {
         first_name: user.first_name,
         last_name: user.last_name,
         totalCoinsAchieved: user.totalCoinsAchieved,
+        level: user.level,
         achievements: user.achievements,
         role: user.role,
         userChallenges: user.userChallenges,
@@ -51,7 +53,7 @@ export default function Home() {
       }
 
       if (user.role === "ADMIN") {
-        router.push(`/admin`);
+        router.push(`/admin/users`);
       }
     } else {
       setError(result.message);
@@ -59,8 +61,8 @@ export default function Home() {
   }
   return (
     <>
-      <Header />
-      <div className="w-full mt-[10rem] px-[35rem] flex flex-col gap-4 items-center justify-center">
+      <div className="fixed inset-0 flex flex-col gap-2 items-center justify-center">
+        <Image width={200} height={200} src={Logo} alt="logo" />
         <div className="flex flex-col p-8 rounded-md justify-center items-center gap-6 border-2 border-stone-100 drop-shadow-lg">
           <div>Please login here</div>
           <form action={login} className="flex flex-col gap-4">

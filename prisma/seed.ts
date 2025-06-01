@@ -8,6 +8,7 @@ async function main() {
       first_name: "Alice",
       last_name: "Admin",
       password: "admin123",
+      level: "Admin",
       role: "ADMIN",
       totalCoinsAchieved: 0,
       achievements: ["Launched First Challenge"],
@@ -20,6 +21,7 @@ async function main() {
       first_name: "John",
       last_name: "Doe",
       password: "pass",
+      level: "Junior",
       role: "USER",
       totalCoinsAchieved: 50,
       achievements: ["Completed Beginner Challenge"],
@@ -30,10 +32,9 @@ async function main() {
   const challenge1 = await prismapg.challenge.create({
     data: {
       title: "Underwater Adventure Game",
-      titleHex: "#1E90FF",
+      themeColor: "blue",
       titleIcon: "🌊",
       tags: ["Game", "Scratch", "Ocean"],
-      tagHex: { bg: "#B3E5FC", border: "#0288D1" },
       dueDate: new Date(),
       coinsOffered: 50,
       description:
@@ -50,17 +51,15 @@ async function main() {
         "Use broadcast messages to change levels.",
         "Add background music for underwater effect.",
       ],
-      buttonHex: { bg: "#0288D1", border: "#01579B", hoverBg: "#0277BD" },
     },
   });
 
   const challenge2 = await prismapg.challenge.create({
     data: {
       title: "Robot Arm Designer",
-      titleHex: "#8E24AA",
+      themeColor: "blue",
       titleIcon: "🤖",
       tags: ["STEM", "OnShape", "Robotics"],
-      tagHex: { bg: "#E1BEE7", border: "#6A1B9A" },
       dueDate: new Date("2025-07-15"),
       coinsOffered: 60,
       description:
@@ -78,17 +77,15 @@ async function main() {
         "Start with simple rectangles and circles.",
         "Think about how the joints will move.",
       ],
-      buttonHex: { bg: "#6A1B9A", border: "#4A148C", hoverBg: "#7B1FA2" },
     },
   });
 
   const challenge3 = await prismapg.challenge.create({
     data: {
       title: "Magical Forest Animation",
-      titleHex: "#43A047",
+      themeColor: "blue",
       titleIcon: "🌳",
       tags: ["Animation", "Blender", "Nature"],
-      tagHex: { bg: "#C8E6C9", border: "#2E7D32" },
       dueDate: new Date("2025-08-01"),
       coinsOffered: 75,
       description:
@@ -99,23 +96,21 @@ async function main() {
       },
       displayImage: "/images/magical-forest.png",
       imageAlt: "A glowing tree in a magical forest",
-      platform: "Blender",
+      platform: "Blender 3D",
       lockStatus: "active",
       hints: [
         "Use keyframes to animate movement.",
         "Play with light and fog effects.",
       ],
-      buttonHex: { bg: "#2E7D32", border: "#1B5E20", hoverBg: "#388E3C" },
     },
   });
 
   const challenge4 = await prismapg.challenge.create({
     data: {
       title: "Design a Dream Treehouse",
-      titleHex: "#FFA000",
+      themeColor: "blue",
       titleIcon: "🏡",
       tags: ["Design", "TinkerCAD", "Architecture"],
-      tagHex: { bg: "#FFE082", border: "#FF6F00" },
       dueDate: new Date("2025-07-10"),
       coinsOffered: 40,
       description:
@@ -126,23 +121,21 @@ async function main() {
       },
       displayImage: "/images/treehouse-design.png",
       imageAlt: "A colorful treehouse with a slide",
-      platform: "TinkerCAD",
+      platform: "TinkerCAD 3D",
       lockStatus: "active",
       hints: [
         "Use cylinders for tree trunks.",
         "Try combining shapes to make new ones.",
       ],
-      buttonHex: { bg: "#FB8C00", border: "#E65100", hoverBg: "#FF9800" },
     },
   });
 
   const challenge5 = await prismapg.challenge.create({
     data: {
       title: "Space Explorer Animation",
-      titleHex: "#3949AB",
+      themeColor: "blue",
       titleIcon: "🚀",
       tags: ["Space", "Scratch", "Animation"],
-      tagHex: { bg: "#C5CAE9", border: "#1A237E" },
       dueDate: new Date("2025-07-25"),
       coinsOffered: 55,
       description:
@@ -160,7 +153,6 @@ async function main() {
         "Use ‘glide’ and ‘change costume’ blocks.",
         "Add sound effects for alien planets!",
       ],
-      buttonHex: { bg: "#303F9F", border: "#1A237E", hoverBg: "#5C6BC0" },
     },
   });
 

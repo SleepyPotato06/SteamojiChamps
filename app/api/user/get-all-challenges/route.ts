@@ -1,3 +1,5 @@
+"use server";
+
 import prismapg from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 
@@ -8,7 +10,11 @@ export async function POST(request: NextRequest) {
     if (!userId) {
       return NextResponse.json({ message: `Unauthorized` }, { status: 401 });
     }
-    const challenges = await prismapg.challenge.findMany();
+    const challenges = await prismapg.challenge.findMany({
+      where: {
+        lockStatus: `active`,
+      },
+    });
 
     const registeredChallenges = await prismapg.userChallenge.findMany({
       where: {
@@ -28,7 +34,6 @@ export async function POST(request: NextRequest) {
       (item) => item.challenge.id
     );
 
-    console.log(challenges);
     // Filter out registered challenges
     const allUnregisteredChallenges = challenges.filter(
       (challenge) => !registeredChallengeIds.includes(challenge.id)

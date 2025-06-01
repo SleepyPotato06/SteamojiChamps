@@ -1155,6 +1155,7 @@ export namespace Prisma {
     first_name: string | null
     last_name: string | null
     password: string | null
+    level: string | null
     totalCoinsAchieved: number | null
     role: $Enums.Role | null
   }
@@ -1165,6 +1166,7 @@ export namespace Prisma {
     first_name: string | null
     last_name: string | null
     password: string | null
+    level: string | null
     totalCoinsAchieved: number | null
     role: $Enums.Role | null
   }
@@ -1175,6 +1177,7 @@ export namespace Prisma {
     first_name: number
     last_name: number
     password: number
+    level: number
     totalCoinsAchieved: number
     achievements: number
     role: number
@@ -1196,6 +1199,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     role?: true
   }
@@ -1206,6 +1210,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     role?: true
   }
@@ -1216,6 +1221,7 @@ export namespace Prisma {
     first_name?: true
     last_name?: true
     password?: true
+    level?: true
     totalCoinsAchieved?: true
     achievements?: true
     role?: true
@@ -1314,6 +1320,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved: number
     achievements: string[]
     role: $Enums.Role
@@ -1344,6 +1351,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1357,6 +1365,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1368,6 +1377,7 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
@@ -1379,12 +1389,13 @@ export namespace Prisma {
     first_name?: boolean
     last_name?: boolean
     password?: boolean
+    level?: boolean
     totalCoinsAchieved?: boolean
     achievements?: boolean
     role?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "first_name" | "last_name" | "password" | "totalCoinsAchieved" | "achievements" | "role", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "first_name" | "last_name" | "password" | "level" | "totalCoinsAchieved" | "achievements" | "role", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userChallenges?: boolean | User$userChallengesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1403,6 +1414,7 @@ export namespace Prisma {
       first_name: string
       last_name: string
       password: string
+      level: string
       totalCoinsAchieved: number
       achievements: string[]
       role: $Enums.Role
@@ -1835,6 +1847,7 @@ export namespace Prisma {
     readonly first_name: FieldRef<"User", 'String'>
     readonly last_name: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
+    readonly level: FieldRef<"User", 'String'>
     readonly totalCoinsAchieved: FieldRef<"User", 'Int'>
     readonly achievements: FieldRef<"User", 'String[]'>
     readonly role: FieldRef<"User", 'Role'>
@@ -2291,7 +2304,7 @@ export namespace Prisma {
   export type ChallengeMinAggregateOutputType = {
     id: string | null
     title: string | null
-    titleHex: string | null
+    themeColor: string | null
     titleIcon: string | null
     dueDate: Date | null
     coinsOffered: number | null
@@ -2305,7 +2318,7 @@ export namespace Prisma {
   export type ChallengeMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    titleHex: string | null
+    themeColor: string | null
     titleIcon: string | null
     dueDate: Date | null
     coinsOffered: number | null
@@ -2319,10 +2332,9 @@ export namespace Prisma {
   export type ChallengeCountAggregateOutputType = {
     id: number
     title: number
-    titleHex: number
+    themeColor: number
     titleIcon: number
     tags: number
-    tagHex: number
     dueDate: number
     coinsOffered: number
     description: number
@@ -2332,7 +2344,6 @@ export namespace Prisma {
     platform: number
     lockStatus: number
     hints: number
-    buttonHex: number
     _all: number
   }
 
@@ -2348,7 +2359,7 @@ export namespace Prisma {
   export type ChallengeMinAggregateInputType = {
     id?: true
     title?: true
-    titleHex?: true
+    themeColor?: true
     titleIcon?: true
     dueDate?: true
     coinsOffered?: true
@@ -2362,7 +2373,7 @@ export namespace Prisma {
   export type ChallengeMaxAggregateInputType = {
     id?: true
     title?: true
-    titleHex?: true
+    themeColor?: true
     titleIcon?: true
     dueDate?: true
     coinsOffered?: true
@@ -2376,10 +2387,9 @@ export namespace Prisma {
   export type ChallengeCountAggregateInputType = {
     id?: true
     title?: true
-    titleHex?: true
+    themeColor?: true
     titleIcon?: true
     tags?: true
-    tagHex?: true
     dueDate?: true
     coinsOffered?: true
     description?: true
@@ -2389,7 +2399,6 @@ export namespace Prisma {
     platform?: true
     lockStatus?: true
     hints?: true
-    buttonHex?: true
     _all?: true
   }
 
@@ -2482,10 +2491,9 @@ export namespace Prisma {
   export type ChallengeGroupByOutputType = {
     id: string
     title: string
-    titleHex: string
+    themeColor: string
     titleIcon: string
     tags: string[]
-    tagHex: JsonValue
     dueDate: Date
     coinsOffered: number
     description: string
@@ -2495,7 +2503,6 @@ export namespace Prisma {
     platform: string
     lockStatus: string
     hints: string[]
-    buttonHex: JsonValue
     _count: ChallengeCountAggregateOutputType | null
     _avg: ChallengeAvgAggregateOutputType | null
     _sum: ChallengeSumAggregateOutputType | null
@@ -2520,10 +2527,9 @@ export namespace Prisma {
   export type ChallengeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    titleHex?: boolean
+    themeColor?: boolean
     titleIcon?: boolean
     tags?: boolean
-    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
@@ -2533,7 +2539,6 @@ export namespace Prisma {
     platform?: boolean
     lockStatus?: boolean
     hints?: boolean
-    buttonHex?: boolean
     userChallenges?: boolean | Challenge$userChallengesArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["challenge"]>
@@ -2541,10 +2546,9 @@ export namespace Prisma {
   export type ChallengeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    titleHex?: boolean
+    themeColor?: boolean
     titleIcon?: boolean
     tags?: boolean
-    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
@@ -2554,16 +2558,14 @@ export namespace Prisma {
     platform?: boolean
     lockStatus?: boolean
     hints?: boolean
-    buttonHex?: boolean
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    titleHex?: boolean
+    themeColor?: boolean
     titleIcon?: boolean
     tags?: boolean
-    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
@@ -2573,16 +2575,14 @@ export namespace Prisma {
     platform?: boolean
     lockStatus?: boolean
     hints?: boolean
-    buttonHex?: boolean
   }, ExtArgs["result"]["challenge"]>
 
   export type ChallengeSelectScalar = {
     id?: boolean
     title?: boolean
-    titleHex?: boolean
+    themeColor?: boolean
     titleIcon?: boolean
     tags?: boolean
-    tagHex?: boolean
     dueDate?: boolean
     coinsOffered?: boolean
     description?: boolean
@@ -2592,10 +2592,9 @@ export namespace Prisma {
     platform?: boolean
     lockStatus?: boolean
     hints?: boolean
-    buttonHex?: boolean
   }
 
-  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "titleHex" | "titleIcon" | "tags" | "tagHex" | "dueDate" | "coinsOffered" | "description" | "reference" | "displayImage" | "imageAlt" | "platform" | "lockStatus" | "hints" | "buttonHex", ExtArgs["result"]["challenge"]>
+  export type ChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "themeColor" | "titleIcon" | "tags" | "dueDate" | "coinsOffered" | "description" | "reference" | "displayImage" | "imageAlt" | "platform" | "lockStatus" | "hints", ExtArgs["result"]["challenge"]>
   export type ChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     userChallenges?: boolean | Challenge$userChallengesArgs<ExtArgs>
     _count?: boolean | ChallengeCountOutputTypeDefaultArgs<ExtArgs>
@@ -2611,10 +2610,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      titleHex: string
+      themeColor: string
       titleIcon: string
       tags: string[]
-      tagHex: Prisma.JsonValue
       dueDate: Date
       coinsOffered: number
       description: string
@@ -2624,7 +2622,6 @@ export namespace Prisma {
       platform: string
       lockStatus: string
       hints: string[]
-      buttonHex: Prisma.JsonValue
     }, ExtArgs["result"]["challenge"]>
     composites: {}
   }
@@ -3051,10 +3048,9 @@ export namespace Prisma {
   interface ChallengeFieldRefs {
     readonly id: FieldRef<"Challenge", 'String'>
     readonly title: FieldRef<"Challenge", 'String'>
-    readonly titleHex: FieldRef<"Challenge", 'String'>
+    readonly themeColor: FieldRef<"Challenge", 'String'>
     readonly titleIcon: FieldRef<"Challenge", 'String'>
     readonly tags: FieldRef<"Challenge", 'String[]'>
-    readonly tagHex: FieldRef<"Challenge", 'Json'>
     readonly dueDate: FieldRef<"Challenge", 'DateTime'>
     readonly coinsOffered: FieldRef<"Challenge", 'Int'>
     readonly description: FieldRef<"Challenge", 'String'>
@@ -3064,7 +3060,6 @@ export namespace Prisma {
     readonly platform: FieldRef<"Challenge", 'String'>
     readonly lockStatus: FieldRef<"Challenge", 'String'>
     readonly hints: FieldRef<"Challenge", 'String[]'>
-    readonly buttonHex: FieldRef<"Challenge", 'Json'>
   }
     
 
@@ -3510,6 +3505,8 @@ export namespace Prisma {
     userId: string | null
     challengeId: string | null
     submissionStatus: string | null
+    submission: string | null
+    submissionDate: Date | null
   }
 
   export type UserChallengeMaxAggregateOutputType = {
@@ -3517,6 +3514,8 @@ export namespace Prisma {
     userId: string | null
     challengeId: string | null
     submissionStatus: string | null
+    submission: string | null
+    submissionDate: Date | null
   }
 
   export type UserChallengeCountAggregateOutputType = {
@@ -3524,6 +3523,8 @@ export namespace Prisma {
     userId: number
     challengeId: number
     submissionStatus: number
+    submission: number
+    submissionDate: number
     _all: number
   }
 
@@ -3533,6 +3534,8 @@ export namespace Prisma {
     userId?: true
     challengeId?: true
     submissionStatus?: true
+    submission?: true
+    submissionDate?: true
   }
 
   export type UserChallengeMaxAggregateInputType = {
@@ -3540,6 +3543,8 @@ export namespace Prisma {
     userId?: true
     challengeId?: true
     submissionStatus?: true
+    submission?: true
+    submissionDate?: true
   }
 
   export type UserChallengeCountAggregateInputType = {
@@ -3547,6 +3552,8 @@ export namespace Prisma {
     userId?: true
     challengeId?: true
     submissionStatus?: true
+    submission?: true
+    submissionDate?: true
     _all?: true
   }
 
@@ -3627,6 +3634,8 @@ export namespace Prisma {
     userId: string
     challengeId: string
     submissionStatus: string
+    submission: string
+    submissionDate: Date
     _count: UserChallengeCountAggregateOutputType | null
     _min: UserChallengeMinAggregateOutputType | null
     _max: UserChallengeMaxAggregateOutputType | null
@@ -3651,6 +3660,8 @@ export namespace Prisma {
     userId?: boolean
     challengeId?: boolean
     submissionStatus?: boolean
+    submission?: boolean
+    submissionDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3660,6 +3671,8 @@ export namespace Prisma {
     userId?: boolean
     challengeId?: boolean
     submissionStatus?: boolean
+    submission?: boolean
+    submissionDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3669,6 +3682,8 @@ export namespace Prisma {
     userId?: boolean
     challengeId?: boolean
     submissionStatus?: boolean
+    submission?: boolean
+    submissionDate?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userChallenge"]>
@@ -3678,9 +3693,11 @@ export namespace Prisma {
     userId?: boolean
     challengeId?: boolean
     submissionStatus?: boolean
+    submission?: boolean
+    submissionDate?: boolean
   }
 
-  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "submissionStatus", ExtArgs["result"]["userChallenge"]>
+  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "submissionStatus" | "submission" | "submissionDate", ExtArgs["result"]["userChallenge"]>
   export type UserChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
@@ -3705,6 +3722,8 @@ export namespace Prisma {
       userId: string
       challengeId: string
       submissionStatus: string
+      submission: string
+      submissionDate: Date
     }, ExtArgs["result"]["userChallenge"]>
     composites: {}
   }
@@ -4134,6 +4153,8 @@ export namespace Prisma {
     readonly userId: FieldRef<"UserChallenge", 'String'>
     readonly challengeId: FieldRef<"UserChallenge", 'String'>
     readonly submissionStatus: FieldRef<"UserChallenge", 'String'>
+    readonly submission: FieldRef<"UserChallenge", 'String'>
+    readonly submissionDate: FieldRef<"UserChallenge", 'DateTime'>
   }
     
 
@@ -4568,6 +4589,7 @@ export namespace Prisma {
     first_name: 'first_name',
     last_name: 'last_name',
     password: 'password',
+    level: 'level',
     totalCoinsAchieved: 'totalCoinsAchieved',
     achievements: 'achievements',
     role: 'role'
@@ -4579,10 +4601,9 @@ export namespace Prisma {
   export const ChallengeScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    titleHex: 'titleHex',
+    themeColor: 'themeColor',
     titleIcon: 'titleIcon',
     tags: 'tags',
-    tagHex: 'tagHex',
     dueDate: 'dueDate',
     coinsOffered: 'coinsOffered',
     description: 'description',
@@ -4591,8 +4612,7 @@ export namespace Prisma {
     imageAlt: 'imageAlt',
     platform: 'platform',
     lockStatus: 'lockStatus',
-    hints: 'hints',
-    buttonHex: 'buttonHex'
+    hints: 'hints'
   };
 
   export type ChallengeScalarFieldEnum = (typeof ChallengeScalarFieldEnum)[keyof typeof ChallengeScalarFieldEnum]
@@ -4602,7 +4622,9 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     challengeId: 'challengeId',
-    submissionStatus: 'submissionStatus'
+    submissionStatus: 'submissionStatus',
+    submission: 'submission',
+    submissionDate: 'submissionDate'
   };
 
   export type UserChallengeScalarFieldEnum = (typeof UserChallengeScalarFieldEnum)[keyof typeof UserChallengeScalarFieldEnum]
@@ -4688,20 +4710,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Json'
-   */
-  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-  /**
-   * Reference to a field of type 'QueryMode'
-   */
-  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
-    
-
-
-  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -4712,6 +4720,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+  /**
+   * Reference to a field of type 'QueryMode'
+   */
+  export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -4741,6 +4763,7 @@ export namespace Prisma {
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    level?: StringFilter<"User"> | string
     totalCoinsAchieved?: IntFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleFilter<"User"> | $Enums.Role
@@ -4753,6 +4776,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -4761,18 +4785,19 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    username?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    username?: StringFilter<"User"> | string
     first_name?: StringFilter<"User"> | string
     last_name?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
+    level?: StringFilter<"User"> | string
     totalCoinsAchieved?: IntFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleFilter<"User"> | $Enums.Role
     userChallenges?: UserChallengeListRelationFilter
-  }, "id">
+  }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -4780,6 +4805,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -4799,6 +4825,7 @@ export namespace Prisma {
     first_name?: StringWithAggregatesFilter<"User"> | string
     last_name?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
+    level?: StringWithAggregatesFilter<"User"> | string
     totalCoinsAchieved?: IntWithAggregatesFilter<"User"> | number
     achievements?: StringNullableListFilter<"User">
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
@@ -4810,10 +4837,9 @@ export namespace Prisma {
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
     id?: StringFilter<"Challenge"> | string
     title?: StringFilter<"Challenge"> | string
-    titleHex?: StringFilter<"Challenge"> | string
+    themeColor?: StringFilter<"Challenge"> | string
     titleIcon?: StringFilter<"Challenge"> | string
     tags?: StringNullableListFilter<"Challenge">
-    tagHex?: JsonFilter<"Challenge">
     dueDate?: DateTimeFilter<"Challenge"> | Date | string
     coinsOffered?: IntFilter<"Challenge"> | number
     description?: StringFilter<"Challenge"> | string
@@ -4823,17 +4849,15 @@ export namespace Prisma {
     platform?: StringFilter<"Challenge"> | string
     lockStatus?: StringFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
-    buttonHex?: JsonFilter<"Challenge">
     userChallenges?: UserChallengeListRelationFilter
   }
 
   export type ChallengeOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    titleHex?: SortOrder
+    themeColor?: SortOrder
     titleIcon?: SortOrder
     tags?: SortOrder
-    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
@@ -4843,7 +4867,6 @@ export namespace Prisma {
     platform?: SortOrder
     lockStatus?: SortOrder
     hints?: SortOrder
-    buttonHex?: SortOrder
     userChallenges?: UserChallengeOrderByRelationAggregateInput
   }
 
@@ -4853,10 +4876,9 @@ export namespace Prisma {
     OR?: ChallengeWhereInput[]
     NOT?: ChallengeWhereInput | ChallengeWhereInput[]
     title?: StringFilter<"Challenge"> | string
-    titleHex?: StringFilter<"Challenge"> | string
+    themeColor?: StringFilter<"Challenge"> | string
     titleIcon?: StringFilter<"Challenge"> | string
     tags?: StringNullableListFilter<"Challenge">
-    tagHex?: JsonFilter<"Challenge">
     dueDate?: DateTimeFilter<"Challenge"> | Date | string
     coinsOffered?: IntFilter<"Challenge"> | number
     description?: StringFilter<"Challenge"> | string
@@ -4866,17 +4888,15 @@ export namespace Prisma {
     platform?: StringFilter<"Challenge"> | string
     lockStatus?: StringFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
-    buttonHex?: JsonFilter<"Challenge">
     userChallenges?: UserChallengeListRelationFilter
   }, "id">
 
   export type ChallengeOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    titleHex?: SortOrder
+    themeColor?: SortOrder
     titleIcon?: SortOrder
     tags?: SortOrder
-    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
@@ -4886,7 +4906,6 @@ export namespace Prisma {
     platform?: SortOrder
     lockStatus?: SortOrder
     hints?: SortOrder
-    buttonHex?: SortOrder
     _count?: ChallengeCountOrderByAggregateInput
     _avg?: ChallengeAvgOrderByAggregateInput
     _max?: ChallengeMaxOrderByAggregateInput
@@ -4900,10 +4919,9 @@ export namespace Prisma {
     NOT?: ChallengeScalarWhereWithAggregatesInput | ChallengeScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Challenge"> | string
     title?: StringWithAggregatesFilter<"Challenge"> | string
-    titleHex?: StringWithAggregatesFilter<"Challenge"> | string
+    themeColor?: StringWithAggregatesFilter<"Challenge"> | string
     titleIcon?: StringWithAggregatesFilter<"Challenge"> | string
     tags?: StringNullableListFilter<"Challenge">
-    tagHex?: JsonWithAggregatesFilter<"Challenge">
     dueDate?: DateTimeWithAggregatesFilter<"Challenge"> | Date | string
     coinsOffered?: IntWithAggregatesFilter<"Challenge"> | number
     description?: StringWithAggregatesFilter<"Challenge"> | string
@@ -4913,7 +4931,6 @@ export namespace Prisma {
     platform?: StringWithAggregatesFilter<"Challenge"> | string
     lockStatus?: StringWithAggregatesFilter<"Challenge"> | string
     hints?: StringNullableListFilter<"Challenge">
-    buttonHex?: JsonWithAggregatesFilter<"Challenge">
   }
 
   export type UserChallengeWhereInput = {
@@ -4924,6 +4941,8 @@ export namespace Prisma {
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
     submissionStatus?: StringFilter<"UserChallenge"> | string
+    submission?: StringFilter<"UserChallenge"> | string
+    submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     challenge?: XOR<ChallengeScalarRelationFilter, ChallengeWhereInput>
   }
@@ -4933,6 +4952,8 @@ export namespace Prisma {
     userId?: SortOrder
     challengeId?: SortOrder
     submissionStatus?: SortOrder
+    submission?: SortOrder
+    submissionDate?: SortOrder
     user?: UserOrderByWithRelationInput
     challenge?: ChallengeOrderByWithRelationInput
   }
@@ -4945,6 +4966,8 @@ export namespace Prisma {
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
     submissionStatus?: StringFilter<"UserChallenge"> | string
+    submission?: StringFilter<"UserChallenge"> | string
+    submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     challenge?: XOR<ChallengeScalarRelationFilter, ChallengeWhereInput>
   }, "id">
@@ -4954,6 +4977,8 @@ export namespace Prisma {
     userId?: SortOrder
     challengeId?: SortOrder
     submissionStatus?: SortOrder
+    submission?: SortOrder
+    submissionDate?: SortOrder
     _count?: UserChallengeCountOrderByAggregateInput
     _max?: UserChallengeMaxOrderByAggregateInput
     _min?: UserChallengeMinOrderByAggregateInput
@@ -4967,6 +4992,8 @@ export namespace Prisma {
     userId?: StringWithAggregatesFilter<"UserChallenge"> | string
     challengeId?: StringWithAggregatesFilter<"UserChallenge"> | string
     submissionStatus?: StringWithAggregatesFilter<"UserChallenge"> | string
+    submission?: StringWithAggregatesFilter<"UserChallenge"> | string
+    submissionDate?: DateTimeWithAggregatesFilter<"UserChallenge"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -4975,6 +5002,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -4987,6 +5015,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -4999,6 +5028,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5011,6 +5041,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5023,6 +5054,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5034,6 +5066,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5045,6 +5078,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -5053,10 +5087,9 @@ export namespace Prisma {
   export type ChallengeCreateInput = {
     id?: string
     title: string
-    titleHex: string
+    themeColor?: string
     titleIcon: string
     tags?: ChallengeCreatetagsInput | string[]
-    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
@@ -5066,17 +5099,15 @@ export namespace Prisma {
     platform: string
     lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
-    buttonHex: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUncheckedCreateInput = {
     id?: string
     title: string
-    titleHex: string
+    themeColor?: string
     titleIcon: string
     tags?: ChallengeCreatetagsInput | string[]
-    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
@@ -5086,17 +5117,15 @@ export namespace Prisma {
     platform: string
     lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
-    buttonHex: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUncheckedCreateNestedManyWithoutChallengeInput
   }
 
   export type ChallengeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -5106,17 +5135,15 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -5126,17 +5153,15 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
     userChallenges?: UserChallengeUncheckedUpdateManyWithoutChallengeNestedInput
   }
 
   export type ChallengeCreateManyInput = {
     id?: string
     title: string
-    titleHex: string
+    themeColor?: string
     titleIcon: string
     tags?: ChallengeCreatetagsInput | string[]
-    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
@@ -5146,16 +5171,14 @@ export namespace Prisma {
     platform: string
     lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
-    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -5165,16 +5188,14 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -5184,12 +5205,13 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type UserChallengeCreateInput = {
     id?: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
     user: UserCreateNestedOneWithoutUserChallengesInput
     challenge: ChallengeCreateNestedOneWithoutUserChallengesInput
   }
@@ -5199,11 +5221,15 @@ export namespace Prisma {
     userId: string
     challengeId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserChallengesNestedInput
     challenge?: ChallengeUpdateOneRequiredWithoutUserChallengesNestedInput
   }
@@ -5213,6 +5239,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserChallengeCreateManyInput = {
@@ -5220,11 +5248,15 @@ export namespace Prisma {
     userId: string
     challengeId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserChallengeUncheckedUpdateManyInput = {
@@ -5232,6 +5264,8 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -5291,6 +5325,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     achievements?: SortOrder
     role?: SortOrder
@@ -5306,6 +5341,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     role?: SortOrder
   }
@@ -5316,6 +5352,7 @@ export namespace Prisma {
     first_name?: SortOrder
     last_name?: SortOrder
     password?: SortOrder
+    level?: SortOrder
     totalCoinsAchieved?: SortOrder
     role?: SortOrder
   }
@@ -5367,6 +5404,17 @@ export namespace Prisma {
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
   }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -5391,24 +5439,12 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
   export type ChallengeCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    titleHex?: SortOrder
+    themeColor?: SortOrder
     titleIcon?: SortOrder
     tags?: SortOrder
-    tagHex?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
     description?: SortOrder
@@ -5418,7 +5454,6 @@ export namespace Prisma {
     platform?: SortOrder
     lockStatus?: SortOrder
     hints?: SortOrder
-    buttonHex?: SortOrder
   }
 
   export type ChallengeAvgOrderByAggregateInput = {
@@ -5428,7 +5463,7 @@ export namespace Prisma {
   export type ChallengeMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    titleHex?: SortOrder
+    themeColor?: SortOrder
     titleIcon?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
@@ -5442,7 +5477,7 @@ export namespace Prisma {
   export type ChallengeMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    titleHex?: SortOrder
+    themeColor?: SortOrder
     titleIcon?: SortOrder
     dueDate?: SortOrder
     coinsOffered?: SortOrder
@@ -5455,6 +5490,20 @@ export namespace Prisma {
 
   export type ChallengeSumOrderByAggregateInput = {
     coinsOffered?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -5483,20 +5532,6 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -5512,6 +5547,8 @@ export namespace Prisma {
     userId?: SortOrder
     challengeId?: SortOrder
     submissionStatus?: SortOrder
+    submission?: SortOrder
+    submissionDate?: SortOrder
   }
 
   export type UserChallengeMaxOrderByAggregateInput = {
@@ -5519,6 +5556,8 @@ export namespace Prisma {
     userId?: SortOrder
     challengeId?: SortOrder
     submissionStatus?: SortOrder
+    submission?: SortOrder
+    submissionDate?: SortOrder
   }
 
   export type UserChallengeMinOrderByAggregateInput = {
@@ -5526,6 +5565,8 @@ export namespace Prisma {
     userId?: SortOrder
     challengeId?: SortOrder
     submissionStatus?: SortOrder
+    submission?: SortOrder
+    submissionDate?: SortOrder
   }
 
   export type UserCreateachievementsInput = {
@@ -5783,6 +5824,20 @@ export namespace Prisma {
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -5807,23 +5862,11 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type UserChallengeCreateWithoutUserInput = {
     id?: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
     challenge: ChallengeCreateNestedOneWithoutUserChallengesInput
   }
 
@@ -5831,6 +5874,8 @@ export namespace Prisma {
     id?: string
     challengeId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeCreateOrConnectWithoutUserInput = {
@@ -5867,11 +5912,15 @@ export namespace Prisma {
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
     submissionStatus?: StringFilter<"UserChallenge"> | string
+    submission?: StringFilter<"UserChallenge"> | string
+    submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
   }
 
   export type UserChallengeCreateWithoutChallengeInput = {
     id?: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
     user: UserCreateNestedOneWithoutUserChallengesInput
   }
 
@@ -5879,6 +5928,8 @@ export namespace Prisma {
     id?: string
     userId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeCreateOrConnectWithoutChallengeInput = {
@@ -5913,6 +5964,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5924,6 +5976,7 @@ export namespace Prisma {
     first_name: string
     last_name: string
     password: string
+    level: string
     totalCoinsAchieved?: number
     achievements?: UserCreateachievementsInput | string[]
     role?: $Enums.Role
@@ -5937,10 +5990,9 @@ export namespace Prisma {
   export type ChallengeCreateWithoutUserChallengesInput = {
     id?: string
     title: string
-    titleHex: string
+    themeColor?: string
     titleIcon: string
     tags?: ChallengeCreatetagsInput | string[]
-    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
@@ -5950,16 +6002,14 @@ export namespace Prisma {
     platform: string
     lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
-    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedCreateWithoutUserChallengesInput = {
     id?: string
     title: string
-    titleHex: string
+    themeColor?: string
     titleIcon: string
     tags?: ChallengeCreatetagsInput | string[]
-    tagHex: JsonNullValueInput | InputJsonValue
     dueDate: Date | string
     coinsOffered?: number
     description: string
@@ -5969,7 +6019,6 @@ export namespace Prisma {
     platform: string
     lockStatus?: string
     hints?: ChallengeCreatehintsInput | string[]
-    buttonHex: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeCreateOrConnectWithoutUserChallengesInput = {
@@ -5994,6 +6043,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -6005,6 +6055,7 @@ export namespace Prisma {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
+    level?: StringFieldUpdateOperationsInput | string
     totalCoinsAchieved?: IntFieldUpdateOperationsInput | number
     achievements?: UserUpdateachievementsInput | string[]
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -6024,10 +6075,9 @@ export namespace Prisma {
   export type ChallengeUpdateWithoutUserChallengesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -6037,16 +6087,14 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type ChallengeUncheckedUpdateWithoutUserChallengesInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    titleHex?: StringFieldUpdateOperationsInput | string
+    themeColor?: StringFieldUpdateOperationsInput | string
     titleIcon?: StringFieldUpdateOperationsInput | string
     tags?: ChallengeUpdatetagsInput | string[]
-    tagHex?: JsonNullValueInput | InputJsonValue
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     coinsOffered?: IntFieldUpdateOperationsInput | number
     description?: StringFieldUpdateOperationsInput | string
@@ -6056,18 +6104,21 @@ export namespace Prisma {
     platform?: StringFieldUpdateOperationsInput | string
     lockStatus?: StringFieldUpdateOperationsInput | string
     hints?: ChallengeUpdatehintsInput | string[]
-    buttonHex?: JsonNullValueInput | InputJsonValue
   }
 
   export type UserChallengeCreateManyUserInput = {
     id?: string
     challengeId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     challenge?: ChallengeUpdateOneRequiredWithoutUserChallengesNestedInput
   }
 
@@ -6075,23 +6126,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserChallengeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserChallengeCreateManyChallengeInput = {
     id?: string
     userId: string
     submissionStatus?: string
+    submission?: string
+    submissionDate?: Date | string
   }
 
   export type UserChallengeUpdateWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUserChallengesNestedInput
   }
 
@@ -6099,12 +6158,16 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserChallengeUncheckedUpdateManyWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     submissionStatus?: StringFieldUpdateOperationsInput | string
+    submission?: StringFieldUpdateOperationsInput | string
+    submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

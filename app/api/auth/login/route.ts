@@ -1,3 +1,5 @@
+"use server";
+
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -5,10 +7,8 @@ export async function POST(request: NextRequest) {
   const { username, password } = await request.json();
 
   if (!username || !password) {
-    return (
-      NextResponse.json({
-        message: "Please ensure all fields are filled",
-      }),
+    return NextResponse.json(
+      { message: "Please ensure all fields are filled" },
       { status: 400 }
     );
   }
@@ -16,8 +16,8 @@ export async function POST(request: NextRequest) {
   try {
     const user = await prismapg.user.findMany({
       where: {
-        username: username,
-        password: password,
+        username,
+        password,
       },
       select: {
         id: true,
@@ -36,14 +36,12 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(
-      { message: "Failed to login. Try again !" },
+      { message: "Failed to login. Try again!" },
       { status: 401 }
     );
   } catch (error) {
     return NextResponse.json(
-      {
-        message: "Internal server error:  " + error,
-      },
+      { message: `Internal server error: ${error}` },
       { status: 500 }
     );
   }

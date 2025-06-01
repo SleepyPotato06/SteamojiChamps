@@ -1,14 +1,6 @@
 //----------Interfaces----------------
 export interface UserCardProps {
-  name: string;
-  level: string;
-  coinsAchieved: number;
-  activeChallengeCount: number;
-  achievementCount: number;
-}
-
-export interface RegisteredChallengeCardProp {
-  registeredChallenges: RegisteredChallenge[];
+  users: User[];
 }
 
 export interface ChallengeCardProp {
@@ -21,6 +13,7 @@ export type User = {
   username: string;
   first_name: string;
   last_name: string;
+  level: string;
   totalCoinsAchieved: number;
   achievements: string[];
   role: string;
@@ -33,25 +26,23 @@ export type UserContextType = {
 };
 
 export type Challenge = {
-  id: string;
-  title: string;
-  titleHex: string;
-  titleIcon: string;
-  tags: string[];
-  tagHex: { bg: string; border: string };
-  dueDate: Date;
-  coinsOffered: number;
-  description: string;
+  id: string | undefined;
+  title: string | undefined;
+  titleIcon: string | undefined;
+  themeColor: string | undefined;
+  tags: string[] | undefined;
+  dueDate: Date | undefined;
+  coinsOffered: number | undefined;
+  description: string | undefined;
   reference: {
-    refereceDescription: string;
-    referenceLink: string;
+    refereceDescription: string | undefined;
+    referenceLink: string | undefined;
   };
-  displayImage: string;
-  imageAlt: string;
-  platform: string;
-  lockStatus: string;
-  hints: string[];
-  buttonHex: { bg: string; border: string; hoverBg: string };
+  displayImage: string | undefined;
+  imageAlt: string | undefined;
+  platform: string | undefined;
+  lockStatus: string | undefined;
+  hints: string[] | undefined;
 };
 
 export type UserChallenge = {
@@ -60,33 +51,7 @@ export type UserChallenge = {
   userId: string;
   challenge: Challenge;
   challengeId: string;
-  status: string;
-  submittedAt: Date;
-  coinsEarned: number;
-};
-
-export type RegisteredChallenge = {
-  id: string;
-  challenge: {
-    id: string;
-    title: string;
-    titleHex: string;
-    titleIcon: string;
-    tags: string[];
-    tagHex: { bg: string; border: string };
-    dueDate: Date;
-    coinsOffered: number;
-    description: string;
-    reference: {
-      refereceDescription: string;
-      referenceLink: string;
-    };
-    displayImage: string;
-    imageAlt: string;
-    platform: string;
-    lockStatus: string;
-    hints: string[];
-    buttonHex: { bg: string; border: string; hoverBg: string };
-  };
   submissionStatus: string;
+  submission: string;
+  submissionDate: Date;
 };
