@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { toast } from "react-hot-toast";
 import { UserChallenge } from "@/lib/definitions";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -41,17 +42,28 @@ export default function OpenSubmission({
     userId: string,
     points: number
   ) {
-    try {
-      await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/grade-user`, {
+    const fetchGradeUser = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/grade-user`,
+      {
         method: "PUT",
         body: JSON.stringify({ userId, submissionId, points }),
         headers: { "Content-Type": "application/json" },
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+      }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Failed to grade user");
+      return res.json();
+    });
 
+    toast
+      .promise(fetchGradeUser, {
+        loading: "Grading user...",
+        success: "User graded successfully!",
+        error: "Failed to grade user.",
+      })
+      .catch((error) => {
+        console.error("Error grading user:", error);
+      });
+  }
   return (
     <Card className="min-w-[30rem]">
       <CardHeader className="flex flex-row justify-between items-center">

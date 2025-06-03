@@ -2,11 +2,39 @@
 
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+const createUserSchema = z.object({
+  username: z.string().min(2, `Username is required`),
+  first_name: z.string().min(1, `First Name is required`),
+  last_name: z.string().min(1, `Last Name is required`),
+  level: z.enum([
+    "Tinkerer",
+    "Engineer",
+    "Inventor",
+    "Designer",
+    "Crafter",
+    "Builder",
+    "Innovator",
+  ]),
+  password: z.string().min(1, `Password is required`),
+});
 
 export async function POST(request: NextRequest) {
-  const { user } = await request.json();
-
   try {
+    const body = await request.json();
+
+    const parsed = createUserSchema.safeParse(body.user);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { message: "Invalid user data", errors: parsed.error.format() },
+        { status: 400 }
+      );
+    }
+
+    const user = parsed.data;
+
     await prismapg.user.create({
       data: {
         username: user.username,
@@ -38,7 +66,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { message: `Error adding user: ${error}` },
-      { status: 401 }
+      { status: 500 }
     );
   }
 }

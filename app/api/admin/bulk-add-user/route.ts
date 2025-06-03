@@ -1,6 +1,15 @@
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import * as XLSX from "xlsx";
+import { z } from "zod";
+
+const userSchema = z.object({
+  username: z.string().min(1),
+  first_name: z.string().min(1),
+  last_name: z.string().min(1),
+  password: z.string().min(1),
+  level: z.string().min(1),
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -18,25 +27,47 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(arrayBuffer);
 
     const workbook = XLSX.read(buffer, { type: "buffer" });
-
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
 
-    const extractedUsers: {
-      username: string;
-      first_name: string;
-      last_name: string;
-      password: string;
-      level: string;
-    }[] = XLSX.utils.sheet_to_json(worksheet);
+    const rawUsers = XLSX.utils.sheet_to_json<Record<string, any>>(worksheet);
+    const validatedUsers = [];
+
+    for (const rawUser of rawUsers) {
+      const result = userSchema.safeParse(rawUser);
+      if (!result.success) {
+        return NextResponse.json(
+          {
+            message: "Invalid user data",
+            errors: result.error.format(),
+          },
+          { status: 400 }
+        );
+      }
+
+      validatedUsers.push(result.data);
+    }
+
+    console.log(validatedUsers);
 
     await prismapg.user.createMany({
-      data: extractedUsers,
+      data: validatedUsers,
     });
 
     const users = await prismapg.user.findMany({
       where: {
         role: "USER",
+      },
+      select: {
+        id: true,
+        username: true,
+        first_name: true,
+        last_name: true,
+        level: true,
+        totalCoinsAchieved: true,
+        achievements: true,
+        role: true,
+        userChallenges: true,
       },
     });
 

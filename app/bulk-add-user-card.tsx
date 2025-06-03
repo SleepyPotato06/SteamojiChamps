@@ -8,6 +8,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import * as XLSX from "xlsx";
+import { toast } from "react-hot-toast";
 import { User } from "@/lib/definitions";
 import { FaDownload } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
@@ -39,28 +40,29 @@ export default function BulkAddUserCard({
   };
 
   async function bulkUpdate(file: File | null) {
+    if (!file) return;
+
     const formData = new FormData();
+    formData.append("steamoji_users", file, file.name);
 
-    if (file) {
-      formData.append("steamoji_users", file, file.name);
-    }
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/bulk-add-user`,
-        {
-          method: "POST",
-          body: formData,
+    await toast.promise(
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/bulk-add-user`, {
+        method: "POST",
+        body: formData,
+      }).then(async (res) => {
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Bulk upload failed");
         }
-      );
-
-      if (res.ok) {
         const result = await res.json();
         setAllUsers(result.users);
+      }),
+      {
+        loading: "Uploading users...",
+        success: "Users uploaded successfully!",
+        error: (err) => err.message || "Something went wrong during upload",
       }
-    } catch (error) {
-      console.log(error);
-    }
+    );
   }
 
   return (

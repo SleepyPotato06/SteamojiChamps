@@ -6,15 +6,10 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  FilterByActivityType,
-  FilterByCoinsOffered,
-  FilterByPlatform,
-} from "@/components/user/filters";
+import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { inter_md } from "@/lib/font";
 import { useState, useEffect } from "react";
@@ -25,58 +20,40 @@ export default function Challenges() {
   const { user } = useUser();
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [filteredChallenges, setFilteredChallenges] = useState<Challenge[]>([]);
-  const [challenge, setChallenge] = useState<Challenge>({
-    id: undefined,
-    title: undefined,
-    themeColor: undefined,
-    titleIcon: undefined,
-    tags: undefined,
-    dueDate: undefined,
-    coinsOffered: undefined,
-    description: undefined,
-    reference: {
-      refereceDescription: undefined,
-      referenceLink: undefined,
-    },
-    displayImage: undefined,
-    imageAlt: undefined,
-    platform: undefined,
-    lockStatus: undefined,
-    hints: undefined,
-  });
   const [searchByPlatform, setSearchByPlatform] = useState(`All`);
   const [searchByCoins, setSearchByCoins] = useState(`All`);
   const [searchByName, setSearchByName] = useState(``);
 
   useEffect(() => {
     async function getAllChallenges() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-all-challenges`,
-          {
-            method: "POST",
-            body: JSON.stringify({ userId: user?.id }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        if (res.ok) {
-          const result = await res.json();
-          const challenges = result.allUnregisteredChallenges;
-          return challenges;
+      const getAllChallenges = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-all-challenges`,
+        {
+          method: "POST",
+          body: JSON.stringify({ userId: user?.id }),
+          headers: { "Content-Type": "application/json" },
         }
-      } catch (error) {
-        console.error("Failed to fetch challenges:", error);
-      }
-      return null;
+      ).then(async (res) => {
+        if (!res.ok) throw new Error("Failed to fetch challenges");
+        return res.json();
+      });
+
+      toast
+        .promise(getAllChallenges, {
+          loading: "Fetching challenges...",
+          success: "Challenges loaded !",
+          error: "Failed to load challenges.",
+        })
+        .then((result) => {
+          setChallenges(result.unregisteredChallenges);
+          setFilteredChallenges(result.unregisteredChallenges);
+        })
+        .catch((error) => {
+          console.error("Error fetching challenges:", error);
+        });
     }
 
-    getAllChallenges().then((challenges) => {
-      if (challenges) {
-        setChallenges(challenges);
-        setFilteredChallenges(challenges);
-      }
-    });
+    getAllChallenges();
   }, []);
 
   useEffect(() => {

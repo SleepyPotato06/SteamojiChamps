@@ -3,27 +3,37 @@
 import { useEffect, useState } from "react";
 import { FaTrophy, FaLock } from "react-icons/fa";
 import { User, UserChallenge } from "@/lib/definitions";
+import toast from "react-hot-toast";
 
 export default function Leaderboard() {
   const [leaderboard, setLeaderboard] = useState<User[]>([]);
   useEffect(() => {
     async function getLeaderboard() {
-      const res = await fetch(
+      const getLeaderboard = fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-leaderboard`,
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         }
-      );
+      ).then(async (res) => {
+        if (!res.ok) throw new Error("Failed to load leaderboard");
+        return res.json();
+      });
 
-      if (res.ok) {
-        const result = await res.json();
-        setLeaderboard(result.leaderboard);
-      }
+      toast
+        .promise(getLeaderboard, {
+          loading: "Loading leaderboard...",
+          success: "Leaderboard loaded!",
+          error: "Could not load leaderboard.",
+        })
+        .then((result) => {
+          setLeaderboard(result.leaderboard);
+        });
     }
 
     getLeaderboard();
   }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex flex-row  text-white bg-blue-700 p-3 rounded-tl-md rounded-tr-md font-medium">

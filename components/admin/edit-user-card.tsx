@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { toast } from "react-hot-toast";
 import React, { useState } from "react";
 import { User } from "@/lib/definitions";
 
@@ -35,29 +36,46 @@ export default function EditUserCard({
   );
   const [updatedLevel, setUpdatedLevel] = useState<string>(user.level);
 
+  const [updatedTotalCoinsAchieved, setUpdatedTotalCoinsAchieved] =
+    useState<number>(user.totalCoinsAchieved);
+
   async function updateUser(
     userId: string,
     first_name: string,
     last_name: string,
-    level: string
+    level: string,
+    totalCoinsAchieved: number
   ) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-user`,
-        {
-          method: "PUT",
-          body: JSON.stringify({ userId, first_name, last_name, level }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllUsers(result.updatedUsers);
+    const updateUser = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-user`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          userId,
+          first_name,
+          last_name,
+          level,
+          totalCoinsAchieved,
+        }),
+        headers: { "Content-Type": "application/json" },
       }
-    } catch (error) {
-      console.log(error);
-    }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Failed to update user");
+      return res.json();
+    });
+
+    toast
+      .promise(updateUser, {
+        loading: "Updating user...",
+        success: "User updated successfully!",
+        error: "Failed to update user.",
+      })
+      .then((result) => {
+        setAllUsers(result.updatedUsers);
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+      });
   }
 
   return (
@@ -73,39 +91,54 @@ export default function EditUserCard({
           </button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex flex-col gap-2">
-        <Label className="text-md">First Name</Label>
-        <Input
-          type="text"
-          defaultValue={updatedFirstName}
-          onChange={(e) => setUpdatedFirstName(e.target.value)}
-        />
-        <Label className="text-md">Last Name</Label>
-        <Input
-          type="text"
-          defaultValue={updatedLastName}
-          onChange={(e) => setUpdatedLastName(e.target.value)}
-        />
-        <Label className="text-md">Level</Label>
-        <Select
-          defaultValue={updatedLevel}
-          onValueChange={(value) => setUpdatedLevel(value)}
-        >
-          <SelectTrigger className="w-full">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="Junior">Junior</SelectItem>
-              <SelectItem value="Engineering">Engineering</SelectItem>
-              <SelectItem value="Fabrication">Fabrication</SelectItem>
-              <SelectItem value="Physical Computing">
-                Physical Computing
-              </SelectItem>
-              <SelectItem value="Digital Arts">Digital Arts</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
+      <CardContent className="grid grid-cols-2 gap-4">
+        <div id="first_name" className="flex flex-col gap-2">
+          <Label className="text-sm font-semibold">First Name</Label>
+          <Input
+            type="text"
+            defaultValue={updatedFirstName}
+            onChange={(e) => setUpdatedFirstName(e.target.value)}
+          />
+        </div>
+        <div id="last_name" className="flex flex-col gap-2">
+          <Label className="text-sm font-semibold">Last Name</Label>
+          <Input
+            type="text"
+            defaultValue={updatedLastName}
+            onChange={(e) => setUpdatedLastName(e.target.value)}
+          />
+        </div>
+        <div id="coins_achieved" className="flex flex-col gap-2">
+          <Label className="text-sm font-semibold">Coins Achieved</Label>
+          <Input
+            defaultValue={updatedTotalCoinsAchieved.toString()}
+            onChange={(e) =>
+              setUpdatedTotalCoinsAchieved(parseInt(e.target.value))
+            }
+          />
+        </div>
+        <div id="level" className="flex flex-col gap-2">
+          <Label className="text-sm font-semibold">Level</Label>
+          <Select
+            defaultValue={updatedLevel}
+            onValueChange={(value) => setUpdatedLevel(value)}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="Tinkerer">Tinkerer</SelectItem>
+                <SelectItem value="Engineer">Engineer</SelectItem>
+                <SelectItem value="Inventor">Inventor</SelectItem>
+                <SelectItem value="Designer">Designer</SelectItem>
+                <SelectItem value="Crafter">Crafter</SelectItem>
+                <SelectItem value="Builder">Builder</SelectItem>
+                <SelectItem value="Innovator">Innovator</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
       </CardContent>
       <CardFooter className="w-full flex justify-end">
         <button
@@ -114,7 +147,8 @@ export default function EditUserCard({
               user.id,
               updatedFirstName,
               updatedLastName,
-              updatedLevel
+              updatedLevel,
+              updatedTotalCoinsAchieved
             );
             setEditOpen({ state: false, id: `0` });
           }}

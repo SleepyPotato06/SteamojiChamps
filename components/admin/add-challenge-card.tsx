@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { toast } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -124,37 +125,39 @@ export default function AddChallengeCard({
     coinsOffered: 25,
     description: undefined,
     reference: {
-      refereceDescription: undefined,
+      referenceDescription: undefined,
       referenceLink: undefined,
     },
     displayImage: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSCWECbwBwfC64V_04ZhwgAIjKl7CNqDyYWA&s`,
     imageAlt: `steamoji_kelowna`,
     platform: `Scratch`,
     lockStatus: `inactive`,
-    hints: undefined,
+    hints: [],
   });
 
   const [newTag, setNewTag] = useState("");
   const [newHint, setNewHint] = useState("");
 
   async function addChallenge(challenge: AddChallenge) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-challenge`,
-        {
-          method: "POST",
-          body: JSON.stringify({ challenge }),
-          headers: { "Content-Type": "application/json" },
+    await toast.promise(
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-challenge`, {
+        method: "POST",
+        body: JSON.stringify({ challenge }),
+        headers: { "Content-Type": "application/json" },
+      }).then(async (res) => {
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Failed to add challenge");
         }
-      );
-
-      if (res.ok) {
         const result = await res.json();
         setAllChallenges(result.updatedChallenges);
+      }),
+      {
+        loading: "Adding challenge...",
+        success: "Challenge added successfully!",
+        error: (err) => err.message || "Something went wrong",
       }
-    } catch (error) {
-      console.log(error);
-    }
+    );
   }
 
   const addTag = () => {
@@ -368,16 +371,16 @@ export default function AddChallengeCard({
                   <Input
                     placeholder="Reference description"
                     value={
-                      challenge.reference.refereceDescription === undefined
+                      challenge.reference.referenceDescription === undefined
                         ? ``
-                        : challenge.reference.refereceDescription
+                        : challenge.reference.referenceDescription
                     }
                     onChange={(e) =>
                       setChallenge((prev) => ({
                         ...prev,
                         reference: {
                           ...prev.reference,
-                          refereceDescription: e.target.value,
+                          referenceDescription: e.target.value,
                         },
                       }))
                     }

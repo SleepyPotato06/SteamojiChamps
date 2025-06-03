@@ -10,7 +10,7 @@ import {
   TableHead,
   TableHeader,
 } from "@/components/ui/table";
-import { Button } from "../ui/button";
+import { toast } from "react-hot-toast";
 
 export default function ViewSubmissions({
   setIsOpen,
@@ -31,23 +31,32 @@ export default function ViewSubmissions({
   }>({ state: false, id: null, action: null });
   useEffect(() => {
     async function getSubmissions(challengeId: string | undefined) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-submissions`,
-          {
-            method: "POST",
-            body: JSON.stringify({ challengeId }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+      if (!challengeId) return;
 
-        if (res.ok) {
-          const result = await res.json();
-          setSubmissions(result.submissions);
+      const fetchSubmissions = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-submissions`,
+        {
+          method: "POST",
+          body: JSON.stringify({ challengeId }),
+          headers: { "Content-Type": "application/json" },
         }
-      } catch (error) {
-        console.log(error);
-      }
+      ).then(async (res) => {
+        if (!res.ok) throw new Error("Failed to fetch submissions");
+        return res.json();
+      });
+
+      toast
+        .promise(fetchSubmissions, {
+          loading: "Loading submissions...",
+          success: "Submissions loaded!",
+          error: "Failed to load submissions.",
+        })
+        .then((result) => {
+          setSubmissions(result.submissions || []);
+        })
+        .catch((err) => {
+          console.error("Error fetching submissions:", err);
+        });
     }
 
     getSubmissions(selectedChallenge.id);

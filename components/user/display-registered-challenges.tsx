@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/lib/UserContext";
 import SubmitSolution from "./submit-solution";
 import ConfirmationModal from "../ui/confirmationModal";
+import toast from "react-hot-toast";
 
 export default function DisplayRegisteredChallenges() {
   const { user } = useUser();
@@ -33,62 +34,85 @@ export default function DisplayRegisteredChallenges() {
     state: boolean;
     id: string | undefined;
   }>({ state: false, id: undefined });
+
   useEffect(() => {
     async function getChallengeByUserId(userId: string | undefined) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-registered-challenges`,
-          {
-            method: "POST",
-            body: JSON.stringify({ userId }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        if (res.ok) {
-          const result = await res.json();
-          const registeredChallenges = result.registeredChallenges;
-
-          return registeredChallenges;
+      const fetchChallengeByUserId = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-registered-challenges`,
+        {
+          method: "POST",
+          body: JSON.stringify({ userId }),
+          headers: { "Content-Type": "application/json" },
         }
-      } catch (error) {
-        console.log(error);
-      }
+      ).then(async (res) => {
+        const result = await res.json();
+        if (!res.ok)
+          throw new Error(result.message || "Failed to fetch challenges");
+        return result.registeredChallenges;
+      });
+
+      toast
+        .promise(fetchChallengeByUserId, {
+          loading: "Fetching registered challenges...",
+          success: "Challenges loaded!",
+          error: "Failed to load challenges.",
+        })
+        .then((registeredChallenges) => {
+          setRegisteredChallenges(registeredChallenges);
+        })
+        .catch((err) => {
+          console.error("Challenge fetch error:", err);
+        });
     }
 
-    getChallengeByUserId(user?.id).then((registeredChallenges) => {
-      if (registeredChallenges) {
-        setRegisteredChallenges(registeredChallenges);
-      }
-    });
+    getChallengeByUserId(user?.id);
   }, []);
 
   async function deleteRegisteredChallenge(
     userChallengeId: string | undefined
   ) {
+    if (!userChallengeId) {
+      toast.error("Challenge ID is missing.");
+      return;
+    }
+
+    const fetchDeleteRegisteredChallenge = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ userChallengeId }),
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(async (res) => {
+      const result = await res.json();
+      if (!res.ok) {
+        throw new Error(result.message || "Failed to delete challenge.");
+      }
+      return result;
+    });
+
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ userChallengeId }),
-          headers: { "Content-Type": "application/json" },
-        }
+      await toast.promise(fetchDeleteRegisteredChallenge, {
+        loading: "Deleting challenge...",
+        success: "Challenge deleted!",
+        error: (err) => `Delete failed: ${err.message}`,
+      });
+
+      // Only update state on success
+      const updatedChallenges = registeredChallenges.filter(
+        (registeredChallenge: UserChallenge) =>
+          registeredChallenge.id !== userChallengeId
       );
 
-      if (res.ok) {
-        const updatedChallenges = registeredChallenges.filter(
-          (registeredChallenge: UserChallenge) =>
-            registeredChallenge.id !== userChallengeId
-        );
-
+      setTimeout(() => {
         setRegisteredChallenges(updatedChallenges);
         setConfrmRegChallengeDelete({ state: false, id: undefined });
-      }
-    } catch (error) {
-      console.log(error);
+      }, 1000);
+    } catch (err) {
+      console.error(err);
     }
   }
+
   return (
     <div className="w-full grid grid-cols-3 gap-3">
       {registeredChallenges.map((registeredChallenge: UserChallenge) => {

@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { toast } from "react-hot-toast";
 import { AddUser, User } from "@/lib/definitions";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -29,30 +30,30 @@ export default function AddUserCard({
     username: undefined,
     first_name: undefined,
     last_name: undefined,
-    level: `Junior`,
+    level: `Tinkerer`,
     password: undefined,
   });
 
   async function addUser(user: AddUser) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-user`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            user,
-          }),
-          headers: { "Content-Type": "application/json" },
+    await toast.promise(
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-user`, {
+        method: "POST",
+        body: JSON.stringify({ user }),
+        headers: { "Content-Type": "application/json" },
+      }).then(async (res) => {
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Failed to add user");
         }
-      );
-
-      if (res.ok) {
         const result = await res.json();
         setAllUsers(result.updatedUsers);
+      }),
+      {
+        loading: "Adding user...",
+        success: "User added successfully!",
+        error: (err) => err.message || "Something went wrong",
       }
-    } catch (error) {
-      console.log(error);
-    }
+    );
   }
 
   return (
@@ -129,13 +130,13 @@ export default function AddUserCard({
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="Junior">Junior</SelectItem>
-                <SelectItem value="Engineering">Engineering</SelectItem>
-                <SelectItem value="Fabrication">Fabrication</SelectItem>
-                <SelectItem value="Physical Computing">
-                  Physical Computing
-                </SelectItem>
-                <SelectItem value="Digital Arts">Digital Arts</SelectItem>
+                <SelectItem value="Tinkerer">Tinkerer</SelectItem>
+                <SelectItem value="Engineer">Engineer</SelectItem>
+                <SelectItem value="Inventor">Inventor</SelectItem>
+                <SelectItem value="Designer">Designer</SelectItem>
+                <SelectItem value="Crafter">Crafter</SelectItem>
+                <SelectItem value="Builder">Builder</SelectItem>
+                <SelectItem value="Innovator">Innovator</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

@@ -2,6 +2,7 @@ import OjiCoin from "@/public/coin.svg";
 import { TiChevronRight } from "react-icons/ti";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 import { useUser } from "@/lib/UserContext";
 
 export default function ViewChallenge({
@@ -31,14 +32,17 @@ export default function ViewChallenge({
 }) {
   const { user } = useUser();
   const router = useRouter();
+
   async function registerChallenge(
     userId: string | undefined,
     challengeId: string
   ) {
-    if (userId === undefined) {
+    if (!userId) {
+      toast.error("User not logged in.");
       return;
     }
-    try {
+
+    const register = async () => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/register-challenge`,
         {
@@ -48,13 +52,28 @@ export default function ViewChallenge({
         }
       );
 
-      if (res.ok) {
-        router.push(`/home`);
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Registration failed");
       }
-    } catch (error) {
-      console.log(error);
+
+      return data.message;
+    };
+
+    try {
+      await toast.promise(register(), {
+        loading: "Registering challenge...",
+        success: (msg) => msg || "Challenge registered!",
+        error: (err) => err.message || "Failed to register challenge.",
+      });
+
+      router.push("/home");
+    } catch (err) {
+      console.error(err);
     }
   }
+
   return (
     <div className="max-h-[30rem] overflow-y-scroll flex flex-col gap-8 bg-white p-6 rounded-xl shadow-xl">
       <div className="flex flex-row justify-between items-center gap-52">
