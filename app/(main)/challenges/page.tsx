@@ -26,7 +26,7 @@ export default function Challenges() {
 
   useEffect(() => {
     async function getAllChallenges() {
-      const promise = fetch(
+      const getAllChallenges = fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-all-challenges`,
         {
           method: "POST",
@@ -39,7 +39,7 @@ export default function Challenges() {
       });
 
       toast
-        .promise(promise, {
+        .promise(getAllChallenges, {
           loading: "Fetching challenges...",
           success: "Challenges loaded !",
           error: "Failed to load challenges.",

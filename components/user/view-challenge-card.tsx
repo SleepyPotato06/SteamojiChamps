@@ -61,14 +61,17 @@ export default function ViewChallenge({
       return data.message;
     };
 
-    toast.promise(register(), {
-      loading: "Registering challenge...",
-      success: (msg) => {
-        router.push("/home");
-        return msg || "Challenge registered!";
-      },
-      error: (err) => err.message || "Failed to register challenge.",
-    });
+    try {
+      await toast.promise(register(), {
+        loading: "Registering challenge...",
+        success: (msg) => msg || "Challenge registered!",
+        error: (err) => err.message || "Failed to register challenge.",
+      });
+
+      router.push("/home");
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (

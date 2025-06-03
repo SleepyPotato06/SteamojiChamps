@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Challenge } from "@/lib/definitions";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import DisplayAllChallenges from "@/components/admin/display-all-challenges";
 import BulkAddChallengeCard from "@/components/admin/bulk-add-challenge";
@@ -23,26 +24,32 @@ export default function ManageChallenges() {
 
   useEffect(() => {
     async function getAllChallenges() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-all-challenges`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+      const getAllChallenges = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-all-challenges`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      ).then(async (res) => {
+        if (!res.ok) throw new Error("Failed to fetch challenges");
+        return res.json();
+      });
 
-        if (res.ok) {
-          const result = await res.json();
+      toast
+        .promise(getAllChallenges, {
+          loading: "Fetching all challenges...",
+          success: "Challenges loaded!",
+          error: "Failed to load challenges.",
+        })
+        .then((result) => {
           setAllChallenges(result.allChallenges || []);
           setFilteredChallenges(result.allChallenges || []);
-        }
-      } catch (error) {
-        console.log(error);
-        // Set empty arrays on error to prevent undefined
-        setAllChallenges([]);
-        setFilteredChallenges([]);
-      }
+        })
+        .catch((error) => {
+          console.error("Error fetching challenges:", error);
+          setAllChallenges([]);
+          setFilteredChallenges([]);
+        });
     }
 
     getAllChallenges();

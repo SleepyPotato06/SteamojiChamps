@@ -2,6 +2,7 @@
 
 import { Challenge } from "@/lib/definitions";
 import { Card } from "@/components/ui/card";
+import { toast } from "react-hot-toast";
 import { FaClipboardCheck } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
 import { TbCancel } from "react-icons/tb";
@@ -32,32 +33,36 @@ export default function DisplayAllChallenges({
   }>({ state: false, id: undefined });
 
   async function deleteChallenge(challengeId: string | undefined) {
-    if (challengeId === undefined) {
-      return;
-    }
+    if (!challengeId) return;
 
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-challenge`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ challengeId }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    const deleteChallenge = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-challenge`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ challengeId }),
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Failed to delete challenge");
+      return res.json();
+    });
 
-      if (res.ok) {
-        const result = await res.json();
+    toast
+      .promise(deleteChallenge, {
+        loading: "Deleting challenge...",
+        success: "Challenge deleted successfully!",
+        error: "Failed to delete challenge.",
+      })
+      .then((result) => {
         setAllChallenges(result.allChallenges);
         setConfirmChallengeDelete({
           state: false,
           id: undefined,
         });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      })
+      .catch((error) => console.error(error));
   }
+
   return (
     <div className="w-full grid grid-cols-3 gap-3 px-4 pb-4">
       {allChallenges.map((challenge: Challenge) => {

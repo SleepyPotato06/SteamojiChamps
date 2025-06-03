@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { toast } from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,23 +68,30 @@ export default function EditChallengeCard({
   const [newHint, setNewHint] = useState("");
 
   async function updateChallenge(challenge: Challenge) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
-        {
-          method: "PUT",
-          body: JSON.stringify({ challenge }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllChallenges(result.updatedChallenges);
+    const updateChallenge = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ challenge }),
+        headers: { "Content-Type": "application/json" },
       }
-    } catch (error) {
-      console.log(error);
-    }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Failed to update challenge");
+      return res.json();
+    });
+
+    toast
+      .promise(updateChallenge, {
+        loading: "Updating challenge...",
+        success: "Challenge updated successfully!",
+        error: "Failed to update challenge.",
+      })
+      .then((result) => {
+        setAllChallenges(result.updatedChallenges);
+      })
+      .catch((error) => {
+        console.error("Error updating challenge:", error);
+      });
   }
 
   const addTag = () => {

@@ -34,37 +34,38 @@ export default function DisplayRegisteredChallenges() {
     state: boolean;
     id: string | undefined;
   }>({ state: false, id: undefined });
+
   useEffect(() => {
     async function getChallengeByUserId(userId: string | undefined) {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-registered-challenges`,
-          {
-            method: "POST",
-            body: JSON.stringify({ userId }),
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        const result = await res.json();
-
-        if (res.ok) {
-          const registeredChallenges = result.registeredChallenges;
-
-          return registeredChallenges;
-        } else {
-          toast.error(result.message);
+      const fetchChallengeByUserId = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/get-registered-challenges`,
+        {
+          method: "POST",
+          body: JSON.stringify({ userId }),
+          headers: { "Content-Type": "application/json" },
         }
-      } catch (error) {
-        toast.error(`${error}`);
-      }
+      ).then(async (res) => {
+        const result = await res.json();
+        if (!res.ok)
+          throw new Error(result.message || "Failed to fetch challenges");
+        return result.registeredChallenges;
+      });
+
+      toast
+        .promise(fetchChallengeByUserId, {
+          loading: "Fetching registered challenges...",
+          success: "Challenges loaded!",
+          error: "Failed to load challenges.",
+        })
+        .then((registeredChallenges) => {
+          setRegisteredChallenges(registeredChallenges);
+        })
+        .catch((err) => {
+          console.error("Challenge fetch error:", err);
+        });
     }
 
-    getChallengeByUserId(user?.id).then((registeredChallenges) => {
-      if (registeredChallenges) {
-        setRegisteredChallenges(registeredChallenges);
-      }
-    });
+    getChallengeByUserId(user?.id);
   }, []);
 
   async function deleteRegisteredChallenge(
@@ -75,7 +76,7 @@ export default function DisplayRegisteredChallenges() {
       return;
     }
 
-    const deleteRegisteredChallenge = fetch(
+    const fetchDeleteRegisteredChallenge = fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
       {
         method: "DELETE",
@@ -84,20 +85,20 @@ export default function DisplayRegisteredChallenges() {
       }
     ).then(async (res) => {
       const result = await res.json();
-      if (!res.ok)
+      if (!res.ok) {
         throw new Error(result.message || "Failed to delete challenge.");
+      }
       return result;
     });
 
-    toast.promise(deleteRegisteredChallenge, {
-      loading: "Deleting challenge...",
-      success: "Challenge deleted!",
-      error: (err) => `Delete failed: ${err.message}`,
-    });
-
     try {
-      await deleteRegisteredChallenge;
+      await toast.promise(fetchDeleteRegisteredChallenge, {
+        loading: "Deleting challenge...",
+        success: "Challenge deleted!",
+        error: (err) => `Delete failed: ${err.message}`,
+      });
 
+      // Only update state on success
       const updatedChallenges = registeredChallenges.filter(
         (registeredChallenge: UserChallenge) =>
           registeredChallenge.id !== userChallengeId
@@ -111,6 +112,7 @@ export default function DisplayRegisteredChallenges() {
       console.error(err);
     }
   }
+
   return (
     <div className="w-full grid grid-cols-3 gap-3">
       {registeredChallenges.map((registeredChallenge: UserChallenge) => {

@@ -10,14 +10,14 @@ const challengeSchema = z.object({
   titleIcon: z.string(),
   themeColor: z.string(),
   tags: z.array(z.string()),
-  dueDate: z.coerce.date(), // or z.coerce.date() if you're converting to Date object later
+  dueDate: z.coerce.date(),
   coinsOffered: z.number(),
   description: z.string(),
   reference: z.object({
     referenceLink: z.string().url(),
     referenceDescription: z.string(),
   }),
-  displayImage: z.string(),
+  displayImage: z.string().url(),
   imageAlt: z.string(),
   platform: z.string(),
   lockStatus: z.enum(["active", "inactive"]),
@@ -29,6 +29,9 @@ export async function POST(request: NextRequest) {
     const { challenge } = await request.json();
 
     const parsed = challengeSchema.safeParse(challenge);
+
+    console.log(challenge);
+    console.log(parsed.error?.flatten());
 
     if (!parsed.success) {
       return NextResponse.json(

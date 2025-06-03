@@ -18,12 +18,15 @@ const UpdateUserSchema = z.object({
     "Builder",
     "Innovator",
   ]),
+  totalCoinsAchieved: z
+    .number()
+    .nonnegative(`Coins must be a non-negative integer`),
 });
 
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const { userId, first_name, last_name, level } =
+    const { userId, first_name, last_name, level, totalCoinsAchieved } =
       UpdateUserSchema.parse(body);
 
     await prismapg.user.update({
@@ -31,6 +34,7 @@ export async function PUT(request: NextRequest) {
         first_name,
         last_name,
         level,
+        totalCoinsAchieved,
       },
       where: {
         id: userId,

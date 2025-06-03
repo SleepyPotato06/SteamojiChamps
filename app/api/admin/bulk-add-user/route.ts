@@ -48,6 +48,8 @@ export async function POST(request: NextRequest) {
       validatedUsers.push(result.data);
     }
 
+    console.log(validatedUsers);
+
     await prismapg.user.createMany({
       data: validatedUsers,
     });
@@ -55,6 +57,17 @@ export async function POST(request: NextRequest) {
     const users = await prismapg.user.findMany({
       where: {
         role: "USER",
+      },
+      select: {
+        id: true,
+        username: true,
+        first_name: true,
+        last_name: true,
+        level: true,
+        totalCoinsAchieved: true,
+        achievements: true,
+        role: true,
+        userChallenges: true,
       },
     });
 

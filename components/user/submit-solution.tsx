@@ -40,31 +40,28 @@ export default function SubmitSolution({
       return;
     }
 
-    const promise = fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/submit-solution`,
-      {
-        method: "PUT",
-        body: JSON.stringify({ userId, registeredChallengeId, solution }),
-        headers: { "Content-Type": "application/json" },
-      }
-    ).then(async (res) => {
-      const result = await res.json();
-      if (!res.ok)
-        throw new Error(result.message || "Failed to submit solution.");
-      return result;
-    });
-
-    toast.promise(promise, {
-      loading: "Submitting solution...",
-      success: "Solution submitted successfully!",
-      error: (err) => `Submission failed: ${err.message}`,
-    });
-
     try {
-      const result = await promise;
+      const result = await toast.promise(
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/submit-solution`, {
+          method: "PUT",
+          body: JSON.stringify({ userId, registeredChallengeId, solution }),
+          headers: { "Content-Type": "application/json" },
+        }).then(async (res) => {
+          const data = await res.json();
+          if (!res.ok)
+            throw new Error(data.message || "Failed to submit solution.");
+          return data;
+        }),
+        {
+          loading: "Submitting solution...",
+          success: "Solution submitted successfully!",
+          error: (err) => `Submission failed: ${err.message}`,
+        }
+      );
+
       setRegisteredChallenges(result.updatedRegisteredChallenges);
     } catch (err) {
-      // Error already handled by toast, but you can log or perform fallback here
+      // Already handled by toast, optional fallback
       console.error(err);
     }
   }

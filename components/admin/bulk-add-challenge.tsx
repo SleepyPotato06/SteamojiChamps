@@ -8,6 +8,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import * as XLSX from "xlsx";
+import toast from "react-hot-toast";
 import { Challenge } from "@/lib/definitions";
 import { FaDownload } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
@@ -60,28 +61,32 @@ export default function BulkAddChallengeCard({
   };
 
   async function bulkUpdate(file: File | null) {
+    if (!file) return;
+
     const formData = new FormData();
+    formData.append("steamoji_challenges", file, file.name);
 
-    if (file) {
-      formData.append("steamoji_challenges", file, file.name);
-    }
-
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/bulk-add-challenge`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllChallenges(result.challenges);
+    const bulkUpdateChallenges = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/bulk-add-challenge`,
+      {
+        method: "POST",
+        body: formData,
       }
-    } catch (error) {
-      console.log(error);
-    }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Bulk challenge upload failed");
+      return res.json();
+    });
+
+    toast
+      .promise(bulkUpdateChallenges, {
+        loading: "Uploading challenges...",
+        success: "Challenges uploaded successfully!",
+        error: "Failed to upload challenges.",
+      })
+      .then((result) => {
+        setAllChallenges(result.challenges);
+      })
+      .catch((err) => console.error(err));
   }
 
   return (

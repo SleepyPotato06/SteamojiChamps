@@ -2,6 +2,7 @@
 
 import { MdEdit } from "react-icons/md";
 import { TbCancel } from "react-icons/tb";
+import { toast } from "react-hot-toast";
 import { User } from "@/lib/definitions";
 import {
   Card,
@@ -36,26 +37,34 @@ export default function DisplayAllUsers({
   });
 
   async function deleteUser(userId: string | undefined) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-user`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ userId }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    if (!userId) return;
 
-      if (res.ok) {
-        const result = await res.json();
+    const deleteUser = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/delete-user`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ userId }),
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(async (res) => {
+      if (!res.ok) throw new Error("Failed to delete user");
+      return res.json();
+    });
+
+    toast
+      .promise(deleteUser, {
+        loading: "Deleting user...",
+        success: "User deleted successfully!",
+        error: "Failed to delete user.",
+      })
+      .then((result) => {
         setAllUsers(result.updatedUsers);
         setConfirmUserDelete({ state: false, id: undefined });
-      }
-    } catch (error) {
-      console.log(error);
-    }
+      })
+      .catch((error) => {
+        console.error("Error deleting user:", error);
+      });
   }
-
   return (
     <div className="w-full flex flex-wrap gap-4 justify-center items-start">
       {allUsers.map((user: User) => (

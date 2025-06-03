@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { inter_md } from "@/lib/font";
 import { User } from "@/lib/definitions";
+import toast from "react-hot-toast";
 import AddUserCard from "@/components/admin/add-user-card";
 import BulkAddUserCard from "@/app/bulk-add-user-card";
 import { Input } from "@/components/ui/input";
@@ -23,27 +24,33 @@ export default function ManageUsers() {
 
   useEffect(() => {
     async function getAllUsers() {
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-all-users`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-
-        if (res.ok) {
-          const result = await res.json();
-          console.log(result.allUsers);
-          setAllUsers(result.allUsers || []); // Ensure it's always an array
-          setFilteredUsers(result.allUsers || []); // Ensure it's always an array
+      const getAllUsers = fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/get-all-users`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
         }
-      } catch (error) {
-        console.log(error);
-        // Set empty arrays on error to prevent undefined
-        setAllUsers([]);
-        setFilteredUsers([]);
-      }
+      ).then(async (res) => {
+        if (!res.ok) throw new Error("Failed to fetch users");
+        return res.json();
+      });
+
+      toast
+        .promise(getAllUsers, {
+          loading: "Fetching users...",
+          success: "Users loaded!",
+          error: "Failed to load users.",
+        })
+        .then((result) => {
+          console.log(result.allUsers);
+          setAllUsers(result.allUsers || []);
+          setFilteredUsers(result.allUsers || []);
+        })
+        .catch((error) => {
+          console.error("Error fetching users:", error);
+          setAllUsers([]);
+          setFilteredUsers([]);
+        });
     }
 
     getAllUsers();
