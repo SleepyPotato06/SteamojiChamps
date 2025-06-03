@@ -36,7 +36,7 @@ export default function Home() {
     const result = await res.json();
 
     if (res.ok) {
-      const user = result.user[0];
+      const user = result.user;
 
       setUser({
         id: user.id,

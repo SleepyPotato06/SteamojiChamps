@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import { toast } from "react-hot-toast";
 import { UserChallenge } from "@/lib/definitions";
 import { Textarea } from "../ui/textarea";
 
@@ -34,25 +35,37 @@ export default function SubmitSolution({
     registeredChallengeId: string | null,
     solution: string | undefined
   ) {
-    if (solution === undefined || registeredChallengeId === null) {
+    if (!userId || !registeredChallengeId || !solution) {
+      toast.error("Missing data to submit the solution.");
       return;
     }
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/submit-solution`,
-        {
-          method: "PUT",
-          body: JSON.stringify({ userId, registeredChallengeId, solution }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
 
-      if (res.ok) {
-        const result = await res.json();
-        setRegisteredChallenges(result.updatedRegisteredChallenges);
+    const promise = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/submit-solution`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ userId, registeredChallengeId, solution }),
+        headers: { "Content-Type": "application/json" },
       }
-    } catch (error) {
-      console.log(error);
+    ).then(async (res) => {
+      const result = await res.json();
+      if (!res.ok)
+        throw new Error(result.message || "Failed to submit solution.");
+      return result;
+    });
+
+    toast.promise(promise, {
+      loading: "Submitting solution...",
+      success: "Solution submitted successfully!",
+      error: (err) => `Submission failed: ${err.message}`,
+    });
+
+    try {
+      const result = await promise;
+      setRegisteredChallenges(result.updatedRegisteredChallenges);
+    } catch (err) {
+      // Error already handled by toast, but you can log or perform fallback here
+      console.error(err);
     }
   }
 

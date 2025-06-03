@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/lib/UserContext";
 import SubmitSolution from "./submit-solution";
 import ConfirmationModal from "../ui/confirmationModal";
+import toast from "react-hot-toast";
 
 export default function DisplayRegisteredChallenges() {
   const { user } = useUser();
@@ -45,14 +46,17 @@ export default function DisplayRegisteredChallenges() {
           }
         );
 
+        const result = await res.json();
+
         if (res.ok) {
-          const result = await res.json();
           const registeredChallenges = result.registeredChallenges;
 
           return registeredChallenges;
+        } else {
+          toast.error(result.message);
         }
       } catch (error) {
-        console.log(error);
+        toast.error(`${error}`);
       }
     }
 
@@ -66,27 +70,45 @@ export default function DisplayRegisteredChallenges() {
   async function deleteRegisteredChallenge(
     userChallengeId: string | undefined
   ) {
+    if (!userChallengeId) {
+      toast.error("Challenge ID is missing.");
+      return;
+    }
+
+    const deleteRegisteredChallenge = fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
+      {
+        method: "DELETE",
+        body: JSON.stringify({ userChallengeId }),
+        headers: { "Content-Type": "application/json" },
+      }
+    ).then(async (res) => {
+      const result = await res.json();
+      if (!res.ok)
+        throw new Error(result.message || "Failed to delete challenge.");
+      return result;
+    });
+
+    toast.promise(deleteRegisteredChallenge, {
+      loading: "Deleting challenge...",
+      success: "Challenge deleted!",
+      error: (err) => `Delete failed: ${err.message}`,
+    });
+
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/delete-registered-challenge`,
-        {
-          method: "DELETE",
-          body: JSON.stringify({ userChallengeId }),
-          headers: { "Content-Type": "application/json" },
-        }
+      await deleteRegisteredChallenge;
+
+      const updatedChallenges = registeredChallenges.filter(
+        (registeredChallenge: UserChallenge) =>
+          registeredChallenge.id !== userChallengeId
       );
 
-      if (res.ok) {
-        const updatedChallenges = registeredChallenges.filter(
-          (registeredChallenge: UserChallenge) =>
-            registeredChallenge.id !== userChallengeId
-        );
-
+      setTimeout(() => {
         setRegisteredChallenges(updatedChallenges);
         setConfrmRegChallengeDelete({ state: false, id: undefined });
-      }
-    } catch (error) {
-      console.log(error);
+      }, 1000);
+    } catch (err) {
+      console.error(err);
     }
   }
   return (

@@ -14,20 +14,26 @@ export async function GET() {
         totalCoinsAchieved: "desc",
       },
       select: {
-        userChallenges: true,
-        totalCoinsAchieved: true,
         id: true,
+        username: true,
         first_name: true,
         last_name: true,
-        username: true,
+        totalCoinsAchieved: true,
         level: true,
+        userChallenges: {
+          select: {
+            id: true, // Only include necessary fields
+            submissionStatus: true,
+          },
+        },
       },
     });
 
     return NextResponse.json({ leaderboard }, { status: 200 });
   } catch (error) {
+    console.error("Error fetching leaderboard:", error);
     return NextResponse.json(
-      { message: `Internal server error ${error}` },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

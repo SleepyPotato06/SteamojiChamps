@@ -21,7 +21,7 @@ async function main() {
       first_name: "John",
       last_name: "Doe",
       password: "pass",
-      level: "Junior",
+      level: "Tinkerer",
       role: "USER",
       totalCoinsAchieved: 50,
       achievements: ["Completed Beginner Challenge"],

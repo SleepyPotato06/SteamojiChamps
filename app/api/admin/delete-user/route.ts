@@ -2,11 +2,27 @@
 
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+// Zod schema for validation
+const deleteUserSchema = z.object({
+  userId: z.string().cuid(),
+});
 
 export async function DELETE(request: NextRequest) {
-  const { userId } = await request.json();
-
   try {
+    const body = await request.json();
+    const parsed = deleteUserSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { message: "Invalid request", errors: parsed.error.format() },
+        { status: 400 }
+      );
+    }
+
+    const { userId } = parsed.data;
+
     await prismapg.user.delete({
       where: {
         id: userId,
@@ -14,9 +30,7 @@ export async function DELETE(request: NextRequest) {
     });
 
     const updatedUsers = await prismapg.user.findMany({
-      where: {
-        role: "USER",
-      },
+      where: { role: "USER" },
       select: {
         id: true,
         username: true,
@@ -33,8 +47,8 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ updatedUsers }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: `Error deleting users: ${error}` },
-      { status: 401 }
+      { message: `Error deleting user: ${error}` },
+      { status: 500 }
     );
   }
 }

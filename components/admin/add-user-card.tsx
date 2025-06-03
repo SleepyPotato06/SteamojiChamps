@@ -29,7 +29,7 @@ export default function AddUserCard({
     username: undefined,
     first_name: undefined,
     last_name: undefined,
-    level: `Junior`,
+    level: `Tinkerer`,
     password: undefined,
   });
 
@@ -129,13 +129,13 @@ export default function AddUserCard({
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="Junior">Junior</SelectItem>
-                <SelectItem value="Engineering">Engineering</SelectItem>
-                <SelectItem value="Fabrication">Fabrication</SelectItem>
-                <SelectItem value="Physical Computing">
-                  Physical Computing
-                </SelectItem>
-                <SelectItem value="Digital Arts">Digital Arts</SelectItem>
+                <SelectItem value="Tinkerer">Tinkerer</SelectItem>
+                <SelectItem value="Engineer">Engineer</SelectItem>
+                <SelectItem value="Inventor">Inventor</SelectItem>
+                <SelectItem value="Designer">Designer</SelectItem>
+                <SelectItem value="Crafter">Crafter</SelectItem>
+                <SelectItem value="Builder">Builder</SelectItem>
+                <SelectItem value="Innovator">Innovator</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>

@@ -2,47 +2,49 @@
 
 import prismapg from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
+import { z } from "zod";
+
+// Input schema
+const Schema = z.object({
+  userId: z.string().min(1, "User ID is required"),
+});
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = await request.json();
+    const body = await request.json();
+    const { userId } = Schema.parse(body);
 
-    if (!userId) {
-      return NextResponse.json({ message: `Unauthorized` }, { status: 401 });
-    }
-    const challenges = await prismapg.challenge.findMany({
-      where: {
-        lockStatus: `active`,
-      },
+    // Fetch active challenges
+    const activeChallenges = await prismapg.challenge.findMany({
+      where: { lockStatus: "active" },
     });
 
-    const registeredChallenges = await prismapg.userChallenge.findMany({
-      where: {
-        userId,
-      },
-      select: {
-        challenge: {
-          select: {
-            id: true,
-          },
-        },
-      },
-    });
+    // Fetch IDs of challenges the user is already registered for
+    const registeredChallengeIds = await prismapg.userChallenge
+      .findMany({
+        where: { userId },
+        select: { challengeId: true },
+      })
+      .then((list) => list.map((uc) => uc.challengeId));
 
-    // Get list of registered challenge IDs
-    const registeredChallengeIds = registeredChallenges.map(
-      (item) => item.challenge.id
-    );
-
-    // Filter out registered challenges
-    const allUnregisteredChallenges = challenges.filter(
+    // Filter out already registered challenges
+    const unregisteredChallenges = activeChallenges.filter(
       (challenge) => !registeredChallengeIds.includes(challenge.id)
     );
 
-    return NextResponse.json({ allUnregisteredChallenges }, { status: 200 });
+    return NextResponse.json({ unregisteredChallenges }, { status: 200 });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Invalid input", errors: error.errors },
+        { status: 400 }
+      );
+    }
+
+    console.error("Error fetching unregistered challenges:", error);
+
     return NextResponse.json(
-      { message: `Internal server error: ${error}` },
+      { message: "Internal server error" },
       { status: 500 }
     );
   }

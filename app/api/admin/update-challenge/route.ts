@@ -2,14 +2,34 @@
 
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+
+// Zod schema for the challenge
+const ChallengeSchema = z.object({
+  id: z.string().cuid(),
+  title: z.string().min(1),
+  themeColor: z.string().optional(),
+  titleIcon: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  coinsOffered: z.number().int().nonnegative(),
+  description: z.string().optional(),
+  dueDate: z.string().datetime({ offset: true }).optional(),
+  reference: z.object({
+    referenceLink: z.string().url(),
+    referenceDescription: z.string(),
+  }),
+  displayImage: z.string().url().optional(),
+  imageAlt: z.string().optional(),
+  platform: z.string().optional(),
+  lockStatus: z.enum(["active", "inactive"]),
+  hints: z.array(z.string()).optional(),
+});
 
 export async function PUT(request: NextRequest) {
-  const { challenge } = await request.json();
-
-  const reference: { referenceDescription: string; referenceLink: string } =
-    challenge.reference;
-
   try {
+    const body = await request.json();
+    const challenge = ChallengeSchema.parse(body.challenge);
+
     await prismapg.challenge.update({
       data: {
         title: challenge.title,
@@ -19,7 +39,7 @@ export async function PUT(request: NextRequest) {
         coinsOffered: challenge.coinsOffered,
         description: challenge.description,
         dueDate: challenge.dueDate,
-        reference,
+        reference: challenge.reference,
         displayImage: challenge.displayImage,
         imageAlt: challenge.imageAlt,
         platform: challenge.platform,
@@ -35,9 +55,20 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json({ updatedChallenges }, { status: 200 });
   } catch (error) {
+    if (error instanceof z.ZodError) {
+      return NextResponse.json(
+        { message: "Validation error", errors: error.flatten().fieldErrors },
+        { status: 400 }
+      );
+    }
+
     return NextResponse.json(
-      { message: `Error updating challeges: ${error}` },
-      { status: 401 }
+      {
+        message: `Error updating challenges: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      },
+      { status: 500 }
     );
   }
 }

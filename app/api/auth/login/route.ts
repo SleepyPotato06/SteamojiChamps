@@ -39,6 +39,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    console.log(user);
+
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     if (error instanceof z.ZodError) {

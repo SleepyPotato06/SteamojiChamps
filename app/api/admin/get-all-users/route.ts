@@ -25,8 +25,12 @@ export async function GET() {
     return NextResponse.json({ allUsers }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: `Error retrieving users: ${error}` },
-      { status: 401 }
+      {
+        message: `Error retrieving users: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`,
+      },
+      { status: 500 } // Changed from 401 to 500
     );
   }
 }
