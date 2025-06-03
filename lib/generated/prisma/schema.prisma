@@ -51,6 +51,8 @@ model UserChallenge {
   userId           String
   challenge        Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   challengeId      String
+  isGraded         Boolean   @default(false)
+  pointsAwareded   Int       @default(0)
   submissionStatus String    @default("Pending")
   submission       String    @default("Pending")
   submissionDate   DateTime  @default(now())

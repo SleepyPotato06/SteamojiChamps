@@ -10,6 +10,7 @@ import {
   TableHead,
   TableHeader,
 } from "@/components/ui/table";
+import { Button } from "../ui/button";
 
 export default function ViewSubmissions({
   setIsOpen,
@@ -72,7 +73,8 @@ export default function ViewSubmissions({
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[200px]">Name</TableHead>
-                <TableHead>Submission</TableHead>
+                <TableHead className="text-center">Submission</TableHead>
+                <TableHead className="text-center">Graded</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -81,7 +83,7 @@ export default function ViewSubmissions({
                   <TableCell className="font-medium">
                     {submission.user.first_name} {submission.user.last_name}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="text-center">
                     {submission.submissionStatus === "Pending" ? (
                       <span className="px-2 py-1 text-amber-500 bg-amber-100 border-2 border-amber-500 rounded-xl">
                         Pending
@@ -99,6 +101,17 @@ export default function ViewSubmissions({
                       >
                         View
                       </button>
+                    )}
+                  </TableCell>
+                  <TableCell className="font-medium text-center">
+                    {submission.isGraded ? (
+                      <span className="px-2 py-1 border-2 border-green-800 text-green-800 bg-green-100 rounded-xl">
+                        Yes
+                      </span>
+                    ) : (
+                      <span className="px-2 py-1 border-2 border-red-800 text-red-800 bg-red-100 rounded-xl">
+                        No
+                      </span>
                     )}
                   </TableCell>
                 </TableRow>

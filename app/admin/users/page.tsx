@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 
 export default function ManageUsers() {
   const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [searchByName, setSearchByName] = useState<string>(``);
   const [addOpen, setAddOpen] = useState<{
     state: boolean;
     action: string | null;
@@ -32,22 +34,71 @@ export default function ManageUsers() {
 
         if (res.ok) {
           const result = await res.json();
-          setAllUsers(result.allUsers);
+          console.log(result.allUsers);
+          setAllUsers(result.allUsers || []); // Ensure it's always an array
+          setFilteredUsers(result.allUsers || []); // Ensure it's always an array
         }
       } catch (error) {
         console.log(error);
+        // Set empty arrays on error to prevent undefined
+        setAllUsers([]);
+        setFilteredUsers([]);
       }
     }
 
     getAllUsers();
   }, []);
 
+  useEffect(() => {
+    // Add safety check to ensure allUsers is an array
+    if (!Array.isArray(allUsers)) {
+      setFilteredUsers([]);
+      return;
+    }
+
+    if (searchByName === ``) {
+      setFilteredUsers(allUsers);
+      return;
+    }
+
+    setFilteredUsers(
+      allUsers.filter(
+        (user: User) =>
+          user.first_name?.toLowerCase().includes(searchByName.toLowerCase()) ||
+          user.last_name?.toLowerCase().includes(searchByName.toLowerCase())
+      )
+    );
+  }, [searchByName, allUsers]);
+
+  const updateAllUsers = (newUsers: User[]) => {
+    const users = Array.isArray(newUsers) ? newUsers : [];
+    setAllUsers(users);
+
+    // Apply current search filter to new users
+    if (searchByName === "") {
+      setFilteredUsers(users);
+    } else {
+      setFilteredUsers(
+        users.filter(
+          (user: User) =>
+            user.first_name
+              ?.toLowerCase()
+              .includes(searchByName.toLowerCase()) ||
+            user.last_name?.toLowerCase().includes(searchByName.toLowerCase())
+        )
+      );
+    }
+  };
   return (
     <div
       className={`${inter_md.className} w-fit h-full flex flex-col gap-4 justify-center items-center pb-6`}
     >
       <div className="w-fit h-fit flex flex-row gap-4 justify-center items-center">
-        <Input className="min-w-[30rem]" placeholder="Search for a user..." />
+        <Input
+          onChange={(e) => setSearchByName(e.target.value)}
+          className="min-w-[30rem]"
+          placeholder="Search for a user..."
+        />
         {addOpen.state && (
           <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
         )}
@@ -68,20 +119,26 @@ export default function ManageUsers() {
         {addOpen.state && (
           <div className="fixed inset-0 flex items-center justify-center z-50">
             {addOpen.action === `add` ? (
-              <AddUserCard setAllUsers={setAllUsers} setAddOpen={setAddOpen} />
+              <AddUserCard
+                setAllUsers={updateAllUsers}
+                setAddOpen={setAddOpen}
+              />
             ) : (
               <BulkAddUserCard
-                setAllUsers={setAllUsers}
+                setAllUsers={updateAllUsers}
                 setAddOpen={setAddOpen}
               />
             )}
           </div>
         )}
       </div>
-      {allUsers.length > 0 ? (
-        <DisplayAllUsers allUsers={allUsers} setAllUsers={setAllUsers} />
+      {/* Add safety check here */}
+      {Array.isArray(filteredUsers) && filteredUsers.length > 0 ? (
+        <DisplayAllUsers allUsers={filteredUsers} setAllUsers={setAllUsers} />
       ) : (
-        <div>No users registered !</div>
+        <div>
+          {Array.isArray(filteredUsers) ? "No users registered!" : "Loading..."}
+        </div>
       )}
     </div>
   );

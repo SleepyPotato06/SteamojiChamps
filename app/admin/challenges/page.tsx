@@ -3,32 +3,14 @@ import { useState, useEffect } from "react";
 import { Challenge } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import DisplayAllChallenges from "@/components/admin/display-all-challenges";
-import EditChallengeCard from "@/components/admin/edit-challenge-card";
 import BulkAddChallengeCard from "@/components/admin/bulk-add-challenge";
 import { Input } from "@/components/ui/input";
+import AddChallengeCard from "@/components/admin/add-challenge-card";
 
 export default function ManageChallenges() {
-  const challenge = {
-    id: undefined,
-    title: undefined,
-    themeColor: undefined,
-    titleIcon: undefined,
-    tags: undefined,
-    dueDate: undefined,
-    coinsOffered: undefined,
-    description: undefined,
-    reference: {
-      refereceDescription: undefined,
-      referenceLink: undefined,
-    },
-    displayImage: undefined,
-    imageAlt: undefined,
-    platform: undefined,
-    lockStatus: undefined,
-    hints: undefined,
-  };
-
   const [allChallenges, setAllChallenges] = useState<Challenge[]>([]);
+  const [filteredChallenges, setFilteredChallenges] = useState<Challenge[]>([]);
+  const [searchByName, setSearchByName] = useState<string>(``);
   const [isOpen, setIsOpen] = useState<{
     state: boolean;
     id: string | null;
@@ -38,26 +20,6 @@ export default function ManageChallenges() {
     id: null,
     action: null,
   });
-
-  async function updateChallenge(challenge: Challenge) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ challenge }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllChallenges(result.updatedChallenges);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   useEffect(() => {
     async function getAllChallenges() {
@@ -72,20 +34,44 @@ export default function ManageChallenges() {
 
         if (res.ok) {
           const result = await res.json();
-          setAllChallenges(result.allChallenges);
+          setAllChallenges(result.allChallenges || []);
+          setFilteredChallenges(result.allChallenges || []);
         }
       } catch (error) {
         console.log(error);
+        // Set empty arrays on error to prevent undefined
+        setAllChallenges([]);
+        setFilteredChallenges([]);
       }
     }
 
     getAllChallenges();
   }, []);
 
+  useEffect(() => {
+    // Add safety check to ensure allUsers is an array
+    if (!Array.isArray(allChallenges)) {
+      setFilteredChallenges([]);
+      return;
+    }
+
+    if (searchByName === ``) {
+      setFilteredChallenges(allChallenges);
+      return;
+    }
+
+    setFilteredChallenges(
+      allChallenges.filter((challenge: Challenge) =>
+        challenge.title?.toLowerCase().includes(searchByName.toLowerCase())
+      )
+    );
+  }, [searchByName, allChallenges]);
+
   return (
     <div className="flex flex-col gap-4 items-center justify-center">
       <div className="flex flex-row gap-2 items-center">
         <Input
+          onChange={(e) => setSearchByName(e.target.value)}
           className="min-w-[30rem]"
           placeholder="Search for a challenge..."
         />
@@ -109,10 +95,9 @@ export default function ManageChallenges() {
       </div>
       {isOpen.state && isOpen.action === `add` && (
         <div className="fixed inset-0 flex items-center justify-center z-50">
-          <EditChallengeCard
-            selectedChallenge={challenge}
+          <AddChallengeCard
             setIsOpen={setIsOpen}
-            updateChallenge={updateChallenge}
+            setAllChallenges={setAllChallenges}
           />
         </div>
       )}
@@ -126,11 +111,10 @@ export default function ManageChallenges() {
         </div>
       )}
 
-      {allChallenges.length !== 0 ? (
+      {filteredChallenges.length !== 0 ? (
         <DisplayAllChallenges
-          allChallenges={allChallenges}
+          allChallenges={filteredChallenges}
           setAllChallenges={setAllChallenges}
-          updateChallenge={updateChallenge}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
         />

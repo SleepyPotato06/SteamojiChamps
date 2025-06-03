@@ -3,7 +3,7 @@
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PATCH(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   const { userId, first_name, last_name, level } = await request.json();
 
   try {
@@ -20,6 +20,17 @@ export async function PATCH(request: NextRequest) {
 
     const updatedUsers = await prismapg.user.findMany({
       where: { role: "USER" },
+      select: {
+        id: true,
+        username: true,
+        first_name: true,
+        last_name: true,
+        level: true,
+        totalCoinsAchieved: true,
+        role: true,
+        achievements: true,
+        userChallenges: true,
+      },
     });
 
     return NextResponse.json({ updatedUsers }, { status: 200 });

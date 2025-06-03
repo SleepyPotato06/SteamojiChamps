@@ -14,6 +14,7 @@ export async function POST(request: NextRequest) {
       select: {
         id: true,
         submissionStatus: true,
+        isGraded: true,
         challenge: true,
       },
     });

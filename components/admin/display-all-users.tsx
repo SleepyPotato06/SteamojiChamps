@@ -13,14 +13,14 @@ import {
 } from "../ui/card";
 import EditUserCard from "./edit-user-card";
 import ConfirmationModal from "../ui/confirmationModal";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function DisplayAllUsers({
   allUsers,
   setAllUsers,
 }: {
   allUsers: User[];
-  setAllUsers: (allUsers: User[]) => void;
+  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>;
 }) {
   const [confirmUserDelete, setConfirmUserDelete] = useState<{
     state: boolean;
@@ -49,31 +49,7 @@ export default function DisplayAllUsers({
       if (res.ok) {
         const result = await res.json();
         setAllUsers(result.updatedUsers);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async function updateUser(
-    userId: string,
-    first_name: string,
-    last_name: string,
-    level: string
-  ) {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-user`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ userId, first_name, last_name, level }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      if (res.ok) {
-        const result = await res.json();
-        setAllUsers(result.updatedUsers);
+        setConfirmUserDelete({ state: false, id: undefined });
       }
     } catch (error) {
       console.log(error);
@@ -106,7 +82,7 @@ export default function DisplayAllUsers({
               <div className="flex flex-row justify-between px-3 py-1.5 bg-white border-2 border-stone-200 rounded-md font-semibold text-green-500">
                 <div>Challenges</div>
                 <div>{user.userChallenges.length}</div>
-              </div>{" "}
+              </div>
             </CardDescription>
           </CardContent>
           {(editOpen.state || confirmUserDelete.state) && (
@@ -138,7 +114,7 @@ export default function DisplayAllUsers({
                 user={
                   allUsers.filter((userInner) => userInner.id === user.id)[0]
                 }
-                updateUser={updateUser}
+                setAllUsers={setAllUsers}
                 setEditOpen={setEditOpen}
               />
             </div>

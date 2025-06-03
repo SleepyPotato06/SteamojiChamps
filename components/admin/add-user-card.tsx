@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { User } from "@/lib/definitions";
+import { AddUser, User } from "@/lib/definitions";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
@@ -25,30 +25,22 @@ export default function AddUserCard({
   setAddOpen: (value: { state: boolean; action: string | null }) => void;
   setAllUsers: (allUsers: User[]) => void;
 }) {
-  const [username, setUsername] = useState<string>();
-  const [firstName, setFirstName] = useState<string>();
-  const [lastName, setLastName] = useState<string>();
-  const [level, setLevel] = useState<string>();
-  const [password, setPassword] = useState<string>();
+  const [user, setUser] = useState<AddUser>({
+    username: undefined,
+    first_name: undefined,
+    last_name: undefined,
+    level: `Junior`,
+    password: undefined,
+  });
 
-  async function addUser(
-    username: string | undefined,
-    firstName: string | undefined,
-    lastName: string | undefined,
-    level: string | undefined,
-    password: string | undefined
-  ) {
+  async function addUser(user: AddUser) {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-user`,
         {
           method: "POST",
           body: JSON.stringify({
-            username,
-            first_name: firstName,
-            last_name: lastName,
-            level,
-            password,
+            user,
           }),
           headers: { "Content-Type": "application/json" },
         }
@@ -81,22 +73,56 @@ export default function AddUserCard({
       <CardContent className="flex flex-row gap-4">
         <div className="flex flex-col gap-2">
           <Label className="text-md">First Name</Label>
-          <Input type="text" onChange={(e) => setFirstName(e.target.value)} />
+          <Input
+            type="text"
+            onChange={(e) =>
+              setUser((prev) => ({
+                ...prev,
+                first_name: e.target.value.trim(),
+              }))
+            }
+          />
           <Label className="text-md">Last Name</Label>
-          <Input type="text" onChange={(e) => setLastName(e.target.value)} />
+          <Input
+            type="text"
+            onChange={(e) =>
+              setUser((prev) => ({
+                ...prev,
+                last_name: e.target.value.trim(),
+              }))
+            }
+          />
           <Label className="text-md">Username</Label>
-          <Input type="text" onChange={(e) => setUsername(e.target.value)} />
+          <Input
+            type="text"
+            onChange={(e) =>
+              setUser((prev) => ({
+                ...prev,
+                username: e.target.value.trim(),
+              }))
+            }
+          />
         </div>
         <div className="flex flex-col gap-2">
           <Label className="text-md">Password</Label>
           <Input
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) =>
+              setUser((prev) => ({
+                ...prev,
+                password: e.target.value.trim(),
+              }))
+            }
           />
           <Label className="text-md">Level</Label>
           <Select
-            defaultValue={`Junior`}
-            onValueChange={(value) => setLevel(value)}
+            defaultValue={user.level}
+            onValueChange={(e) =>
+              setUser((prev) => ({
+                ...prev,
+                level: e.trim(),
+              }))
+            }
           >
             <SelectTrigger className="w-full">
               <SelectValue />
@@ -104,8 +130,12 @@ export default function AddUserCard({
             <SelectContent>
               <SelectGroup>
                 <SelectItem value="Junior">Junior</SelectItem>
-                <SelectItem value="Designer">Designer</SelectItem>
-                <SelectItem value="Engineer">Engineer</SelectItem>
+                <SelectItem value="Engineering">Engineering</SelectItem>
+                <SelectItem value="Fabrication">Fabrication</SelectItem>
+                <SelectItem value="Physical Computing">
+                  Physical Computing
+                </SelectItem>
+                <SelectItem value="Digital Arts">Digital Arts</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -114,7 +144,7 @@ export default function AddUserCard({
       <CardFooter className="w-full flex justify-end">
         <button
           onClick={() => {
-            addUser(username, firstName, lastName, level, password);
+            addUser(user);
             setAddOpen({ state: false, action: null });
           }}
           className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md text-blue-600 bg-blue-100 border-2 border-blue-800 hover:text-white hover:bg-blue-800 text-sm"

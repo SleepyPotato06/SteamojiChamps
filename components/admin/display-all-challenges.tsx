@@ -14,13 +14,11 @@ import ConfirmationModal from "../ui/confirmationModal";
 export default function DisplayAllChallenges({
   allChallenges,
   setAllChallenges,
-  updateChallenge,
   isOpen,
   setIsOpen,
 }: {
   allChallenges: Challenge[];
-  setAllChallenges: (allUsers: Challenge[]) => void;
-  updateChallenge: (challenge: Challenge) => void;
+  setAllChallenges: (allChallenges: Challenge[]) => void;
   isOpen: { state: boolean; id: string | null; action: string | null };
   setIsOpen: (value: {
     state: boolean;
@@ -65,7 +63,7 @@ export default function DisplayAllChallenges({
       {allChallenges.map((challenge: Challenge) => {
         return (
           <Card key={challenge.id} className="p-4">
-            <div className="flex flex-col gap-5">
+            <div className="h-full flex flex-col justify-between gap-6">
               <div className="flex flex-row justify-between items-center">
                 <div className="flex flex-row gap-1 items-center text-md">
                   <div>{challenge.titleIcon}</div>
@@ -73,7 +71,7 @@ export default function DisplayAllChallenges({
                 </div>
                 {challenge.lockStatus === `active` ? (
                   <div className="px-2 py-1 shadow-lg shadow-green-200 border-1 border-green-800 bg-green-100 text-green-800  rounded-xl text-xs flex flex-row gap-1 items-center">
-                    <FaRegDotCircle size={10} className="text-green-600" />
+                    <FaRegDotCircle size={10} className="text-green-800" />
                     <div>active</div>
                   </div>
                 ) : (
@@ -161,7 +159,7 @@ export default function DisplayAllChallenges({
                 (challenge: Challenge) => challenge.id === isOpen.id
               )[0]
             }
-            updateChallenge={updateChallenge}
+            setAllChallenges={setAllChallenges}
             setIsOpen={setIsOpen}
           />
         </div>

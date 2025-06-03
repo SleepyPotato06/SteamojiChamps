@@ -17,7 +17,7 @@ async function main() {
 
   const regularUser = await prismapg.user.create({
     data: {
-      username: "john_doe",
+      username: "jdoe",
       first_name: "John",
       last_name: "Doe",
       password: "pass",
@@ -61,7 +61,7 @@ async function main() {
       titleIcon: "🤖",
       tags: ["STEM", "OnShape", "Robotics"],
       dueDate: new Date("2025-07-15"),
-      coinsOffered: 60,
+      coinsOffered: 50,
       description:
         "Use OnShape to design a robot arm that can pick up small cubes!",
       reference: {
@@ -112,7 +112,7 @@ async function main() {
       titleIcon: "🏡",
       tags: ["Design", "TinkerCAD", "Architecture"],
       dueDate: new Date("2025-07-10"),
-      coinsOffered: 40,
+      coinsOffered: 100,
       description:
         "Use TinkerCAD to build your dream treehouse—add slides, secret rooms, and swings!",
       reference: {
@@ -137,7 +137,7 @@ async function main() {
       titleIcon: "🚀",
       tags: ["Space", "Scratch", "Animation"],
       dueDate: new Date("2025-07-25"),
-      coinsOffered: 55,
+      coinsOffered: 25,
       description:
         "Animate a space explorer flying to new planets and meeting aliens using Scratch!",
       reference: {

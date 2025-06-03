@@ -1,5 +1,6 @@
 "use client";
 
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
@@ -33,9 +34,10 @@ export default function Home() {
     );
 
     const result = await res.json();
-    const user = result.user[0];
 
     if (res.ok) {
+      const user = result.user[0];
+
       setUser({
         id: user.id,
         username: user.username,
@@ -49,14 +51,16 @@ export default function Home() {
       });
 
       if (user.role === "USER") {
-        router.push(`/home`);
+        toast.success("Login success !");
+        setTimeout(() => router.push(`/home`), 1000);
       }
 
       if (user.role === "ADMIN") {
-        router.push(`/admin/users`);
+        toast.success("Login success !");
+        setTimeout(() => router.push(`/admin/users`), 1000);
       }
     } else {
-      setError(result.message);
+      toast.error(result.message);
     }
   }
   return (
@@ -67,18 +71,20 @@ export default function Home() {
           <div>Please login here</div>
           <form action={login} className="flex flex-col gap-4">
             <Input
+              onChange={() => setError(null)}
               type="text"
               name="username"
               placeholder="Username"
               className="min-w-[25rem] h-[3rem]"
             />
             <Input
+              onChange={() => setError(null)}
               type="password"
               name="password"
               placeholder="Password"
               className="min-w-[25rem] h-[3rem]"
             />
-            <div className="w-full flex justify-center items-center text-red-600">
+            <div className="w-full text-sm flex justify-center items-center text-red-600">
               {error}
             </div>
             <Button type="submit" className="hover:bg-blue-700 w-full h-[3rem]">

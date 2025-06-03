@@ -83,6 +83,7 @@ export default function DisplayRegisteredChallenges() {
         );
 
         setRegisteredChallenges(updatedChallenges);
+        setConfrmRegChallengeDelete({ state: false, id: undefined });
       }
     } catch (error) {
       console.log(error);
@@ -107,8 +108,16 @@ export default function DisplayRegisteredChallenges() {
                       Pending
                     </div>
                   ) : (
-                    <div className="px-2 py-1 border-2 border-green-800 bg-green-100 rounded-xl text-green-800 font-medium">
-                      Complete
+                    <div className="font-medium">
+                      {registeredChallenge.isGraded ? (
+                        <span className="px-2 py-1 border-2 border-indigo-800 bg-indigo-100 rounded-xl text-indigo-800">
+                          Graded
+                        </span>
+                      ) : (
+                        <span className="px-2 py-1 border-2 border-green-800 bg-green-100 rounded-xl text-green-800">
+                          Submitted
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>

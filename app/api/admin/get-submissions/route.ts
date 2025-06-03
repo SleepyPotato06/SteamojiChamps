@@ -22,6 +22,7 @@ export async function POST(request: NextRequest) {
         user: true,
         challengeId: true,
         challenge: true,
+        isGraded: true,
         submissionStatus: true,
         submission: true,
         submissionDate: true,

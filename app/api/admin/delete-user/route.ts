@@ -17,6 +17,17 @@ export async function DELETE(request: NextRequest) {
       where: {
         role: "USER",
       },
+      select: {
+        id: true,
+        username: true,
+        first_name: true,
+        last_name: true,
+        level: true,
+        totalCoinsAchieved: true,
+        role: true,
+        achievements: true,
+        userChallenges: true,
+      },
     });
 
     return NextResponse.json({ updatedUsers }, { status: 200 });

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { inter_md } from "@/lib/font";
-import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/lib/UserContext";
 
 export const metadata: Metadata = {
@@ -17,8 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter_md.className}`}>
-        <UserProvider>{children}</UserProvider>
         <Toaster />
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

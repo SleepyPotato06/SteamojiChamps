@@ -3496,14 +3496,26 @@ export namespace Prisma {
 
   export type AggregateUserChallenge = {
     _count: UserChallengeCountAggregateOutputType | null
+    _avg: UserChallengeAvgAggregateOutputType | null
+    _sum: UserChallengeSumAggregateOutputType | null
     _min: UserChallengeMinAggregateOutputType | null
     _max: UserChallengeMaxAggregateOutputType | null
+  }
+
+  export type UserChallengeAvgAggregateOutputType = {
+    pointsAwareded: number | null
+  }
+
+  export type UserChallengeSumAggregateOutputType = {
+    pointsAwareded: number | null
   }
 
   export type UserChallengeMinAggregateOutputType = {
     id: string | null
     userId: string | null
     challengeId: string | null
+    isGraded: boolean | null
+    pointsAwareded: number | null
     submissionStatus: string | null
     submission: string | null
     submissionDate: Date | null
@@ -3513,6 +3525,8 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     challengeId: string | null
+    isGraded: boolean | null
+    pointsAwareded: number | null
     submissionStatus: string | null
     submission: string | null
     submissionDate: Date | null
@@ -3522,6 +3536,8 @@ export namespace Prisma {
     id: number
     userId: number
     challengeId: number
+    isGraded: number
+    pointsAwareded: number
     submissionStatus: number
     submission: number
     submissionDate: number
@@ -3529,10 +3545,20 @@ export namespace Prisma {
   }
 
 
+  export type UserChallengeAvgAggregateInputType = {
+    pointsAwareded?: true
+  }
+
+  export type UserChallengeSumAggregateInputType = {
+    pointsAwareded?: true
+  }
+
   export type UserChallengeMinAggregateInputType = {
     id?: true
     userId?: true
     challengeId?: true
+    isGraded?: true
+    pointsAwareded?: true
     submissionStatus?: true
     submission?: true
     submissionDate?: true
@@ -3542,6 +3568,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     challengeId?: true
+    isGraded?: true
+    pointsAwareded?: true
     submissionStatus?: true
     submission?: true
     submissionDate?: true
@@ -3551,6 +3579,8 @@ export namespace Prisma {
     id?: true
     userId?: true
     challengeId?: true
+    isGraded?: true
+    pointsAwareded?: true
     submissionStatus?: true
     submission?: true
     submissionDate?: true
@@ -3595,6 +3625,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UserChallengeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserChallengeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UserChallengeMinAggregateInputType
@@ -3625,6 +3667,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UserChallengeCountAggregateInputType | true
+    _avg?: UserChallengeAvgAggregateInputType
+    _sum?: UserChallengeSumAggregateInputType
     _min?: UserChallengeMinAggregateInputType
     _max?: UserChallengeMaxAggregateInputType
   }
@@ -3633,10 +3677,14 @@ export namespace Prisma {
     id: string
     userId: string
     challengeId: string
+    isGraded: boolean
+    pointsAwareded: number
     submissionStatus: string
     submission: string
     submissionDate: Date
     _count: UserChallengeCountAggregateOutputType | null
+    _avg: UserChallengeAvgAggregateOutputType | null
+    _sum: UserChallengeSumAggregateOutputType | null
     _min: UserChallengeMinAggregateOutputType | null
     _max: UserChallengeMaxAggregateOutputType | null
   }
@@ -3659,6 +3707,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
+    isGraded?: boolean
+    pointsAwareded?: boolean
     submissionStatus?: boolean
     submission?: boolean
     submissionDate?: boolean
@@ -3670,6 +3720,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
+    isGraded?: boolean
+    pointsAwareded?: boolean
     submissionStatus?: boolean
     submission?: boolean
     submissionDate?: boolean
@@ -3681,6 +3733,8 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
+    isGraded?: boolean
+    pointsAwareded?: boolean
     submissionStatus?: boolean
     submission?: boolean
     submissionDate?: boolean
@@ -3692,12 +3746,14 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     challengeId?: boolean
+    isGraded?: boolean
+    pointsAwareded?: boolean
     submissionStatus?: boolean
     submission?: boolean
     submissionDate?: boolean
   }
 
-  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "submissionStatus" | "submission" | "submissionDate", ExtArgs["result"]["userChallenge"]>
+  export type UserChallengeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "challengeId" | "isGraded" | "pointsAwareded" | "submissionStatus" | "submission" | "submissionDate", ExtArgs["result"]["userChallenge"]>
   export type UserChallengeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     challenge?: boolean | ChallengeDefaultArgs<ExtArgs>
@@ -3721,6 +3777,8 @@ export namespace Prisma {
       id: string
       userId: string
       challengeId: string
+      isGraded: boolean
+      pointsAwareded: number
       submissionStatus: string
       submission: string
       submissionDate: Date
@@ -4152,6 +4210,8 @@ export namespace Prisma {
     readonly id: FieldRef<"UserChallenge", 'String'>
     readonly userId: FieldRef<"UserChallenge", 'String'>
     readonly challengeId: FieldRef<"UserChallenge", 'String'>
+    readonly isGraded: FieldRef<"UserChallenge", 'Boolean'>
+    readonly pointsAwareded: FieldRef<"UserChallenge", 'Int'>
     readonly submissionStatus: FieldRef<"UserChallenge", 'String'>
     readonly submission: FieldRef<"UserChallenge", 'String'>
     readonly submissionDate: FieldRef<"UserChallenge", 'DateTime'>
@@ -4622,6 +4682,8 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     challengeId: 'challengeId',
+    isGraded: 'isGraded',
+    pointsAwareded: 'pointsAwareded',
     submissionStatus: 'submissionStatus',
     submission: 'submission',
     submissionDate: 'submissionDate'
@@ -4734,6 +4796,13 @@ export namespace Prisma {
    * Reference to a field of type 'QueryMode'
    */
   export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -4940,6 +5009,8 @@ export namespace Prisma {
     id?: StringFilter<"UserChallenge"> | string
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
+    isGraded?: BoolFilter<"UserChallenge"> | boolean
+    pointsAwareded?: IntFilter<"UserChallenge"> | number
     submissionStatus?: StringFilter<"UserChallenge"> | string
     submission?: StringFilter<"UserChallenge"> | string
     submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
@@ -4951,6 +5022,8 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
+    isGraded?: SortOrder
+    pointsAwareded?: SortOrder
     submissionStatus?: SortOrder
     submission?: SortOrder
     submissionDate?: SortOrder
@@ -4965,6 +5038,8 @@ export namespace Prisma {
     NOT?: UserChallengeWhereInput | UserChallengeWhereInput[]
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
+    isGraded?: BoolFilter<"UserChallenge"> | boolean
+    pointsAwareded?: IntFilter<"UserChallenge"> | number
     submissionStatus?: StringFilter<"UserChallenge"> | string
     submission?: StringFilter<"UserChallenge"> | string
     submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
@@ -4976,12 +5051,16 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
+    isGraded?: SortOrder
+    pointsAwareded?: SortOrder
     submissionStatus?: SortOrder
     submission?: SortOrder
     submissionDate?: SortOrder
     _count?: UserChallengeCountOrderByAggregateInput
+    _avg?: UserChallengeAvgOrderByAggregateInput
     _max?: UserChallengeMaxOrderByAggregateInput
     _min?: UserChallengeMinOrderByAggregateInput
+    _sum?: UserChallengeSumOrderByAggregateInput
   }
 
   export type UserChallengeScalarWhereWithAggregatesInput = {
@@ -4991,6 +5070,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UserChallenge"> | string
     userId?: StringWithAggregatesFilter<"UserChallenge"> | string
     challengeId?: StringWithAggregatesFilter<"UserChallenge"> | string
+    isGraded?: BoolWithAggregatesFilter<"UserChallenge"> | boolean
+    pointsAwareded?: IntWithAggregatesFilter<"UserChallenge"> | number
     submissionStatus?: StringWithAggregatesFilter<"UserChallenge"> | string
     submission?: StringWithAggregatesFilter<"UserChallenge"> | string
     submissionDate?: DateTimeWithAggregatesFilter<"UserChallenge"> | Date | string
@@ -5209,6 +5290,8 @@ export namespace Prisma {
 
   export type UserChallengeCreateInput = {
     id?: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5220,6 +5303,8 @@ export namespace Prisma {
     id?: string
     userId: string
     challengeId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5227,6 +5312,8 @@ export namespace Prisma {
 
   export type UserChallengeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5238,6 +5325,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5247,6 +5336,8 @@ export namespace Prisma {
     id?: string
     userId: string
     challengeId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5254,6 +5345,8 @@ export namespace Prisma {
 
   export type UserChallengeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5263,6 +5356,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5532,6 +5627,11 @@ export namespace Prisma {
     _max?: NestedJsonFilter<$PrismaModel>
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -5546,15 +5646,23 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
+    isGraded?: SortOrder
+    pointsAwareded?: SortOrder
     submissionStatus?: SortOrder
     submission?: SortOrder
     submissionDate?: SortOrder
+  }
+
+  export type UserChallengeAvgOrderByAggregateInput = {
+    pointsAwareded?: SortOrder
   }
 
   export type UserChallengeMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
+    isGraded?: SortOrder
+    pointsAwareded?: SortOrder
     submissionStatus?: SortOrder
     submission?: SortOrder
     submissionDate?: SortOrder
@@ -5564,9 +5672,23 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     challengeId?: SortOrder
+    isGraded?: SortOrder
+    pointsAwareded?: SortOrder
     submissionStatus?: SortOrder
     submission?: SortOrder
     submissionDate?: SortOrder
+  }
+
+  export type UserChallengeSumOrderByAggregateInput = {
+    pointsAwareded?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type UserCreateachievementsInput = {
@@ -5710,6 +5832,10 @@ export namespace Prisma {
     create?: XOR<ChallengeCreateWithoutUserChallengesInput, ChallengeUncheckedCreateWithoutUserChallengesInput>
     connectOrCreate?: ChallengeCreateOrConnectWithoutUserChallengesInput
     connect?: ChallengeWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type UserUpdateOneRequiredWithoutUserChallengesNestedInput = {
@@ -5862,8 +5988,23 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type UserChallengeCreateWithoutUserInput = {
     id?: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5873,6 +6014,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedCreateWithoutUserInput = {
     id?: string
     challengeId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5911,6 +6054,8 @@ export namespace Prisma {
     id?: StringFilter<"UserChallenge"> | string
     userId?: StringFilter<"UserChallenge"> | string
     challengeId?: StringFilter<"UserChallenge"> | string
+    isGraded?: BoolFilter<"UserChallenge"> | boolean
+    pointsAwareded?: IntFilter<"UserChallenge"> | number
     submissionStatus?: StringFilter<"UserChallenge"> | string
     submission?: StringFilter<"UserChallenge"> | string
     submissionDate?: DateTimeFilter<"UserChallenge"> | Date | string
@@ -5918,6 +6063,8 @@ export namespace Prisma {
 
   export type UserChallengeCreateWithoutChallengeInput = {
     id?: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -5927,6 +6074,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedCreateWithoutChallengeInput = {
     id?: string
     userId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -6109,6 +6258,8 @@ export namespace Prisma {
   export type UserChallengeCreateManyUserInput = {
     id?: string
     challengeId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -6116,6 +6267,8 @@ export namespace Prisma {
 
   export type UserChallengeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6125,6 +6278,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6133,6 +6288,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     challengeId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6141,6 +6298,8 @@ export namespace Prisma {
   export type UserChallengeCreateManyChallengeInput = {
     id?: string
     userId: string
+    isGraded?: boolean
+    pointsAwareded?: number
     submissionStatus?: string
     submission?: string
     submissionDate?: Date | string
@@ -6148,6 +6307,8 @@ export namespace Prisma {
 
   export type UserChallengeUpdateWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6157,6 +6318,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedUpdateWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6165,6 +6328,8 @@ export namespace Prisma {
   export type UserChallengeUncheckedUpdateManyWithoutChallengeInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    isGraded?: BoolFieldUpdateOperationsInput | boolean
+    pointsAwareded?: IntFieldUpdateOperationsInput | number
     submissionStatus?: StringFieldUpdateOperationsInput | string
     submission?: StringFieldUpdateOperationsInput | string
     submissionDate?: DateTimeFieldUpdateOperationsInput | Date | string

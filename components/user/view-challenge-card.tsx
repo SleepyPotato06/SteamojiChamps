@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import OjiCoin from "@/public/coin.svg";
 import { TiChevronRight } from "react-icons/ti";
 import Image from "next/image";
@@ -57,7 +56,7 @@ export default function ViewChallenge({
     }
   }
   return (
-    <div className="flex flex-col gap-8 bg-white p-6 rounded-xl shadow-xl">
+    <div className="max-h-[30rem] overflow-y-scroll flex flex-col gap-8 bg-white p-6 rounded-xl shadow-xl">
       <div className="flex flex-row justify-between items-center gap-52">
         <div className="flex flex-row gap-2 items-center">
           <div>{titleIcon}</div>
@@ -70,7 +69,7 @@ export default function ViewChallenge({
           Close
         </button>
       </div>
-      <div className="flex flex-col gap-4 overflow-y-auto" id="project-details">
+      <div className="flex flex-col gap-4" id="project-details">
         <div className="flex flex-col gap-1.5" id="description">
           <h3 className="font-bold text-lg">Description</h3>
           {description}
@@ -85,19 +84,6 @@ export default function ViewChallenge({
         <div className="flex flex-col gap-1.5" id="platform">
           <h3 className="font-bold text-lg">Platform</h3>
           {platform}
-        </div>
-        <div className="flex flex-col gap-1.5" id="hints">
-          <h3 className="font-bold text-lg">Hints</h3>
-          <div className="flex flex-col gap-2">
-            {hints.map((hint: string, index) => {
-              return (
-                <div key={index} className="flex flex-row gap-2 items-center">
-                  <TiChevronRight className="text-blue-900" />
-                  {hint}
-                </div>
-              );
-            })}
-          </div>
         </div>
         <div className="flex flex-col gap-1.5" id="reference">
           <h3 className="font-bold text-lg">Reference</h3>
@@ -115,6 +101,20 @@ export default function ViewChallenge({
             </a>
           }
         </div>
+        <div className="flex flex-col gap-1.5" id="hints">
+          <h3 className="font-bold text-lg">Hints</h3>
+          <div className="flex flex-col gap-2">
+            {hints.map((hint: string, index) => {
+              return (
+                <div key={index} className="flex flex-row gap-2 items-center">
+                  <TiChevronRight className="text-blue-900" />
+                  {hint}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         <div className="w-full flex justify-end">
           {isRegistered ? null : (
             <button

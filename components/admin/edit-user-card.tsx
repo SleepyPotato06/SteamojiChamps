@@ -15,21 +15,16 @@ import {
 } from "@/components/ui/select";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { useState } from "react";
+import React, { useState } from "react";
 import { User } from "@/lib/definitions";
 
 export default function EditUserCard({
   user,
-  updateUser,
+  setAllUsers,
   setEditOpen,
 }: {
   user: User;
-  updateUser: (
-    userId: string,
-    first_name: string,
-    last_name: string,
-    level: string
-  ) => void;
+  setAllUsers: React.Dispatch<React.SetStateAction<User[]>>;
   setEditOpen: (value: { state: boolean; id: string | null }) => void;
 }) {
   const [updatedFirstName, setUpdatedFirstName] = useState<string>(
@@ -39,6 +34,31 @@ export default function EditUserCard({
     user.last_name
   );
   const [updatedLevel, setUpdatedLevel] = useState<string>(user.level);
+
+  async function updateUser(
+    userId: string,
+    first_name: string,
+    last_name: string,
+    level: string
+  ) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-user`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ userId, first_name, last_name, level }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (res.ok) {
+        const result = await res.json();
+        setAllUsers(result.updatedUsers);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Card>
@@ -77,8 +97,12 @@ export default function EditUserCard({
           <SelectContent>
             <SelectGroup>
               <SelectItem value="Junior">Junior</SelectItem>
-              <SelectItem value="Designer">Designer</SelectItem>
-              <SelectItem value="Engineer">Engineer</SelectItem>
+              <SelectItem value="Engineering">Engineering</SelectItem>
+              <SelectItem value="Fabrication">Fabrication</SelectItem>
+              <SelectItem value="Physical Computing">
+                Physical Computing
+              </SelectItem>
+              <SelectItem value="Digital Arts">Digital Arts</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>

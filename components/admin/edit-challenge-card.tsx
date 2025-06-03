@@ -32,11 +32,11 @@ import {
 
 export default function EditChallengeCard({
   selectedChallenge,
-  updateChallenge,
+  setAllChallenges,
   setIsOpen,
 }: {
   selectedChallenge: Challenge;
-  updateChallenge: (challenge: Challenge) => void;
+  setAllChallenges: (allChallenges: Challenge[]) => void;
   setIsOpen: (value: {
     state: boolean;
     id: string | null;
@@ -65,6 +65,26 @@ export default function EditChallengeCard({
 
   const [newTag, setNewTag] = useState("");
   const [newHint, setNewHint] = useState("");
+
+  async function updateChallenge(challenge: Challenge) {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ challenge }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (res.ok) {
+        const result = await res.json();
+        setAllChallenges(result.updatedChallenges);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const addTag = () => {
     if (newTag && !challenge.tags?.includes(newTag)) {
@@ -121,13 +141,6 @@ export default function EditChallengeCard({
                   : `Challenge ID: ${challenge.id}`}
               </CardDescription>
             </div>
-            <Badge
-              variant={
-                challenge.lockStatus === "active" ? "default" : "secondary"
-              }
-            >
-              {challenge.lockStatus === undefined ? null : challenge.lockStatus}
-            </Badge>
           </div>
         </CardHeader>
         <CardContent>
@@ -468,7 +481,10 @@ export default function EditChallengeCard({
           <div className="flex gap-2 mt-8 pt-4 border-t">
             <Button
               className="flex-1 hover:bg-blue-600 hover:text-white"
-              onClick={handleSave}
+              onClick={() => {
+                handleSave();
+                setIsOpen({ state: false, id: null, action: null });
+              }}
             >
               <Save className="h-4 w-4 mr-2" />
               Save Changes

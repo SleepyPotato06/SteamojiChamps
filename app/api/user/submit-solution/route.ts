@@ -28,6 +28,7 @@ export async function PUT(request: NextRequest) {
         user: true,
         challengeId: true,
         challenge: true,
+        isGraded: true,
         submission: true,
         submissionDate: true,
         submissionStatus: true,

@@ -3,31 +3,27 @@
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(request: NextRequest) {
+export async function POST(request: NextRequest) {
   const { challenge } = await request.json();
 
-  const reference: { referenceDescription: string; referenceLink: string } =
-    challenge.reference;
+  console.log(challenge);
 
   try {
-    await prismapg.challenge.update({
+    await prismapg.challenge.create({
       data: {
         title: challenge.title,
-        themeColor: challenge.themeColor,
         titleIcon: challenge.titleIcon,
+        themeColor: challenge.themeColor,
         tags: challenge.tags,
+        dueDate: challenge.dueDate,
         coinsOffered: challenge.coinsOffered,
         description: challenge.description,
-        dueDate: challenge.dueDate,
-        reference,
+        reference: challenge.reference,
         displayImage: challenge.displayImage,
         imageAlt: challenge.imageAlt,
         platform: challenge.platform,
         lockStatus: challenge.lockStatus,
         hints: challenge.hints,
-      },
-      where: {
-        id: challenge.id,
       },
     });
 
@@ -36,7 +32,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ updatedChallenges }, { status: 200 });
   } catch (error) {
     return NextResponse.json(
-      { message: `Error updating challeges: ${error}` },
+      { message: `Error adding user: ${error}` },
       { status: 401 }
     );
   }
