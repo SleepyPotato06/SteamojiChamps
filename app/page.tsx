@@ -28,7 +28,7 @@ export default function Home() {
     }
 
     await toast.promise(
-      fetch(`/api/auth/login`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/auth/login`, {
         method: "POST",
         body: JSON.stringify({ username, password }),
         headers: { "Content-Type": "application/json" },
