@@ -110,7 +110,7 @@ export default function DisplayAllChallenges({
                     className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
                   >
                     <FaClipboardCheck size={15} />
-                    Submissions
+                    Submissions {`(${challenge})`}
                   </button>
                   <button
                     onClick={() => {
