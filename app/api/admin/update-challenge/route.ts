@@ -30,6 +30,8 @@ export async function PUT(request: NextRequest) {
     const body = await request.json();
     const challenge = ChallengeSchema.parse(body.challenge);
 
+    console.log(challenge);
+
     await prismapg.challenge.update({
       data: {
         title: challenge.title,
