@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
@@ -18,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter_md.className}`}>
         <Toaster />
+        <Analytics />
         <UserProvider>{children}</UserProvider>
       </body>
     </html>
