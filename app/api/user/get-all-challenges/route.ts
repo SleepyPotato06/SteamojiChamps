@@ -26,13 +26,14 @@ export async function POST(request: NextRequest) {
         where: { userId },
         select: { challengeId: true },
       })
-      .then((list: UserChallenge[]) =>
-        list.map((uc: UserChallenge) => uc.challengeId)
+      .then((list: { challengeId: string }[]) =>
+        list.map((uc: { challengeId: string }) => uc.challengeId)
       );
 
     // Filter out already registered challenges
     const unregisteredChallenges = activeChallenges.filter(
-      (challenge: Challenge) => !registeredChallengeIds.includes(challenge.id)
+      (challenge: { id: string }) =>
+        !registeredChallengeIds.includes(challenge.id)
     );
 
     return NextResponse.json({ unregisteredChallenges }, { status: 200 });
