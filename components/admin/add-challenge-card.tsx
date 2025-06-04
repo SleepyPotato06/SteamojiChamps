@@ -1,6 +1,7 @@
 import { AddChallenge, Challenge } from "@/lib/definitions";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { FaWandMagicSparkles } from "react-icons/fa6";
 import {
   Select,
   SelectContent,
@@ -201,12 +202,15 @@ export default function AddChallengeCard({
   return (
     <div className="min-w-3xl mx-auto p-6">
       <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle className="text-xl">Add Challenge</CardTitle>
-            </div>
-          </div>
+        <CardHeader className="flex flex-row items-center justify-between">
+          <CardTitle className="text-xl">Add Challenge</CardTitle>
+          <Button
+            disabled
+            className="border-1 border-stone-300 bg-white rounded-md font-semibold bg-gradient-to-br from-blue-600 via-blue-800 to-indigo-800 text-transparent bg-clip-text"
+          >
+            <FaWandMagicSparkles size={10} className="text-blue-600" />
+            Generate
+          </Button>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="basic" className="w-full">
