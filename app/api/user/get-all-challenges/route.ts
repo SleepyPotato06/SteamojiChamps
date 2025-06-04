@@ -1,5 +1,6 @@
 "use server";
 
+import { Challenge, UserChallenge } from "@/lib/definitions";
 import prismapg from "@/lib/prisma";
 import { NextResponse, NextRequest } from "next/server";
 import { z } from "zod";
@@ -25,11 +26,13 @@ export async function POST(request: NextRequest) {
         where: { userId },
         select: { challengeId: true },
       })
-      .then((list) => list.map((uc) => uc.challengeId));
+      .then((list: UserChallenge[]) =>
+        list.map((uc: UserChallenge) => uc.challengeId)
+      );
 
     // Filter out already registered challenges
     const unregisteredChallenges = activeChallenges.filter(
-      (challenge) => !registeredChallengeIds.includes(challenge.id)
+      (challenge: Challenge) => !registeredChallengeIds.includes(challenge.id)
     );
 
     return NextResponse.json({ unregisteredChallenges }, { status: 200 });
