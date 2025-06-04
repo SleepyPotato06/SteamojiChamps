@@ -2,7 +2,7 @@ import { PrismaClient } from "../lib/generated/prisma/client";
 
 declare global {
   // Ensure global type doesn't conflict
-  let prismaGlobal: PrismaClient | undefined;
+  var prismaGlobal: PrismaClient | undefined;
 }
 
 const prismapg = global.prismaGlobal ?? new PrismaClient();
