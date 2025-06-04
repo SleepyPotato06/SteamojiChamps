@@ -205,17 +205,19 @@ export default function DisplayRegisteredChallenges() {
                   >
                     <IoEyeSharp size={18} />
                   </button>
-                  <button
-                    onClick={() =>
-                      setConfrmRegChallengeDelete({
-                        state: true,
-                        id: registeredChallenge.id,
-                      })
-                    }
-                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-red-600 hover:bg-red-100 hover:border-red-800 text-sm"
-                  >
-                    <TbCancel size={15} />
-                  </button>
+                  {registeredChallenge.isGraded ? null : (
+                    <button
+                      onClick={() =>
+                        setConfrmRegChallengeDelete({
+                          state: true,
+                          id: registeredChallenge.id,
+                        })
+                      }
+                      className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-red-600 hover:bg-red-100 hover:border-red-800 text-sm"
+                    >
+                      <TbCancel size={15} />
+                    </button>
+                  )}
                 </div>
                 {/* Modal window */}
                 {isOpen.state &&
