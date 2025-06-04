@@ -9,13 +9,17 @@ const LoginSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
+  console.log("=== LOGIN API CALLED ===");
   try {
+    console.log("Part 1");
     const body = await request.json();
 
     // Validate request body
+    console.log("Part 2");
     const { username, password } = LoginSchema.parse(body);
 
     // Find user by username
+    console.log("Part 3");
     const user = await prismapg.user.findUnique({
       where: { username, password },
       select: {
@@ -30,6 +34,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    console.log("Part 4");
     if (!user) {
       return NextResponse.json(
         { message: "Invalid username or password" },
@@ -37,18 +42,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(user);
+    console.log("Part 5");
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
+    console.log("Part 6");
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: "Invalid input", errors: error.errors },
         { status: 400 }
       );
     }
-
+    console.log("Part 7");
     console.error("Login error:", error);
+
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
