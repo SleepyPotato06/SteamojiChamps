@@ -18,7 +18,7 @@ const ChallengeSchema = z.object({
     referenceLink: z.string().url(),
     referenceDescription: z.string(),
   }),
-  displayImage: z.string().url(),
+  displayImage: z.string(),
   imageAlt: z.string(),
   platform: z.string(),
   lockStatus: z.enum(["active", "inactive"]),
