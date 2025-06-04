@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import prismapg from "@/lib/prisma";
 
-export const runtime = "edge"; // Recommended for Vercel cron
+// Remove or change runtime to nodejs if you had `edge` before
+// export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 export async function GET() {
