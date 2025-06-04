@@ -7,22 +7,22 @@ import { z } from "zod";
 // Zod schema for the challenge
 const ChallengeSchema = z.object({
   id: z.string().cuid(),
-  title: z.string().min(1),
-  themeColor: z.string().optional(),
-  titleIcon: z.string().optional(),
-  tags: z.array(z.string()).optional(),
-  coinsOffered: z.number().int().nonnegative(),
-  description: z.string().optional(),
-  dueDate: z.string().datetime({ offset: true }).optional(),
+  title: z.string(),
+  titleIcon: z.string(),
+  themeColor: z.string(),
+  tags: z.array(z.string()),
+  dueDate: z.coerce.date(),
+  coinsOffered: z.number(),
+  description: z.string(),
   reference: z.object({
     referenceLink: z.string().url(),
     referenceDescription: z.string(),
   }),
-  displayImage: z.string().url().optional(),
-  imageAlt: z.string().optional(),
-  platform: z.string().optional(),
+  displayImage: z.string().url(),
+  imageAlt: z.string(),
+  platform: z.string(),
   lockStatus: z.enum(["active", "inactive"]),
-  hints: z.array(z.string()).optional(),
+  hints: z.array(z.string()),
 });
 
 export async function PUT(request: NextRequest) {

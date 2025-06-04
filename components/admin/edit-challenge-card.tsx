@@ -50,11 +50,11 @@ export default function EditChallengeCard({
     themeColor: selectedChallenge.themeColor,
     titleIcon: selectedChallenge.titleIcon,
     tags: selectedChallenge.tags,
-    dueDate: new Date(selectedChallenge.dueDate ?? Date.now()),
+    dueDate: selectedChallenge.dueDate ?? new Date(Date.now()),
     coinsOffered: selectedChallenge.coinsOffered,
     description: selectedChallenge.description,
     reference: {
-      refereceDescription: selectedChallenge.reference.refereceDescription,
+      referenceDescription: selectedChallenge.reference.referenceDescription,
       referenceLink: selectedChallenge.reference.referenceLink,
     },
     displayImage: selectedChallenge.displayImage,
@@ -68,6 +68,8 @@ export default function EditChallengeCard({
   const [newHint, setNewHint] = useState("");
 
   async function updateChallenge(challenge: Challenge) {
+    console.log(challenge);
+
     const updateChallenge = fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/update-challenge`,
       {
@@ -268,16 +270,16 @@ export default function EditChallengeCard({
                   <Input
                     placeholder="Reference description"
                     value={
-                      challenge.reference.refereceDescription === undefined
+                      challenge.reference.referenceDescription === undefined
                         ? ``
-                        : challenge.reference.refereceDescription
+                        : challenge.reference.referenceDescription
                     }
                     onChange={(e) =>
                       setChallenge((prev) => ({
                         ...prev,
                         reference: {
                           ...prev.reference,
-                          refereceDescription: e.target.value,
+                          referenceDescription: e.target.value,
                         },
                       }))
                     }

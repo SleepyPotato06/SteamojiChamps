@@ -40,7 +40,7 @@ async function main() {
       description:
         "Design a Scratch game where a fish avoids seaweed and sharks while collecting treasures!",
       reference: {
-        refereceDescription: "Learn to animate characters in Scratch.",
+        referenceDescription: "Learn to animate characters in Scratch.",
         referenceLink: "https://scratch.mit.edu/projects/editor/?tutorial=all",
       },
       displayImage: "/images/underwater-game.png",
@@ -65,7 +65,7 @@ async function main() {
       description:
         "Use OnShape to design a robot arm that can pick up small cubes!",
       reference: {
-        refereceDescription: "Intro to sketches and constraints in OnShape.",
+        referenceDescription: "Intro to sketches and constraints in OnShape.",
         referenceLink:
           "https://learn.onshape.com/learn/article/introduction-to-sketching",
       },
@@ -91,7 +91,7 @@ async function main() {
       description:
         "Create a short Blender animation showing a magical forest where animals dance under glowing trees.",
       reference: {
-        refereceDescription: "Learn basic animation in Blender.",
+        referenceDescription: "Learn basic animation in Blender.",
         referenceLink: "https://www.blender.org/support/tutorials/",
       },
       displayImage: "/images/magical-forest.png",
@@ -116,7 +116,7 @@ async function main() {
       description:
         "Use TinkerCAD to build your dream treehouse—add slides, secret rooms, and swings!",
       reference: {
-        refereceDescription: "Learn to use TinkerCAD shapes.",
+        referenceDescription: "Learn to use TinkerCAD shapes.",
         referenceLink: "https://www.tinkercad.com/learn/designs",
       },
       displayImage: "/images/treehouse-design.png",
@@ -141,7 +141,7 @@ async function main() {
       description:
         "Animate a space explorer flying to new planets and meeting aliens using Scratch!",
       reference: {
-        refereceDescription: "Explore Scratch motion and costumes.",
+        referenceDescription: "Explore Scratch motion and costumes.",
         referenceLink:
           "https://scratch.mit.edu/projects/editor/?tutorial=getStarted",
       },

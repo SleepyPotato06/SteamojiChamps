@@ -35,7 +35,7 @@ export type Challenge = {
   coinsOffered: number | undefined;
   description: string | undefined;
   reference: {
-    refereceDescription: string | undefined;
+    referenceDescription: string | undefined;
     referenceLink: string | undefined;
   };
   displayImage: string | undefined;

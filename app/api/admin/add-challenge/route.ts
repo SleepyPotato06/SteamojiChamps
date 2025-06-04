@@ -30,9 +30,6 @@ export async function POST(request: NextRequest) {
 
     const parsed = challengeSchema.safeParse(challenge);
 
-    console.log(challenge);
-    console.log(parsed.error?.flatten());
-
     if (!parsed.success) {
       return NextResponse.json(
         { message: "Invalid challenge data", errors: parsed.error.flatten() },
