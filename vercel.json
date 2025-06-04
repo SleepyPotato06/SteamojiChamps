@@ -1,0 +1,6 @@
+{
+  "crons": [{
+    "path": "/api/admin/deactivate-expired-challenge",
+    "schedule": "0 0 * * *"
+  }]
+}
