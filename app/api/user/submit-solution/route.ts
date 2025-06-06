@@ -37,16 +37,46 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Update user challenge submission
-    await prismapg.userChallenge.update({
-      data: {
-        submission: solution,
-        submissionDate: new Date(),
-        submissionStatus: "Complete",
-      },
-      where: {
-        id: registeredChallengeId,
-      },
+    const submissionDetails = await prismapg.$transaction([
+      // Update user challenge submission
+      prismapg.userChallenge.update({
+        data: {
+          submission: solution,
+          submissionDate: new Date(),
+          submissionStatus: "Complete",
+        },
+        where: {
+          id: registeredChallengeId,
+        },
+      }),
+
+      prismapg.userChallenge.findUnique({
+        where: {
+          id: registeredChallengeId,
+          userId,
+        },
+        select: {
+          user: {
+            select: {
+              first_name: true,
+              last_name: true,
+            },
+          },
+          challenge: {
+            select: {
+              id: true,
+              title: true,
+            },
+          },
+        },
+      }),
+    ]);
+
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: receivingEmailAddr,
+      subject: `[${submissionDetails[1]?.challenge.title}] New submission!`,
+      html: `<div><p><strong>${submissionDetails[1]?.user.first_name} ${submissionDetails[1]?.user.last_name}</strong> made a new submission for <strong>${submissionDetails[1]?.challenge.title}</strong></p><div><div><a href="https://steamoji-champs.vercel.app/">Click me</a></div>`,
     });
 
     // Fetch updated list
@@ -63,24 +93,6 @@ export async function PUT(request: NextRequest) {
         submissionDate: true,
         submissionStatus: true,
       },
-    });
-
-    const submissionDetails = await prismapg.userChallenge.findUnique({
-      where: {
-        id: registeredChallengeId,
-        userId,
-      },
-      select: {
-        user: true,
-        challenge: true,
-      },
-    });
-
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: receivingEmailAddr,
-      subject: `[${submissionDetails?.challenge.title}] New submission!`,
-      html: `<div><p><strong>${submissionDetails?.user.first_name} ${submissionDetails?.user.last_name}</strong> made a new submission for <strong>${submissionDetails?.challenge.title}</strong></p><div><div><a href="https://steamoji-champs.vercel.app/">Click me</a></div>`,
     });
 
     return NextResponse.json({ updatedRegisteredChallenges }, { status: 200 });
