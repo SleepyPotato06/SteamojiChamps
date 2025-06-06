@@ -139,6 +139,28 @@ export default function AddChallengeCard({
   const [newTag, setNewTag] = useState("");
   const [newHint, setNewHint] = useState("");
 
+  async function generateChallenge() {
+    await toast.promise(
+      fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/generate-challenge`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      ).then(async (res) => {
+        if (!res.ok) {
+          const error = await res.json();
+          throw new Error(error.message || "Failed to generate challenge");
+        }
+      }),
+      {
+        loading: "Generating challenge...",
+        success: "Challenge generated successfully!",
+        error: (err) => err.message || "Something went wrong",
+      }
+    );
+  }
+
   async function addChallenge(challenge: AddChallenge) {
     await toast.promise(
       fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/add-challenge`, {
@@ -206,6 +228,7 @@ export default function AddChallengeCard({
           <CardTitle className="text-xl">Add Challenge</CardTitle>
           <Button
             disabled
+            onClick={generateChallenge}
             className="border-1 border-stone-300 bg-white rounded-md font-semibold bg-gradient-to-br from-blue-600 via-blue-800 to-indigo-800 text-transparent bg-clip-text"
           >
             <FaWandMagicSparkles size={10} className="text-blue-600" />
