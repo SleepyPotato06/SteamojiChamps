@@ -174,22 +174,25 @@ export default function DisplayRegisteredChallenges() {
                   <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
                 )}
                 <div className="flex flex-row gap-2">
-                  <button
-                    onClick={() =>
-                      setIsOpen({
-                        state: true,
-                        id:
-                          registeredChallenge.challenge.id === undefined
-                            ? null
-                            : registeredChallenge.id,
-                        action: `submit-solution`,
-                      })
-                    }
-                    className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
-                  >
-                    <FaFlagCheckered size={15} />
-                    Submit
-                  </button>
+                  {registeredChallenge.isGraded ? null : (
+                    <button
+                      onClick={() =>
+                        setIsOpen({
+                          state: true,
+                          id:
+                            registeredChallenge.challenge.id === undefined
+                              ? null
+                              : registeredChallenge.id,
+                          action: `submit-solution`,
+                        })
+                      }
+                      className="flex flex-row gap-2 px-3 py-1.5 items-center w-fit rounded-md bg-white border-2 border-stone-200 text-black hover:text-indigo-600 hover:bg-indigo-100 hover:border-indigo-800 text-sm"
+                    >
+                      <FaFlagCheckered size={15} />
+                      Submit
+                    </button>
+                  )}
+
                   <button
                     onClick={() =>
                       setIsOpen({
