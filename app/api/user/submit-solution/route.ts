@@ -3,6 +3,11 @@
 import prismapg from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+const receivingEmailAddr =
+  process.env.RECEIVING_EMAIL_ADDR || `suyash.aminbhavi@gmail.com`;
 
 const submissionSchema = z.object({
   userId: z.string().cuid(),
@@ -58,6 +63,24 @@ export async function PUT(request: NextRequest) {
         submissionDate: true,
         submissionStatus: true,
       },
+    });
+
+    const submissionDetails = await prismapg.userChallenge.findUnique({
+      where: {
+        id: registeredChallengeId,
+        userId,
+      },
+      select: {
+        user: true,
+        challenge: true,
+      },
+    });
+
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: receivingEmailAddr,
+      subject: `[${submissionDetails?.challenge.title}] New submission!`,
+      html: `<div><p><strong>${submissionDetails?.user.first_name} ${submissionDetails?.user.last_name}</strong> made a new submission for <strong>${submissionDetails?.challenge.title}</strong></p><div><div><a href="https://steamoji-champs.vercel.app/">Click me</a></div>`,
     });
 
     return NextResponse.json({ updatedRegisteredChallenges }, { status: 200 });
