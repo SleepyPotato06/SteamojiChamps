@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Steamoji Hackathon Platform
 
-## Getting Started
+Welcome to the **Steamoji Hackathon Platform** – a collaborative, innovation-driven environment where young makers, coders, and creators participate in STEAM-focused hackathons. This platform enables students to register, form teams, submit projects, and get mentored through their innovation journey.
 
-First, run the development server:
+## 🧠 What is Steamoji?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**Steamoji** is a pioneer in youth maker education, blending Science, Technology, Engineering, Arts, and Math (STEAM) into project-based learning. The Hackathon Platform is an extension of our mission: to empower the next generation of innovators through exciting and competitive challenges.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🌟 Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- 🔐 **User Registration & Authentication**
+- 👥 **Team Creation & Collaboration Tools**
+- 📝 **Hackathon Event Listings & Applications**
+- 📦 **Project Submission with GitHub Integration**
+- 💬 **Mentor Support & Live Chat**
+- 🧑‍⚖️ **Judging Portal with Rubric Scoring**
+- 🏆 **Leaderboard and Awards**
+- 📊 **Analytics Dashboard for Admins**
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Frontend       | Backend         | Database      | DevOps / Other         |
+|----------------|------------------|----------------|-------------------------|
+| React.js / Next.js | Node.js / Express | Supabase / PostgreSQL | Docker |
+| Tailwind CSS   | REST APIs        | Prisma | Vercel|
+| Shadcn | 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚧 Project Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/steamoji/steamoji-champs.git
+   cd steamoji-champs
